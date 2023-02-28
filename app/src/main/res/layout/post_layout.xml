@@ -73,6 +73,7 @@
                     android:backgroundTint="@color/white"
                     android:clickable="true"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@android:drawable/btn_star_big_on"
                     app:tint="@android:color/darker_gray"
                     tools:layout_editor_absoluteY="0dp" />
