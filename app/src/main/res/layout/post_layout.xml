@@ -8,8 +8,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="-65dp">
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-151dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -27,18 +27,57 @@
                 android:id="@+id/titleTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:textSize="28dp"
-                android:textStyle="bold"
                 android:fontFamily="sans-serif-black"
+                android:paddingTop="10dp"
+                android:text="TITLE"
                 android:textAlignment="center"
-                android:text="TextView" />
+                android:textSize="28dp"
+                android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/userTv"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ConstraintLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_height="match_parent">
+
+
+                <LinearLayout
+                    android:id="@+id/linearLayout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_editor_absoluteY="0dp">
+
+                    <TextView
+                        android:id="@+id/userTv"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="20dp"
+                        android:paddingTop="10dp"
+                        android:text="Username"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:id="@+id/datePostTv"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="20dp"
+                        android:text="Date Post"
+                        android:textSize="16dp" />
+                </LinearLayout>
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/likeBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/white"
+                    android:clickable="true"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@android:drawable/btn_star_big_on"
+                    app:tint="@android:color/darker_gray"
+                    tools:layout_editor_absoluteY="0dp" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
     </ScrollView>
