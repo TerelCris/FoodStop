@@ -11,7 +11,9 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Title" />
+        android:text="Title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <EditText
         android:id="@+id/postDescriptionEt"
@@ -20,6 +22,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Description"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/postTitleEt"
         tools:layout_editor_absoluteX="0dp" />
 
@@ -30,5 +33,6 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Ingredients"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/postDescriptionEt" />
 </androidx.constraintlayout.widget.ConstraintLayout>
