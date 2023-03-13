@@ -42,7 +42,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold"
                 android:topRightRadius="5dp"
-                android:alpha="0.7"
+                android:alpha="0.75"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
