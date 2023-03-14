@@ -1,6 +1,7 @@
 package com.mobdeve.s11.group16.foodstop
 
 import android.view.View
+import android.view.View.OnClickListener
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -21,6 +22,16 @@ class MyViewHolder(itemView : View): ViewHolder(itemView) {
         tv_author.text = recipe.author
         tv_date.text = recipe.date.toString()
         fab_fav.isActivated = recipe.favorite
+    }
 
+    fun setFavoriteOnClickListener(onClickListener: OnClickListener){
+        fab_fav.setOnClickListener(onClickListener)
+        if(fab_fav.isActivated){
+            fab_fav.setImageResource(R.mipmap.star)
+        }
+
+        else{
+            fab_fav.setImageResource(R.mipmap.favorite)
+        }
     }
 }

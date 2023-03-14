@@ -2,6 +2,7 @@ package com.mobdeve.s11.group16.foodstop
 
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
@@ -19,6 +20,12 @@ class MyAdapter(private val data: ArrayList<Recipe>) : RecyclerView.Adapter<MyVi
         holder.bindData(data[position])
 
         Log.d("My Adapter", "OnBindView was called; Position $position")
+
+        holder.setFavoriteOnClickListener(View.OnClickListener {
+            this.data[position].favorite = !this.data[position].favorite
+
+            notifyDataSetChanged()
+        })
     }
 
     override fun getItemCount(): Int {
