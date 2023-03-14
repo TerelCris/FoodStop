@@ -7,6 +7,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 class MyAdapter(private val data: ArrayList<Recipe>) : RecyclerView.Adapter<MyViewHolder>() {
+
+    companion object {
+        const val KEY_NAME = "KEY_NAME"
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(R.layout.rv_layout, parent, false)

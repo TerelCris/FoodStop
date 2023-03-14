@@ -6,21 +6,24 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/registertitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/singuptitle"
-        android:text="Sign Up"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="25dp"
+        android:gravity="center"
+        android:text="Register"
         android:textColor="@color/black"
         android:textSize="35dp"
-        android:textStyle="bold"
-        android:layout_margin="25dp"
-        android:gravity="center"/>
+        android:textStyle="bold" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/username"
-        android:layout_below="@id/singuptitle"
+        android:layout_below="@id/registertitle"
         android:background="#F0F3FA"
         android:hint="Username"
         android:textColorHint="@color/black"
@@ -81,5 +84,23 @@
         android:backgroundTint="#ffd700"
         android:layout_centerHorizontal="true"
         android:layout_margin="20dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/others"
+        android:layout_above="@id/startsingupbtn"
+        android:text="Already have an account?"
+        android:layout_centerHorizontal="true"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/startsingupbtn"
+        android:layout_alignParentBottom="true"
+        android:text="LOGIN"
+        android:backgroundTint="#ffd700"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"/>
 
 </RelativeLayout>

@@ -15,6 +15,7 @@ class MyViewHolder(itemView : View): ViewHolder(itemView) {
     private val tvAuthor:TextView = itemView.findViewById(R.id.tv_author)
     private val tvDate:TextView = itemView.findViewById(R.id.tv_date)
     private val fabFav:FloatingActionButton = itemView.findViewById(R.id.fab_fav)
+    private val btnListener:Button = itemView.findViewById(R.id.btn_listener)
 
 
     fun bindData(recipe: Recipe){
@@ -24,6 +25,10 @@ class MyViewHolder(itemView : View): ViewHolder(itemView) {
         tvAuthor.text = recipe.author
         tvDate.text = recipe.date.toString()
         fabFav.isActivated = recipe.favorite
+    }
+
+    fun getBtnListener(): Button {
+        return this.btnListener
     }
 
     fun setFavoriteOnClickListener(onClickListener: OnClickListener){
