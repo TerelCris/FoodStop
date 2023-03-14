@@ -34,4 +34,8 @@ class MyViewHolder(itemView : View): ViewHolder(itemView) {
             fab_fav.setImageResource(R.mipmap.favorite)
         }
     }
+
+    private fun removeNewLineCharacters(input: String): String {
+        return input.replace("\n", " ")
+    }
 }
