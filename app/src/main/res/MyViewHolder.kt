@@ -13,4 +13,5 @@ class MyViewHolder(itemView : View): ViewHolder(itemView) {
     private val tv_author:TextView = itemView.findViewById(R.id.tv_author)
     private val tv_date:TextView = itemView.findViewById(R.id.tv_date)
     private val fab_fav:FloatingActionButton = itemView.findViewById(R.id.fab_fav)
+
 }
