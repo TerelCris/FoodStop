@@ -54,4 +54,22 @@
         android:layout_centerHorizontal="true"
         android:layout_margin="20dp"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/others"
+        android:layout_above="@id/startsingupbtn"
+        android:text="Don't have an account?"
+        android:layout_centerHorizontal="true"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/startsingupbtn"
+        android:layout_alignParentBottom="true"
+        android:text="SIGN UP"
+        android:backgroundTint="#ffd700"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"/>
+
 </RelativeLayout>
