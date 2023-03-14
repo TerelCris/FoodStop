@@ -7,6 +7,6 @@ class Recipe(
     var category: String,
     var title: String,
     var author: String,
-    val date: Date,
+    val date: String,
     var favorite: Boolean) {
 }
