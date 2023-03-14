@@ -13,7 +13,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/commentPicIv"
+            android:id="@+id/iv_cPicture"
             android:layout_width="100dp"
             android:layout_height="100dp"
             tools:srcCompat="@tools:sample/avatars" />
@@ -30,7 +30,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/commenterNameTv"
+                    android:id="@+id/tv_cName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
@@ -41,7 +41,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/commentDurationTv"
+                    android:id="@+id/tv_cDuration"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingRight="20dp"
@@ -53,7 +53,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/commentBodyTv"
+                android:id="@+id/tv_cBody"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:paddingTop="10dp"
