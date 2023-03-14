@@ -14,4 +14,13 @@ class MyViewHolder(itemView : View): ViewHolder(itemView) {
     private val tv_date:TextView = itemView.findViewById(R.id.tv_date)
     private val fab_fav:FloatingActionButton = itemView.findViewById(R.id.fab_fav)
 
+    fun bindData(recipe: Recipe){
+        iv_cover.setImageResource(recipe.imageId)
+        tv_category.text = recipe.category
+        tv_title.text = recipe.title
+        tv_author.text = recipe.author
+        tv_date.text = recipe.date.toString()
+        fab_fav.isActivated = recipe.favorite
+
+    }
 }
