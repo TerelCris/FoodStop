@@ -5,10 +5,13 @@ import android.view.View.OnClickListener
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import androidx.viewbinding.ViewBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.mobdeve.s11.group16.foodstop.databinding.RvLayoutBinding
 
-class MyViewHolder(itemView : View): ViewHolder(itemView) {
+class MyViewHolder(private val viewBinding: RvLayoutBinding): RecyclerView.ViewHolder(viewBinding.root) {
     private val ivCover: ImageView = itemView.findViewById(R.id.iv_cover)
     private val tvCategory: TextView = itemView.findViewById(R.id.tv_category)
     private val tvTitle: TextView = itemView.findViewById(R.id.tv_title)
