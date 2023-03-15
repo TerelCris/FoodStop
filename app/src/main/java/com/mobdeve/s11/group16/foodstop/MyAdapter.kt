@@ -31,7 +31,7 @@ class MyAdapter(private val data: ArrayList<Recipe>, private val myActivityResul
 
             val intent = Intent(myViewHolder.itemView.context, PostActivity::class.java)
 
-            intent.putExtra(PostActivity.IMAGE_KEY, itemViewBinding.ivCover.toI)
+            intent.putExtra(PostActivity.IMAGE_KEY, R.drawable.onepotchickenrice)
             intent.putExtra(PostActivity.USER_KEY, itemViewBinding.tvAuthor.text.toString())
             intent.putExtra(PostActivity.TITLE_KEY, itemViewBinding.tvTitle.text.toString())
             intent.putExtra(PostActivity.DATE_KEY, itemViewBinding.tvDate.text.toString())
