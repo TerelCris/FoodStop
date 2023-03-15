@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(viewBinding.root)
 
         viewBinding.recyclerView.setOnClickListener(View.OnClickListener {
-            val intent : Intent = Intent(this@MainActivity, PostActivity::class.java)
+            val intent = Intent(this@MainActivity, PostActivity::class.java)
             this.startActivity(intent)
         })
 
