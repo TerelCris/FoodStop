@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         this.recyclerView = findViewById(R.id.recyclerView)
-        this.recyclerView.adapter = MyAdapter
+        this.recyclerView.adapter = MyAdapter(this.recipeList)
         this.adapter = (MyAdapter(data, postActivityLauncher))
         this.recyclerView.layoutManager = LinearLayoutManager(this)
     }
