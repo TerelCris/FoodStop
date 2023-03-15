@@ -12,9 +12,6 @@ import com.mobdeve.s11.group16.foodstop.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    companion object{
-        private val data = ArrayList<Recipe>()
-    }
     private val recipeList: ArrayList<Recipe> = DataHelper.initializeData()
 
     private lateinit var recyclerView: RecyclerView
@@ -27,7 +24,6 @@ class MainActivity : AppCompatActivity() {
             val position = result.data?.getIntExtra(PostActivity.POSITION_KEY, 0)!!
             this.adapter.notifyDataSetChanged()
         }
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         this.recyclerView = viewBinding.recyclerView
-        this.adapter = MyAdapter(data, postActivityLauncher)
+        this.adapter = MyAdapter(this.recipeList, postActivityLauncher)
         this.recyclerView.adapter = adapter
         this.recyclerView.layoutManager = LinearLayoutManager(this)
     }
