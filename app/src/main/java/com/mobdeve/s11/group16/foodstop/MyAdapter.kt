@@ -28,6 +28,7 @@ class MyAdapter(private val data: ArrayList<Recipe>, private val myActivityResul
         val myViewHolder = MyViewHolder(itemViewBinding, postViewBinding)
 
         myViewHolder.itemView.setOnClickListener {
+
             val intent = Intent(myViewHolder.itemView.context, PostActivity::class.java)
 
             intent.putExtra(PostActivity.IMAGE_KEY, R.drawable.onepotchickenrice)
