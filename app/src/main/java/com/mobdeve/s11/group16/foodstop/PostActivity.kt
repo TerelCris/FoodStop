@@ -1,5 +1,6 @@
 package com.mobdeve.s11.group16.foodstop
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
@@ -28,5 +29,9 @@ class PostActivity : AppCompatActivity() {
         viewBinding.bodyTv.text = intent.getStringExtra(PostActivity.BODY_KEY)
 
         val position = intent.getIntExtra(PostActivity.POSITION_KEY, 0)
+
+        val intent : Intent = Intent()
+        intent.putExtra(PostActivity.POSITION_KEY, position)
+
     }
 }
