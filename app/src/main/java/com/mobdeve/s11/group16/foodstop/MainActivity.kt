@@ -2,9 +2,12 @@ package com.mobdeve.s11.group16.foodstop
 
 import android.app.Instrumentation.ActivityResult
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.View.OnClickListener
+import android.widget.Button
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,6 +19,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: MyAdapter
+    private lateinit var allBtn: Button
+    private lateinit var favBtn: Button
 
     private val postActivityLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()) { result: androidx.activity.result.ActivityResult ->
@@ -37,9 +42,16 @@ class MainActivity : AppCompatActivity() {
             this.startActivity(intent)
         })
 
+        setDisplayOnClickListener()
+
         this.recyclerView = viewBinding.recyclerView
         this.adapter = MyAdapter(this.recipeList, postActivityLauncher)
         this.recyclerView.adapter = adapter
         this.recyclerView.layoutManager = LinearLayoutManager(this)
+    }
+
+    private fun setDisplayOnClickListener() {
+        this.allBtn = findViewById(R.id.btn_all)
+        this.favBtn = findViewById(R.id.btn_faved)
     }
 }
