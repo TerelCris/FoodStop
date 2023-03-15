@@ -11,10 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mobdeve.s11.group16.foodstop.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+
     companion object{
         private val data = ArrayList<Recipe>()
     }
-
     private val recipeList: ArrayList<Recipe> = DataHelper.initializeData()
 
     private lateinit var recyclerView: RecyclerView
@@ -43,7 +43,6 @@ class MainActivity : AppCompatActivity() {
 
         this.recyclerView = findViewById(R.id.recyclerView)
         this.recyclerView.adapter = MyAdapter(this.recipeList)
-        this.adapter = (MyAdapter(data, postActivityLauncher))
         this.recyclerView.layoutManager = LinearLayoutManager(this)
     }
 }
