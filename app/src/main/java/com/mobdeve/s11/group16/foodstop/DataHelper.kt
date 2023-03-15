@@ -4,7 +4,8 @@ class DataHelper {
     companion object{
         fun initializeData(): ArrayList<Recipe> {
             val postImages = intArrayOf(
-                R.drawable.onepotchickenrice
+                R.drawable.onepotchickenrice,
+                R.drawable.katsudonjapanesepork
             )
 
             val data = ArrayList<Recipe>()
@@ -14,7 +15,18 @@ class DataHelper {
                     "Meal",
                     "One Pot Chicken Rice",
                     "Bethany Lockhart",
-                    "June 20, 2022",
+                    "March 10, 2023",
+                    false
+                )
+            )
+
+            data.add(
+                Recipe(
+                    postImages[1],
+                    "Meal",
+                    "Katsudon Pork",
+                    "Marco Tsunarisha",
+                    "March 12, 2023",
                     false
                 )
             )
