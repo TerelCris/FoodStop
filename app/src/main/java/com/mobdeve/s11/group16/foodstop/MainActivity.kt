@@ -19,8 +19,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: MyAdapter
-    private lateinit var allBtn: Button
-    private lateinit var favBtn: Button
 
     private val postActivityLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()) { result: androidx.activity.result.ActivityResult ->

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mobdeve.s11.group16.foodstop.databinding.ActivityMainBinding
 import com.mobdeve.s11.group16.foodstop.databinding.FavoritesBinding
+import com.mobdeve.s11.group16.foodstop.databinding.RvLayoutBinding
 
 class FavoritesActivity : AppCompatActivity() {
 
@@ -18,8 +19,6 @@ class FavoritesActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: MyAdapter
-    private lateinit var allBtn: Button
-    private lateinit var favBtn: Button
 
     private val postActivityLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()) { result: androidx.activity.result.ActivityResult ->
@@ -48,6 +47,7 @@ class FavoritesActivity : AppCompatActivity() {
 
         val viewBinding : FavoritesBinding = FavoritesBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
+
 
         viewBinding.recyclerView.setOnClickListener(View.OnClickListener {
             val intent = Intent(this@FavoritesActivity, PostActivity::class.java)
