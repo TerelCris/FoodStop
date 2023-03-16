@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.mobdeve.s11.group16.foodstop.databinding.SignupLayoutBinding
 
@@ -34,10 +35,19 @@ class SignUpActivity : AppCompatActivity() {
 
                 finish()
             }
+
+            else{
+                Toast.makeText(
+                    this@SignUpActivity,
+                    "Please complete all required fields",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
         })
 
         viewBinding.startsingupbtn.setOnClickListener(View.OnClickListener {
             val intent : Intent = Intent(this@SignUpActivity, LoginActivity::class.java)
+            this.startActivity(intent)
         })
     }
 }

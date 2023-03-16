@@ -24,10 +24,19 @@
             android:name=".PostActivity"
             android:label="Food Stop"/>
         <activity
+            android:name=".CreatePostActivity"
+            android:label="Food Stops"/>
+        <activity
             android:name=".FavoritesActivity"
             android:label="Food Stop"/>
         <activity
             android:name=".UserAccountActivity"
+            android:label="Food Stop"/>
+        <activity
+            android:name=".LoginActivity"
+            android:label="Food Stop"/>
+        <activity
+            android:name=".SignUpActivity"
             android:label="Food Stop"/>
     </application>
 

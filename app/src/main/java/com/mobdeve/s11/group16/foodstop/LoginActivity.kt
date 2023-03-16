@@ -42,5 +42,10 @@ class LoginActivity : AppCompatActivity() {
             }
         })
 
+        viewBinding.startsingupbtn.setOnClickListener(View.OnClickListener {
+            val intent : Intent = Intent(this@LoginActivity, SignUpActivity::class.java)
+            this.startActivity(intent)
+        })
+
     }
 }

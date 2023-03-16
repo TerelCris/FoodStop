@@ -32,5 +32,10 @@ class UserAccountActivity : AppCompatActivity() {
 
             finish()
         })
+
+        viewBinding.btnLogout.setOnClickListener(View.OnClickListener {
+            val intent : Intent = Intent(this@UserAccountActivity, LoginActivity::class.java)
+            this.startActivity(intent)
+        })
     }
 }
