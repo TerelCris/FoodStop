@@ -25,6 +25,7 @@ class LoginActivity : AppCompatActivity() {
         viewBinding.loginbtn.setOnClickListener(View.OnClickListener {
             if(viewBinding.username.toString().isNotEmpty() && viewBinding.password.toString().isNotEmpty()){
                 val intent : Intent = Intent(this@LoginActivity, MainActivity::class.java)
+                this.startActivity(intent)
 
                 intent.putExtra(LoginActivity.USERNAME_KEY, viewBinding.username.text.toString())
                 intent.putExtra(LoginActivity.PASSWORD_KEY, viewBinding.password.text.toString())
