@@ -63,6 +63,11 @@ class MainActivity : AppCompatActivity() {
             this.startActivity(intent)
         })
 
+        viewBinding.ibUser.setOnClickListener(View.OnClickListener {
+            val intent = Intent(this@MainActivity, UserAccountActivity::class.java)
+            this.startActivity(intent)
+        })
+
         this.recyclerView = viewBinding.recyclerView
         this.adapter = MyAdapter(this.recipeList, postActivityLauncher)
         this.adapter = MyAdapter(this.recipeList, createPostActivityLauncher)

@@ -26,6 +26,9 @@
         <activity
             android:name=".FavoritesActivity"
             android:label="Food Stop"/>
+        <activity
+            android:name=".UserAccountActivity"
+            android:label="Food Stop"/>
     </application>
 
 </manifest>

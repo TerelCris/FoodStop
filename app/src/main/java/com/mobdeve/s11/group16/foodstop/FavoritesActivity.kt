@@ -62,6 +62,11 @@ class FavoritesActivity : AppCompatActivity() {
             this.startActivity(intent)
         })
 
+        viewBinding.ibUser.setOnClickListener(View.OnClickListener {
+            val intent = Intent(this@FavoritesActivity, UserAccountActivity::class.java)
+            this.startActivity(intent)
+        })
+
         this.recyclerView = viewBinding.recyclerView
         this.adapter = MyAdapter(this.recipeList, postActivityLauncher)
         this.adapter = MyAdapter(this.recipeList, createPostActivityLauncher)
