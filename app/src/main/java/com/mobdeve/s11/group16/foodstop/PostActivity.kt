@@ -3,6 +3,8 @@ package com.mobdeve.s11.group16.foodstop
 import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.view.View
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.mobdeve.s11.group16.foodstop.databinding.PostLayoutBinding
 
@@ -15,6 +17,8 @@ class PostActivity : AppCompatActivity() {
         const val BODY_KEY = "BODY_KEY"
         const val POSITION_KEY = "POSITION_KEY"
     }
+
+    private lateinit var likeBtn: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,5 +37,18 @@ class PostActivity : AppCompatActivity() {
         val intent : Intent = Intent()
         intent.putExtra(PostActivity.POSITION_KEY, position)
 
+        viewBinding.likeBtn.isActivated = false
+
+        viewBinding.likeBtn.setOnClickListener(View.OnClickListener {
+            if(viewBinding.likeBtn.isActivated){
+                viewBinding.likeBtn.setImageResource(R.drawable.fav)
+            }
+
+            else{
+                viewBinding.likeBtn.setImageResource(R.drawable.favon)
+            }
+
+            viewBinding.likeBtn.isActivated = !viewBinding.likeBtn.isActivated
+        })
     }
 }

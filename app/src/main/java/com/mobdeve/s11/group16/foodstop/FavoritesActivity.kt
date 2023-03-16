@@ -9,9 +9,7 @@ import android.widget.Button
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.mobdeve.s11.group16.foodstop.databinding.ActivityMainBinding
 import com.mobdeve.s11.group16.foodstop.databinding.FavoritesBinding
-import com.mobdeve.s11.group16.foodstop.databinding.RvLayoutBinding
 
 class FavoritesActivity : AppCompatActivity() {
 
