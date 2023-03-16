@@ -1,8 +1,6 @@
 package com.mobdeve.s11.group16.foodstop
 
-import android.app.Instrumentation.ActivityResult
 import android.content.Intent
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -12,8 +10,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mobdeve.s11.group16.foodstop.databinding.ActivityMainBinding
+import com.mobdeve.s11.group16.foodstop.databinding.FavoritesBinding
 
-class MainActivity : AppCompatActivity() {
+class FavoritesActivity : AppCompatActivity() {
 
     private val recipeList: ArrayList<Recipe> = DataHelper.initializeData()
 
@@ -47,21 +46,21 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val viewBinding : ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
+        val viewBinding : FavoritesBinding = FavoritesBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
 
         viewBinding.recyclerView.setOnClickListener(View.OnClickListener {
-            val intent = Intent(this@MainActivity, PostActivity::class.java)
+            val intent = Intent(this@FavoritesActivity, PostActivity::class.java)
             this.startActivity(intent)
         })
 
         viewBinding.ibCreate.setOnClickListener(View.OnClickListener {
-            val intent = Intent(this@MainActivity, CreatePostActivity::class.java)
+            val intent = Intent(this@FavoritesActivity, CreatePostActivity::class.java)
             this.startActivity(intent)
         })
 
-        viewBinding.btnFaved.setOnClickListener(View.OnClickListener {
-            val intent = Intent(this@MainActivity, FavoritesActivity::class.java)
+        viewBinding.btnAll.setOnClickListener(View.OnClickListener {
+            val intent = Intent(this@FavoritesActivity, MainActivity::class.java)
             this.startActivity(intent)
         })
 

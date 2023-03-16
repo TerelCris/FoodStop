@@ -23,6 +23,9 @@
         <activity
             android:name=".PostActivity"
             android:label="Food Stop"/>
+        <activity
+            android:name=".FavoritesActivity"
+            android:label="Food Stop"/>
     </application>
 
 </manifest>
