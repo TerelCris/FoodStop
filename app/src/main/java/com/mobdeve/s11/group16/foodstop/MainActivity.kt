@@ -10,7 +10,9 @@ import android.view.View.OnClickListener
 import android.widget.Button
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.SnapHelper
 import com.mobdeve.s11.group16.foodstop.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -67,6 +69,9 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this@MainActivity, UserAccountActivity::class.java)
             this.startActivity(intent)
         })
+
+        val snapHelper: SnapHelper = PagerSnapHelper()
+        snapHelper.attachToRecyclerView(viewBinding.recyclerView)
 
         this.recyclerView = viewBinding.recyclerView
         this.adapter = MyAdapter(this.recipeList, postActivityLauncher)

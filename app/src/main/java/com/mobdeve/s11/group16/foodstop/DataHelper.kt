@@ -1,7 +1,7 @@
 package com.mobdeve.s11.group16.foodstop
 
 class DataHelper {
-    companion object{
+    companion object {
         fun initializeData(): ArrayList<Recipe> {
             val postImages = intArrayOf(
                 R.drawable.onepotchickenrice,
@@ -66,6 +66,23 @@ class DataHelper {
             )
 
             data.shuffle()
+
+            return data
+        }
+
+        fun initializeComment(): ArrayList<Comment> {
+            val userImages = intArrayOf(
+                R.drawable.monkey,
+            )
+            val data = ArrayList<Comment>()
+            data.add(
+                Comment(
+                    userImages[0],
+                    "Frannie Kim",
+                    "1y",
+                    "Nice!, It looks so yummy"
+                )
+            )
 
             return data
         }

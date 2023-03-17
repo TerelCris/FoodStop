@@ -20,9 +20,6 @@ class MyViewHolder(private val viewBinding: RvLayoutBinding, private val postBin
     private val tvDate:TextView = itemView.findViewById(R.id.tv_date)
     private val fabFav:FloatingActionButton = itemView.findViewById(R.id.fab_fav)
     private val btnListener:Button = itemView.findViewById(R.id.btn_listener)
-    private val tvcommentName:TextView = itemView.findViewById(R.id.tv_commentName)
-    private val tvcommentDuration: TextView = itemView.findViewById(R.id.tv_commentDuration)
-    private val tvcommentBody: TextView = itemView.findViewById(R.id.tv_commentBody)
 
 
     fun bindData(recipe: Recipe){
@@ -34,11 +31,6 @@ class MyViewHolder(private val viewBinding: RvLayoutBinding, private val postBin
         fabFav.isActivated = recipe.favorite
     }
 
-    fun bindCommentData(comment : Comment){
-        tvcommentName.text = comment.name
-        tvcommentDuration.text = comment.duration
-        tvcommentBody.text = comment.body
-    }
 
     fun getBtnListener(): Button {
         return this.btnListener

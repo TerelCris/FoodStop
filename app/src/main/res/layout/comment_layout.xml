@@ -14,8 +14,8 @@
 
         <ImageView
             android:id="@+id/iv_commentPicture"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             tools:srcCompat="@tools:sample/avatars" />
 
         <LinearLayout

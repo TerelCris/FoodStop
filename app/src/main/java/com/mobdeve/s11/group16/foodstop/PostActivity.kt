@@ -5,6 +5,10 @@ import android.os.Bundle
 import android.os.PersistableBundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.SnapHelper
 import com.mobdeve.s11.group16.foodstop.databinding.PostLayoutBinding
 
 class PostActivity : AppCompatActivity() {
@@ -16,6 +20,11 @@ class PostActivity : AppCompatActivity() {
         const val BODY_KEY = "BODY_KEY"
         const val POSITION_KEY = "POSITION_KEY"
     }
+
+    private val commentList: ArrayList<Comment>  = DataHelper.initializeComment()
+
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: MyAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,5 +56,12 @@ class PostActivity : AppCompatActivity() {
 
             viewBinding.likeBtn.isActivated = !viewBinding.likeBtn.isActivated
         })
+
+        val snapHelper: SnapHelper = PagerSnapHelper()
+        snapHelper.attachToRecyclerView(viewBinding.commentsRv)
+
+        this.recyclerView = viewBinding.commentsRv
+        this.recyclerView.adapter = MyAdapterComment(this.commentList)
+        this.recyclerView.layoutManager = LinearLayoutManager(this)
     }
 }
