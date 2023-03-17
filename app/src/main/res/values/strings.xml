@@ -14,7 +14,7 @@ INGREDIENTS
 - 8 cups gluten free chicken stock
 - 2 small chicken breasts (14oz), cut into bite-sized pieces
 
-DIRECTIONS
+PROCEDURE
 
 1. Melt 2 Tablespoons butter in a soup pot over medium heat. Add carrots, season with seasoned salt and pepper, then place a lid on top and cook until carrots are tender, 5-6 minutes, stirring occasionally.
 
@@ -26,4 +26,24 @@ DIRECTIONS
 
 5. Leave a comment if you love the recipe.
 </string>
+    <string name="post_content_02">
+        If you’ve never heard of it, Katsudon is basically katsu (a pork chop breaded with panko and fried) over rice with onion and egg. It was awesome, and it became my go-to choice whenever I went to a Japanese place–a fish-less, teriyaki-less haven.
+        Since then, I’ve discovered that sushi is, in fact, delicious and amazing, and I now order either sushi or sashimi at any Japanese restaurant I go to.
+
+        INGREDIENTS
+
+        - Tonkatsu – regular deep-fried version or baked version
+        - Onion
+        - Broth – dashi (Japanese soup stock), sugar, mirin, and soy sauce
+        - Eggs
+        - Green onion
+        - Freshly steamed, Japanese short-grain rice
+
+        PROCEDURE
+        1. Make Tonkatsu (I have a very detailed recipe here) if you haven’t made yet.
+        2. Cook the onion in the savory broth till tender.
+        3. Place Tonkatsu on top to let it absorb the flavors of the broth.
+        4. Add the beaten egg mixture and cook till just set.
+        5. Serve over steamed rice and enjoy!
+    </string>
 </resources>
