@@ -12,7 +12,6 @@ import com.mobdeve.s11.group16.foodstop.databinding.RvLayoutBinding
 
 class MyAdapter(private val data: ArrayList<Recipe>, private val myActivityResultLauncher: ActivityResultLauncher<Intent>) : RecyclerView.Adapter<MyViewHolder>() {
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemViewBinding : RvLayoutBinding = RvLayoutBinding.inflate(
             LayoutInflater.from(parent.context),

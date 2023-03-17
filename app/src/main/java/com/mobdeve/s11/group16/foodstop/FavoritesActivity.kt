@@ -13,7 +13,7 @@ import com.mobdeve.s11.group16.foodstop.databinding.FavoritesBinding
 
 class FavoritesActivity : AppCompatActivity() {
 
-    private val recipeList: ArrayList<Recipe> = DataHelper.initializeData()
+    private val recipeList: ArrayList<Recipe> = DataHelper.initializeDataFav()
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: MyAdapter
@@ -45,7 +45,6 @@ class FavoritesActivity : AppCompatActivity() {
 
         val viewBinding : FavoritesBinding = FavoritesBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
-
 
         viewBinding.recyclerView.setOnClickListener(View.OnClickListener {
             val intent = Intent(this@FavoritesActivity, PostActivity::class.java)
