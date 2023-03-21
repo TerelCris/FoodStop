@@ -10,109 +10,152 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#1B8C41"
-        android:gravity="center"
         android:padding="15dp"
         android:text="Create a Post"
-        android:textSize="20sp"
         android:textColor="@color/black"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/ib_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="#1B8C41"
-        android:drawableLeft="@drawable/add_image"
-        android:padding="10dp"
-        android:fontFamily="sans-serif-medium"
-        android:text="Add Image"
-        android:textStyle="normal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
-        app:layout_constraintTop_toBottomOf="@+id/createpostmessageTv"
-        app:srcCompat="@drawable/addicon" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:paddingRight="20dp"
+        android:layout_height="match_parent"
+        android:paddingTop="75dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ib_add">
+        app:layout_constraintTop_toBottomOf="@+id/createpostmessageTv">
 
-        <EditText
-            android:id="@+id/postTitleEt"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:background="@drawable/shape_border_create_post"
-            android:gravity="top"
-            android:maxLines="1"
-            android:text="Title"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/postDescriptionEt"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginTop="10dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:background="@drawable/shape_border_create_post"
-            android:gravity="top"
-            android:text="Description"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/postTitleEt" />
+            <Button
+                android:id="@+id/ib_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:backgroundTint="#1B8C41"
+                android:drawableLeft="@drawable/add_image"
+                android:fontFamily="sans-serif-medium"
+                android:padding="10dp"
+                android:text="Add Image"
+                android:textStyle="normal"
+                app:srcCompat="@drawable/addicon" />
 
-        <EditText
-            android:id="@+id/postIngredientEt"
-            android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:layout_marginTop="10dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:background="@drawable/shape_border_create_post"
-            android:gravity="top"
-            android:inputType="textPersonName"
-            android:text="Ingredients"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/postDescriptionEt" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
 
-        <EditText
-            android:id="@+id/postProcedureEt"
-            android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:layout_marginTop="10dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:background="@drawable/shape_border_create_post"
-            android:gravity="top"
-            android:inputType="textPersonName"
-            android:text="Procedure"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/postIngredientEt" />
+                <TextView
+                    android:id="@+id/Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Title"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <EditText
+                    android:id="@+id/postTitleEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_border_create_post"
+                    android:gravity="top"
+                    android:maxLines="1"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/Title" />
 
-    <Button
-        android:id="@+id/postBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="#1B8C41"
-        android:padding="10dp"
-        android:text="Post"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+                <TextView
+                    android:id="@+id/Description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Description"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/postTitleEt"
+                    tools:layout_editor_absoluteX="20dp" />
+
+                <EditText
+                    android:id="@+id/postDescriptionEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:background="@drawable/shape_border_create_post"
+                    android:gravity="top"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/Description" />
+
+                <TextView
+                    android:id="@+id/Ingredients"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Ingredients"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/postDescriptionEt"
+                    tools:layout_editor_absoluteX="20dp" />
+
+                <EditText
+                    android:id="@+id/postIngredientEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:background="@drawable/shape_border_create_post"
+                    android:gravity="top"
+                    android:inputType="textPersonName"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/Ingredients" />
+
+                <TextView
+                    android:id="@+id/Procedure"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Procedure"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/postIngredientEt"
+                    tools:layout_editor_absoluteX="20dp" />
+
+                <EditText
+                    android:id="@+id/postProcedureEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:background="@drawable/shape_border_create_post"
+                    android:gravity="top"
+                    android:inputType="textPersonName"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/Procedure" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Button
+                android:id="@+id/postBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:backgroundTint="#1B8C41"
+                android:text="Post" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
