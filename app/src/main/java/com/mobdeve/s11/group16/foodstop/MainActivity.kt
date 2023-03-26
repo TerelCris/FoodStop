@@ -37,10 +37,13 @@ class MainActivity : AppCompatActivity() {
         ActivityResultContracts.StartActivityForResult()) { result: androidx.activity.result.ActivityResult ->
 
         if(result.resultCode == RESULT_OK){
+            //val image : Int = result.data?.getIntExtra(PostActivity.IMAGE_KEY)!!
             val title : String = result.data?.getStringExtra(CreatePostActivity.TITLE_KEY)!!
             val description : String = result.data?.getStringExtra(CreatePostActivity.DESCRIPTION_KEY)!!
             val ingredient : String = result.data?.getStringExtra(CreatePostActivity.INGREDIENT_KEY)!!
             val procedure : String = result.data?.getStringExtra(CreatePostActivity.PROCEDURE_KEY)!!
+
+            val body = title + description + ingredient + procedure
 
             //val recipe = Recipe(title, description, ingredient, procedure)
 

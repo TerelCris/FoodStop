@@ -26,25 +26,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tv_category"
-                android:layout_width="0dp"
-                android:layout_height="45dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:alpha="0.75"
-                android:background="@drawable/rounded_corners"
-                android:backgroundTint="@color/white"
-                android:gravity="center"
-                android:radius="10dp"
-                android:text="Category"
-                android:textColor="@color/black"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                android:topRightRadius="5dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <LinearLayout
                 android:id="@+id/linearLayout"
                 android:layout_width="wrap_content"

@@ -14,7 +14,6 @@ import com.mobdeve.s11.group16.foodstop.databinding.RvLayoutBinding
 
 class MyViewHolder(private val viewBinding: RvLayoutBinding, private val postBinding: PostLayoutBinding): RecyclerView.ViewHolder(viewBinding.root) {
     private val ivCover: ImageView = itemView.findViewById(R.id.iv_cover)
-    private val tvCategory: TextView = itemView.findViewById(R.id.tv_category)
     private val tvTitle: TextView = itemView.findViewById(R.id.tv_title)
     private val tvAuthor:TextView = itemView.findViewById(R.id.tv_author)
     private val tvDate:TextView = itemView.findViewById(R.id.tv_date)
@@ -25,7 +24,6 @@ class MyViewHolder(private val viewBinding: RvLayoutBinding, private val postBin
 
     fun bindData(recipe: Recipe){
         ivCover.setImageResource(recipe.imageId)
-        tvCategory.text = recipe.category
         tvTitle.text = recipe.title
         tvAuthor.text = recipe.author
         tvDate.text = recipe.date.toString()
