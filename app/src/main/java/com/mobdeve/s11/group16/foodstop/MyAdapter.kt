@@ -27,20 +27,6 @@ class MyAdapter(private val data: ArrayList<Recipe>, private val myActivityResul
 
         val myViewHolder = MyViewHolder(itemViewBinding, postViewBinding)
 
-        myViewHolder.itemView.setOnClickListener {
-
-            val intent = Intent(myViewHolder.itemView.context, PostActivity::class.java)
-
-            intent.putExtra(PostActivity.IMAGE_KEY, R.drawable.onepotchickenrice)
-            intent.putExtra(PostActivity.USER_KEY, itemViewBinding.tvAuthor.text.toString())
-            intent.putExtra(PostActivity.TITLE_KEY, itemViewBinding.tvTitle.text.toString())
-            intent.putExtra(PostActivity.DATE_KEY, itemViewBinding.tvDate.text.toString())
-            intent.putExtra(PostActivity.BODY_KEY, postViewBinding.bodyTv.text.toString())
-            intent.putExtra(PostActivity.POSITION_KEY, myViewHolder.adapterPosition)
-
-            this.myActivityResultLauncher.launch(intent)
-        }
-
         Log.d("My Adapter", "OnCreateView was called")
 
         return myViewHolder
@@ -48,6 +34,19 @@ class MyAdapter(private val data: ArrayList<Recipe>, private val myActivityResul
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.bindData(data[position])
+
+      holder.itemView.setOnClickListener {
+
+            val intent = Intent(holder.itemView.context, PostActivity::class.java)
+
+            intent.putExtra(PostActivity.IMAGE_KEY, this.data[position].imageId)
+            intent.putExtra(PostActivity.USER_KEY, this.data[position].author)
+            intent.putExtra(PostActivity.TITLE_KEY, this.data[position].title)
+            intent.putExtra(PostActivity.DATE_KEY, this.data[position].date)
+            intent.putExtra(PostActivity.BODY_KEY, this.data[position].body)
+
+            this.myActivityResultLauncher.launch(intent)
+        }
 
         Log.d("My Adapter", "OnBindView was called; Position $position")
 

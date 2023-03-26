@@ -8,5 +8,6 @@ class Recipe(
     var title: String,
     var author: String,
     val date: String,
-    var favorite: Boolean) {
+    var favorite: Boolean,
+    var body: String?) {
 }

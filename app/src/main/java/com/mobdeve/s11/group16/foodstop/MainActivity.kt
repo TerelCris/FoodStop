@@ -16,6 +16,9 @@ import androidx.recyclerview.widget.SnapHelper
 import com.mobdeve.s11.group16.foodstop.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+    companion object{
+        private val data = ArrayList<Recipe>()
+    }
 
     private val recipeList: ArrayList<Recipe> = DataHelper.initializeData()
 
@@ -38,6 +41,10 @@ class MainActivity : AppCompatActivity() {
             val description : String = result.data?.getStringExtra(CreatePostActivity.DESCRIPTION_KEY)!!
             val ingredient : String = result.data?.getStringExtra(CreatePostActivity.INGREDIENT_KEY)!!
             val procedure : String = result.data?.getStringExtra(CreatePostActivity.PROCEDURE_KEY)!!
+
+            //val recipe = Recipe(title, description, ingredient, procedure)
+
+            //MainActivity.data.add(recipe)
 
             this.adapter.notifyDataSetChanged()
         }
