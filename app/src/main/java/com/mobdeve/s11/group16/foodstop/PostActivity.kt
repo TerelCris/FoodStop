@@ -19,6 +19,7 @@ class PostActivity : AppCompatActivity() {
         const val DATE_KEY = "DATE_KEY"
         const val BODY_KEY = "BODY_KEY"
         const val POSITION_KEY = "POSITION_KEY"
+        const val FAVORITE_KEY = "FAVORITE_KEY"
     }
 
     private val commentList: ArrayList<Comment>  = DataHelper.initializeComment()
