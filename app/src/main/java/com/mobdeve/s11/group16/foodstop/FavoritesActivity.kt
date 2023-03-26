@@ -15,7 +15,7 @@ import com.mobdeve.s11.group16.foodstop.databinding.FavoritesBinding
 
 class FavoritesActivity : AppCompatActivity() {
 
-    private val recipeList: ArrayList<Recipe> = DataHelper.initializeDataFav()
+    private val recipeList: ArrayList<Recipe> = DataHelper.initializeData()
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: MyAdapter

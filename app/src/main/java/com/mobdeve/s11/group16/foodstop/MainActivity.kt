@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
 
             val recipe = Recipe(image, title, author.toString(), date.toString(), favorite, body)
 
-            //MainActivity.data.add(recipe)
+            MainActivity.data.add(recipe)
 
             this.adapter.notifyDataSetChanged()
         }
