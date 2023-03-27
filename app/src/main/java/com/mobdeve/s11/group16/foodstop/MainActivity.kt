@@ -41,11 +41,10 @@ class MainActivity : AppCompatActivity() {
         ActivityResultContracts.StartActivityForResult()) { result: androidx.activity.result.ActivityResult ->
 
         if(result.resultCode == RESULT_OK){
-            val image = intent.getIntExtra(PostActivity.IMAGE_KEY, 0)
-            val author = intent.getStringExtra(PostActivity.USER_KEY)
-            val date = intent.getStringExtra(PostActivity.DATE_KEY)
-            val favorite = intent.getBooleanExtra(PostActivity.FAVORITE_KEY, false)
-
+            val image : Int = result.data?.getIntExtra(PostActivity.IMAGE_KEY, 0)!!
+            val author : String = result.data?.getStringExtra(PostActivity.USER_KEY)!!
+            val date : String = result.data?.getStringExtra(PostActivity.DATE_KEY)!!
+            val favorite : Boolean = result.data?.getBooleanExtra(PostActivity.FAVORITE_KEY, false)!!
             val title : String = result.data?.getStringExtra(CreatePostActivity.TITLE_KEY)!!
             val description : String = result.data?.getStringExtra(CreatePostActivity.DESCRIPTION_KEY)!!
             val ingredient : String = result.data?.getStringExtra(CreatePostActivity.INGREDIENT_KEY)!!
