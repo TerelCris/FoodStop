@@ -24,7 +24,7 @@ class FavoritesActivity : AppCompatActivity() {
         ActivityResultContracts.StartActivityForResult()) { result: androidx.activity.result.ActivityResult ->
 
         if(result.resultCode == RESULT_OK){
-            val position = result.data?.getIntExtra(PostActivity.POSITION_KEY, 0)!!
+            val position = result.data?.getIntExtra(Keys.POSITION_KEY.name, 0)!!
             this.adapter.notifyDataSetChanged()
         }
     }
@@ -32,10 +32,10 @@ class FavoritesActivity : AppCompatActivity() {
         ActivityResultContracts.StartActivityForResult()) { result: androidx.activity.result.ActivityResult ->
 
         if(result.resultCode == RESULT_OK){
-            val title : String = result.data?.getStringExtra(CreatePostActivity.TITLE_KEY)!!
-            val description : String = result.data?.getStringExtra(CreatePostActivity.DESCRIPTION_KEY)!!
-            val ingredient : String = result.data?.getStringExtra(CreatePostActivity.INGREDIENT_KEY)!!
-            val procedure : String = result.data?.getStringExtra(CreatePostActivity.PROCEDURE_KEY)!!
+            val title : String = result.data?.getStringExtra(Keys.TITLE_KEY.name)!!
+            val description : String = result.data?.getStringExtra(Keys.DESCRIPTION_KEY.name)!!
+            val ingredient : String = result.data?.getStringExtra(Keys.INGREDIENT_KEY.name)!!
+            val procedure : String = result.data?.getStringExtra(Keys.PROCEDURE_KEY.name)!!
 
             this.adapter.notifyDataSetChanged()
         }

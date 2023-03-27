@@ -39,11 +39,11 @@ class MyAdapter(private val data: ArrayList<Recipe>, private val myActivityResul
 
             val intent = Intent(holder.itemView.context, PostActivity::class.java)
 
-            intent.putExtra(PostActivity.IMAGE_KEY, this.data[position].imageId)
-            intent.putExtra(PostActivity.USER_KEY, this.data[position].author)
-            intent.putExtra(PostActivity.TITLE_KEY, this.data[position].title)
-            intent.putExtra(PostActivity.DATE_KEY, this.data[position].date)
-            intent.putExtra(PostActivity.BODY_KEY, this.data[position].body)
+            intent.putExtra(Keys.IMAGE_KEY.name, this.data[position].imageId)
+            intent.putExtra(Keys.USER_KEY.name, this.data[position].author)
+            intent.putExtra(Keys.TITLE_KEY.name, this.data[position].title)
+            intent.putExtra(Keys.USERNAME_KEY.name, this.data[position].date)
+            intent.putExtra(Keys.BODY_KEY.name, this.data[position].body)
 
             this.myActivityResultLauncher.launch(intent)
         }

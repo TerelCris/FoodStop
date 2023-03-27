@@ -12,16 +12,6 @@ import androidx.recyclerview.widget.SnapHelper
 import com.mobdeve.s11.group16.foodstop.databinding.PostLayoutBinding
 
 class PostActivity : AppCompatActivity() {
-    companion object{
-        const val IMAGE_KEY = "IMAGE_KEY"
-        const val TITLE_KEY = "TITLE_KEY"
-        const val USER_KEY = "USER_KEY"
-        const val DATE_KEY = "DATE_KEY"
-        const val BODY_KEY = "BODY_KEY"
-        const val POSITION_KEY = "POSITION_KEY"
-        const val FAVORITE_KEY = "FAVORITE_KEY"
-    }
-
     private val commentList: ArrayList<Comment>  = DataHelper.initializeComment()
 
     private lateinit var recyclerView: RecyclerView
@@ -33,16 +23,16 @@ class PostActivity : AppCompatActivity() {
         val viewBinding : PostLayoutBinding = PostLayoutBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
 
-        viewBinding.postIv.setImageResource(intent.getIntExtra(PostActivity.IMAGE_KEY, 0))
-        viewBinding.titleTv.text = intent.getStringExtra(PostActivity.TITLE_KEY)
-        viewBinding.userTv.text = intent.getStringExtra(PostActivity.USER_KEY)
-        viewBinding.datePostTv.text = intent.getStringExtra(PostActivity.DATE_KEY)
-        viewBinding.bodyTv.text = intent.getStringExtra(PostActivity.BODY_KEY)
+        viewBinding.postIv.setImageResource(intent.getIntExtra(Keys.IMAGE_KEY.name, 0))
+        viewBinding.titleTv.text = intent.getStringExtra(Keys.TITLE_KEY.name)
+        viewBinding.userTv.text = intent.getStringExtra(Keys.USER_KEY.name)
+        viewBinding.datePostTv.text = intent.getStringExtra(Keys.DATE_KEY.name)
+        viewBinding.bodyTv.text = intent.getStringExtra(Keys.BODY_KEY.name)
 
-        val position = intent.getIntExtra(PostActivity.POSITION_KEY, 0)
+        val position = intent.getIntExtra(Keys.POSITION_KEY.name, 0)
 
         val intent : Intent = Intent()
-        intent.putExtra(PostActivity.POSITION_KEY, position)
+        intent.putExtra(Keys.POSITION_KEY.name, position)
 
         viewBinding.likeBtn.isActivated = false
 

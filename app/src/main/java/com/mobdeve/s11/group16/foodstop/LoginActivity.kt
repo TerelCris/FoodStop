@@ -27,8 +27,8 @@ class LoginActivity : AppCompatActivity() {
                 val intent : Intent = Intent(this@LoginActivity, MainActivity::class.java)
                 this.startActivity(intent)
 
-                intent.putExtra(LoginActivity.USERNAME_KEY, viewBinding.username.text.toString())
-                intent.putExtra(LoginActivity.PASSWORD_KEY, viewBinding.password.text.toString())
+                intent.putExtra(Keys.USERNAME_KEY.name, viewBinding.username.text.toString())
+                intent.putExtra(Keys.PASSWORD_KEY.name, viewBinding.password.text.toString())
 
                 setResult(Activity.RESULT_OK, intent)
 

@@ -9,13 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.mobdeve.s11.group16.foodstop.databinding.CreatePostLayoutBinding
 
 class CreatePostActivity : AppCompatActivity() {
-    companion object{
-        const val TITLE_KEY = "TITLE_KEY"
-        const val DESCRIPTION_KEY = "DESCRIPTION_KEY"
-        const val INGREDIENT_KEY = "INGREDIENT_KEY"
-        const val PROCEDURE_KEY = "PROCEDURE_KEY"
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val viewBinding : CreatePostLayoutBinding = CreatePostLayoutBinding.inflate(layoutInflater)
@@ -25,10 +18,10 @@ class CreatePostActivity : AppCompatActivity() {
             if(viewBinding.postTitleEt.text.toString().isNotEmpty() && viewBinding.postDescriptionEt.text.toString().isNotEmpty() && viewBinding.postIngredientEt.text.toString().isNotEmpty() && viewBinding.postProcedureEt.text.toString().isNotEmpty()){
                 val intent : Intent = Intent()
 
-                intent.putExtra(CreatePostActivity.TITLE_KEY, viewBinding.postTitleEt.text.toString())
-                intent.putExtra(CreatePostActivity.DESCRIPTION_KEY, viewBinding.postDescriptionEt.text.toString())
-                intent.putExtra(CreatePostActivity.INGREDIENT_KEY, viewBinding.postIngredientEt.text.toString())
-                intent.putExtra(CreatePostActivity.PROCEDURE_KEY, viewBinding.postProcedureEt.text.toString())
+                intent.putExtra(Keys.TITLE_KEY.name, viewBinding.postTitleEt.text.toString())
+                intent.putExtra(Keys.DESCRIPTION_KEY.name, viewBinding.postDescriptionEt.text.toString())
+                intent.putExtra(Keys.INGREDIENT_KEY.name, viewBinding.postIngredientEt.text.toString())
+                intent.putExtra(Keys.PROCEDURE_KEY.name, viewBinding.postProcedureEt.text.toString())
 
                 setResult(Activity.RESULT_OK, intent)
 
