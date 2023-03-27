@@ -22,22 +22,22 @@
         </activity>
         <activity
             android:name=".PostActivity"
-            android:exported="false"/>
+            android:exported="true"/>
         <activity
             android:name=".CreatePostActivity"
-            android:exported="false"/>
+            android:exported="true"/>
         <activity
             android:name=".FavoritesActivity"
-            android:exported="false"/>
+            android:exported="true"/>
         <activity
             android:name=".UserAccountActivity"
-            android:exported="false"/>
+            android:exported="true"/>
         <activity
             android:name=".LoginActivity"
-            android:exported="false"/>
+            android:exported="true"/>
         <activity
             android:name=".SignUpActivity"
-            android:exported="false"/>
+            android:exported="true"/>
     </application>
 
 </manifest>
