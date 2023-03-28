@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_marginStart="20dp"
-    android:layout_marginEnd="20dp">
+    android:orientation="vertical">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:orientation="vertical">
 
         <TextView
@@ -32,14 +32,13 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:hint="Full Name">
-            
+
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/baseline_person_outline_24"
                 android:drawablePadding="10dp"
-                android:text="Lance Siy">
-            </com.google.android.material.textfield.TextInputEditText>
+                android:text="Lance Siy"></com.google.android.material.textfield.TextInputEditText>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -54,8 +53,7 @@
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/baseline_email_24"
                 android:drawablePadding="10dp"
-                android:text="lance_siy@dlsu.edu.ph">
-            </com.google.android.material.textfield.TextInputEditText>
+                android:text="lance_siy@dlsu.edu.ph"></com.google.android.material.textfield.TextInputEditText>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -70,8 +68,7 @@
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/baseline_info_24"
                 android:drawablePadding="10dp"
-                android:text="Lancesiy_1234">
-            </com.google.android.material.textfield.TextInputEditText>
+                android:text="Lancesiy_1234"></com.google.android.material.textfield.TextInputEditText>
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
@@ -79,16 +76,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#ffd700"
-            android:text="Save Changes">
-        </Button>
+            android:text="Save Changes"></Button>
 
         <Button
             android:id="@+id/btn_logout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#ffd700"
-            android:text="Logout">
-        </Button>
+            android:text="Logout"></Button>
 
     </LinearLayout>
-</ScrollView>
+</LinearLayout>
