@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "465204362913",
+    "project_id": "foodstop-213a0",
+    "storage_bucket": "foodstop-213a0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:465204362913:android:4ba8dcb259551b388dfae0",
+        "android_client_info": {
+          "package_name": "com.mobdeve.s11.group16.foodstop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "465204362913-3p7p7gs4k8g9qfhaq9gjm6b1l8dkjihc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuPt9rtq-DOBROhdFXJoMMwjnqM4ymJ44"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "465204362913-3p7p7gs4k8g9qfhaq9gjm6b1l8dkjihc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
