@@ -31,13 +31,11 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(viewBinding.root)
 
         viewBinding.registerbtn.setOnClickListener(View.OnClickListener {
-            if (viewBinding.username.toString().isNotEmpty() && viewBinding.email.toString().isNotEmpty() && viewBinding.password.toString().isNotEmpty() && viewBinding.repassword.toString().isNotEmpty()) {
+            if (viewBinding.email.toString().isNotEmpty() && viewBinding.password.toString().isNotEmpty()) {
                 val intent: Intent = Intent(this@SignUpActivity, LoginActivity::class.java)
 
-                intent.putExtra(Keys.USERNAME_KEY.name, viewBinding.username.text.toString())
                 intent.putExtra(Keys.EMAIL_KEY.name, viewBinding.email.text.toString())
                 intent.putExtra(Keys.PASSWORD_KEY.name, viewBinding.password.text.toString())
-                intent.putExtra(Keys.REPASS_KEY.name, viewBinding.repassword.text.toString())
 
                 setResult(Activity.RESULT_OK, intent)
 
@@ -55,27 +53,15 @@ class SignUpActivity : AppCompatActivity() {
 
         viewBinding.registerbtn.setOnClickListener(View.OnClickListener {
             var email = viewBinding.email.text.toString()
-            var username = viewBinding.username.text.toString()
             var password = viewBinding.password.text.toString()
-            var repassword = viewBinding.repassword.text.toString()
 
             if(TextUtils.isEmpty(email)){
                 Toast.makeText(this@SignUpActivity, "Enter Your Email", Toast.LENGTH_SHORT).show()
                 return@OnClickListener
             }
 
-            if(TextUtils.isEmpty(username)){
-                Toast.makeText(this@SignUpActivity, "Enter Your Username", Toast.LENGTH_SHORT).show()
-                return@OnClickListener
-            }
-
             if(TextUtils.isEmpty(password)){
                 Toast.makeText(this@SignUpActivity, "Enter Your Password", Toast.LENGTH_SHORT).show()
-                return@OnClickListener
-            }
-
-            if(TextUtils.isEmpty(repassword)){
-                Toast.makeText(this@SignUpActivity, "Re-enter Your Password", Toast.LENGTH_SHORT).show()
                 return@OnClickListener
             }
 

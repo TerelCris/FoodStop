@@ -42,7 +42,7 @@ class MyAdapter(private val data: ArrayList<Recipe>, private val myActivityResul
             intent.putExtra(Keys.IMAGE_KEY.name, this.data[position].imageId)
             intent.putExtra(Keys.USER_KEY.name, this.data[position].author)
             intent.putExtra(Keys.TITLE_KEY.name, this.data[position].title)
-            intent.putExtra(Keys.USERNAME_KEY.name, this.data[position].date)
+            intent.putExtra(Keys.EMAIL_KEY.name, this.data[position].date)
             intent.putExtra(Keys.BODY_KEY.name, this.data[position].body)
 
             this.myActivityResultLauncher.launch(intent)
