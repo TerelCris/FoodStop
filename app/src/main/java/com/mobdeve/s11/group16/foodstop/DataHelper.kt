@@ -78,13 +78,9 @@ class DataHelper {
         }
 
         fun initializeComment(): ArrayList<Comment> {
-            val userImages = intArrayOf(
-                R.drawable.monkey,
-            )
             val data = ArrayList<Comment>()
             data.add(
                 Comment(
-                    userImages[0],
                     "Frannie Kim",
                     "1y",
                     "Nice!, It looks so yummy"
