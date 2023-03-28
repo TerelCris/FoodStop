@@ -5,28 +5,37 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
 import com.mobdeve.s11.group16.foodstop.databinding.MyaccountLayoutBinding
 
 class UserAccountActivity : AppCompatActivity() {
-    companion object{
-        const val NAME_KEY = "NAME_KEY"
-        const val EMAIL_KEY = "EMAIL_KEY"
-        const val PASSWORD_KEY = "PASSWORD_KEY"
-        const val POSITION_KEY = "POSITION_KEY"
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val auth = FirebaseAuth.getInstance()
+        val user = auth.currentUser
+
         val viewBinding : MyaccountLayoutBinding = MyaccountLayoutBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
+
+        if(user == null){
+            val intent : Intent = Intent(this@UserAccountActivity, LoginActivity::class.java)
+            this.startActivity(intent)
+        }
+
+        viewBinding.btnLogout.setOnClickListener(View.OnClickListener {
+            FirebaseAuth.getInstance().signOut()
+            val intent : Intent = Intent(this@UserAccountActivity, LoginActivity::class.java)
+            this.startActivity(intent)
+        })
 
         viewBinding.btnSave.setOnClickListener(View.OnClickListener {
             val intent : Intent = Intent()
 
-            intent.putExtra(UserAccountActivity.NAME_KEY, viewBinding.tvEditName.editText.toString())
-            intent.putExtra(UserAccountActivity.EMAIL_KEY, viewBinding.tvEditEmail.editText.toString())
-            intent.putExtra(UserAccountActivity.PASSWORD_KEY, viewBinding.tvEditPass.editText.toString())
+            intent.putExtra(Keys.USERNAME_KEY.name, viewBinding.tvEditName.editText.toString())
+            intent.putExtra(Keys.EMAIL_KEY.name, viewBinding.tvEditEmail.editText.toString())
+            intent.putExtra(Keys.PASSWORD_KEY.name, viewBinding.tvEditPass.editText.toString())
 
             setResult(Activity.RESULT_OK, intent)
 
