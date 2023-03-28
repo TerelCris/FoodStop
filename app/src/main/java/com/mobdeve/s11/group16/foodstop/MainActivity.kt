@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
 
         if(result.resultCode == RESULT_OK){
             val image : Int = result.data?.getIntExtra(Keys.IMAGE_KEY.name, 0)!!
-            val author : String = result.data?.getStringExtra(Keys.USER_KEY.name)!!
+            val author : String = result.data?.getStringExtra(Keys.USERNAME_KEY.name)!!
             val date : String = result.data?.getStringExtra(Keys.DATE_KEY.name)!!
             val favorite : Boolean = result.data?.getBooleanExtra(Keys.FAVORITE_KEY.name, false)!!
             val title : String = result.data?.getStringExtra(Keys.TITLE_KEY.name)!!

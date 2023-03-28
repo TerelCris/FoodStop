@@ -25,7 +25,7 @@ class PostActivity : AppCompatActivity() {
 
         viewBinding.postIv.setImageResource(intent.getIntExtra(Keys.IMAGE_KEY.name, 0))
         viewBinding.titleTv.text = intent.getStringExtra(Keys.TITLE_KEY.name)
-        viewBinding.userTv.text = intent.getStringExtra(Keys.USER_KEY.name)
+        viewBinding.userTv.text = intent.getStringExtra(Keys.USERNAME_KEY.name)
         viewBinding.datePostTv.text = intent.getStringExtra(Keys.DATE_KEY.name)
         viewBinding.bodyTv.text = intent.getStringExtra(Keys.BODY_KEY.name)
 

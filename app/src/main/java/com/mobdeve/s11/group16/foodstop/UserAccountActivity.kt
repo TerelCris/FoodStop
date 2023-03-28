@@ -34,11 +34,17 @@ class UserAccountActivity : AppCompatActivity() {
             val intent : Intent = Intent()
 
             intent.putExtra(Keys.EMAIL_KEY.name, viewBinding.tvEditName.editText.toString())
+            intent.putExtra(Keys.USERNAME_KEY.name, viewBinding.tvEditName.editText.toString())
             intent.putExtra(Keys.PASSWORD_KEY.name, viewBinding.tvEditPass.editText.toString())
 
             setResult(Activity.RESULT_OK, intent)
 
             finish()
+        })
+
+        viewBinding.btnLogout.setOnClickListener(View.OnClickListener {
+            val intent : Intent = Intent(this@UserAccountActivity, LoginActivity::class.java)
+            this.startActivity(intent)
         })
     }
 }

@@ -10,20 +10,15 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.mobdeve.s11.group16.foodstop.databinding.SignupLayoutBinding
 
 class SignUpActivity : AppCompatActivity() {
-    private val auth = FirebaseAuth.getInstance()
+    private val databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://foodstop-213a0-default-rtdb.firebaseio.com")
 
-    override fun onStart() {
-        super.onStart()
-        // Check if user is signed in (non-null) and update UI accordingly.
-        val currentUser: FirebaseUser? = auth.currentUser
-        if (currentUser != null) {
-            val intent : Intent = Intent(this@SignUpActivity, MainActivity::class.java)
-            this.startActivity(intent)
-        }
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -31,54 +26,37 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(viewBinding.root)
 
         viewBinding.registerbtn.setOnClickListener(View.OnClickListener {
-            if (viewBinding.email.toString().isNotEmpty() && viewBinding.password.toString().isNotEmpty()) {
-                val intent: Intent = Intent(this@SignUpActivity, LoginActivity::class.java)
-
-                intent.putExtra(Keys.EMAIL_KEY.name, viewBinding.email.text.toString())
-                intent.putExtra(Keys.PASSWORD_KEY.name, viewBinding.password.text.toString())
-
-                setResult(Activity.RESULT_OK, intent)
-
-                finish()
-            }
-
-            else{
-                Toast.makeText(
-                    this@SignUpActivity,
-                    "Please complete all required fields",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-        })
-
-        viewBinding.registerbtn.setOnClickListener(View.OnClickListener {
+            var username = viewBinding.username.text.toString()
             var email = viewBinding.email.text.toString()
             var password = viewBinding.password.text.toString()
 
-            if(TextUtils.isEmpty(email)){
-                Toast.makeText(this@SignUpActivity, "Enter Your Email", Toast.LENGTH_SHORT).show()
+            if(username.isEmpty() && email.isEmpty() && password.isEmpty()){
+                Toast.makeText(this@SignUpActivity, "Please answer all required fields", Toast.LENGTH_SHORT).show()
                 return@OnClickListener
             }
 
-            if(TextUtils.isEmpty(password)){
-                Toast.makeText(this@SignUpActivity, "Enter Your Password", Toast.LENGTH_SHORT).show()
-                return@OnClickListener
+            else{
+                databaseReference.child("Users").addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                        if(dataSnapshot.hasChild(username)){
+                            Toast.makeText(this@SignUpActivity, "Username is already used", Toast.LENGTH_SHORT).show()
+                        }
+
+                        else{
+                            databaseReference.child("Users").child(username).child("Username").setValue(username)
+                            databaseReference.child("Users").child(email).child("Username").setValue(email)
+                            databaseReference.child("Users").child(password).child("Username").setValue(password)
+
+                            Toast.makeText(this@SignUpActivity, "Registration Succesful", Toast.LENGTH_SHORT).show()
+                            finish()
+                        }
+                    }
+
+                    override fun onCancelled(databaseError: DatabaseError) {
+                    }
+                })
+                finish()
             }
-
-            auth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this) { task ->
-                    if (task.isSuccessful) {
-                        Toast.makeText(this@SignUpActivity , "Registration Successful",
-                            Toast.LENGTH_SHORT).show()
-                    }
-
-                    else {
-                        Toast.makeText(this@SignUpActivity , "Registration Failed",
-                            Toast.LENGTH_SHORT).show()
-                    }
-                }
-
-
         })
 
         viewBinding.startsingupbtn.setOnClickListener(View.OnClickListener {
