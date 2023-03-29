@@ -2,6 +2,22 @@ package com.mobdeve.s11.group16.foodstop
 
 import android.app.Activity
 import android.app.ProgressDialog
+import android.content.ContentResolver;
+import android.graphics.Bitmap;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.webkit.MimeTypeMap;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import java.io.IOException;
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -24,9 +40,17 @@ class CreatePostActivity : AppCompatActivity() {
     private lateinit var rvBinding : RvLayoutBinding
     private lateinit var postBinding : PostLayoutBinding
     private var addImage: Uri? = null
-    private val databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://foodstop-9c45c-default-rtdb.firebaseio.com")
-    private val storageReference = FirebaseDatabase.getInstance().getReferenceFromUrl("gs://foodstop-9c45c.appspot.com")
-    val progressDialog = ProgressDialog(this)
+    val btnAdd: Button by lazy { findViewById(R.id.ib_add) }
+    val btnPost: Button by lazy { findViewById(R.id.postBtn) }
+    val txtTitle: EditText by lazy { findViewById(R.id.postTitleEt) }
+    val txtDesc: EditText by lazy { findViewById(R.id.postDescriptionEt) }
+    val txtIng: EditText by lazy { findViewById(R.id.postIngredientEt) }
+    val imgAdd: ImageView by lazy { findViewById(R.id.post_img) }
+    var FilePathUri: Uri? = null
+    val storageReference: StorageReference by lazy { FirebaseStorage.getInstance().reference }
+    val databaseReference: DatabaseReference by lazy { FirebaseDatabase.getInstance().reference }
+    val Image_Request_Code = 7
+    val progressDialog: ProgressDialog by lazy { ProgressDialog(this) }
 
     private val createPostResultLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
