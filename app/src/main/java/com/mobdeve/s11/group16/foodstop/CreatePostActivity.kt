@@ -18,7 +18,6 @@ import com.google.firebase.database.ValueEventListener
 import com.mobdeve.s11.group16.foodstop.databinding.CreatePostLayoutBinding
 import com.mobdeve.s11.group16.foodstop.databinding.PostLayoutBinding
 import com.mobdeve.s11.group16.foodstop.databinding.RvLayoutBinding
-import com.mobdeve.s11.group16.foodstop.databinding.SignupLayoutBinding
 import com.squareup.picasso.Picasso
 
 class CreatePostActivity : AppCompatActivity() {
