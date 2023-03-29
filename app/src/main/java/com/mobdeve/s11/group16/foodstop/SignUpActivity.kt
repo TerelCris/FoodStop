@@ -47,7 +47,7 @@ class SignUpActivity : AppCompatActivity() {
                             databaseReference.child("Users").child(username).child("Email").setValue(email)
                             databaseReference.child("Users").child(username).child("Password").setValue(password)
 
-                            Toast.makeText(this@SignUpActivity, "Registration Succesful", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@SignUpActivity, "Registration Successful", Toast.LENGTH_SHORT).show()
                             finish()
                         }
                     }
