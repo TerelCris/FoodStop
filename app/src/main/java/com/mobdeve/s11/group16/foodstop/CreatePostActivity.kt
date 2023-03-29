@@ -40,17 +40,17 @@ class CreatePostActivity : AppCompatActivity() {
     private lateinit var rvBinding : RvLayoutBinding
     private lateinit var postBinding : PostLayoutBinding
     private var addImage: Uri? = null
-    val btnAdd: Button by lazy { findViewById(R.id.ib_add) }
-    val btnPost: Button by lazy { findViewById(R.id.postBtn) }
-    val txtTitle: EditText by lazy { findViewById(R.id.postTitleEt) }
-    val txtDesc: EditText by lazy { findViewById(R.id.postDescriptionEt) }
-    val txtIng: EditText by lazy { findViewById(R.id.postIngredientEt) }
-    val imgAdd: ImageView by lazy { findViewById(R.id.post_img) }
+    var btnAdd: Button = findViewById(R.id.ib_add)
+    var btnPost: Button = findViewById(R.id.postBtn)
+    var txtTitle: EditText = findViewById(R.id.postTitleEt)
+    var txtDesc: EditText = findViewById(R.id.postDescriptionEt)
+    var txtIng: EditText = findViewById(R.id.postIngredientEt)
+    var imgAdd: ImageView = findViewById(R.id.post_img)
     var FilePathUri: Uri? = null
-    val storageReference: StorageReference by lazy { FirebaseStorage.getInstance().reference }
-    val databaseReference: DatabaseReference by lazy { FirebaseDatabase.getInstance().reference }
+    var storageReference: StorageReference = FirebaseStorage.getInstance().reference
+    var databaseReference: DatabaseReference = FirebaseDatabase.getInstance().reference
     val Image_Request_Code = 7
-    val progressDialog: ProgressDialog by lazy { ProgressDialog(this) }
+    var progressDialog: ProgressDialog = ProgressDialog(this)
 
     private val createPostResultLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
@@ -73,12 +73,27 @@ class CreatePostActivity : AppCompatActivity() {
         val userBinding : PostLayoutBinding = PostLayoutBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
 
+        storageReference = FirebaseStorage.getInstance().getReference("Images")
+        databaseReference = FirebaseDatabase.getInstance().getReference("Images")
+        btnAdd = findViewById(R.id.ib_add)
+        btnPost = findViewById(R.id.postBtn)
+        txtTitle = findViewById(R.id.postTitleEt)
+        txtDesc = findViewById(R.id.postDescriptionEt)
+        txtIng = findViewById(R.id.postIngredientEt)
+        imgAdd = findViewById(R.id.post_img)
+        progressDialog = ProgressDialog(this) // context name as per your project name
+
+
         viewBinding.ibAdd.setOnClickListener(View.OnClickListener {
             val i = Intent()
             i.type = "Post Image/*"
-            i.action = Intent.ACTION_OPEN_DOCUMENT
+            i.action = Intent.ACTION_GET_CONTENT
             createPostResultLauncher.launch(Intent.createChooser(i, "Select Picture"))
         })
+
+        btnPost.setOnClickListener {
+            uploadImage()
+        }
 
         viewBinding.postBtn.setOnClickListener(View.OnClickListener {
             var image = viewBinding.ibAdd.text.toString()
@@ -112,4 +127,47 @@ class CreatePostActivity : AppCompatActivity() {
             }
         })
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == Image_Request_Code && resultCode == RESULT_OK && data != null && data.data != null) {
+            FilePathUri = data.data
+
+            try {
+                val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, FilePathUri)
+                imgAdd.setImageBitmap(bitmap)
+            } catch (e: IOException) {e.printStackTrace()
+            }
+        }
+    }
+
+    private fun getFileExtension(uri: Uri): String? {
+        val contentResolver = contentResolver
+        val mimeTypeMap = MimeTypeMap.getSingleton()
+        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri))
+    }
+
+    fun uploadImage() {
+        if (FilePathUri != null) {
+            progressDialog.setTitle("Image is Uploading...")
+            progressDialog.show()
+            val storageReference2 = storageReference.child(System.currentTimeMillis().toString() + "." + getFileExtension(
+                FilePathUri!!
+            )!!)
+            storageReference2.putFile(FilePathUri!!)
+                .addOnSuccessListener { taskSnapshot ->
+                    val tempImageName = txtTitle.text.toString().trim()
+                    progressDialog.dismiss()
+                    Toast.makeText(applicationContext, "Image Uploaded Successfully ", Toast.LENGTH_LONG).show()
+                    @Suppress("VisibleForTests")
+                    val imageUploadInfo = UploadInfo(tempImageName, taskSnapshot.uploadSessionUri.toString())
+                    val imageUploadId = databaseReference.push().key
+                    databaseReference.child(imageUploadId!!).setValue(imageUploadInfo)
+                }
+        } else {
+            Toast.makeText(this@CreatePostActivity, "Please Select Image or Add Image Name", Toast.LENGTH_LONG).show()
+        }
+    }
+
 }
