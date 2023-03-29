@@ -16,7 +16,7 @@ import com.mobdeve.s11.group16.foodstop.databinding.LoginLayoutBinding
 
 
 class LoginActivity : AppCompatActivity() {
-    private val databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://foodstop-213a0-default-rtdb.firebaseio.com")
+    private val databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://foodstop-9c45c-default-rtdb.firebaseio.com")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +43,7 @@ class LoginActivity : AppCompatActivity() {
                     ValueEventListener {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
                         if(dataSnapshot.hasChild(username)){
-                            val getPassword = dataSnapshot.child(username).child(password).getValue()
+                            val getPassword = dataSnapshot.child(username).child(password).value
 
                             if(getPassword?.equals(password)!!){
                                 Toast.makeText(this@LoginActivity, "Login Successful", Toast.LENGTH_SHORT).show()

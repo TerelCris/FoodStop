@@ -17,7 +17,7 @@ import com.google.firebase.database.ValueEventListener
 import com.mobdeve.s11.group16.foodstop.databinding.SignupLayoutBinding
 
 class SignUpActivity : AppCompatActivity() {
-    private val databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://foodstop-213a0-default-rtdb.firebaseio.com")
+    private val databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://foodstop-9c45c-default-rtdb.firebaseio.com")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,8 +44,8 @@ class SignUpActivity : AppCompatActivity() {
 
                         else{
                             databaseReference.child("Users").child(username).child("Username").setValue(username)
-                            databaseReference.child("Users").child(email).child("Username").setValue(email)
-                            databaseReference.child("Users").child(password).child("Username").setValue(password)
+                            databaseReference.child("Users").child(email).child("Email").setValue(email)
+                            databaseReference.child("Users").child(password).child("Password").setValue(password)
 
                             Toast.makeText(this@SignUpActivity, "Registration Succesful", Toast.LENGTH_SHORT).show()
                             finish()
