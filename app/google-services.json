@@ -1,33 +1,34 @@
 {
   "project_info": {
-    "project_number": "465204362913",
-    "project_id": "foodstop-213a0",
-    "storage_bucket": "foodstop-213a0.appspot.com"
+    "project_number": "549160140843",
+    "firebase_url": "https://foodstop-9c45c-default-rtdb.firebaseio.com",
+    "project_id": "foodstop-9c45c",
+    "storage_bucket": "foodstop-9c45c.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:465204362913:android:4ba8dcb259551b388dfae0",
+        "mobilesdk_app_id": "1:549160140843:android:7d91b002ed323213d1aa6e",
         "android_client_info": {
           "package_name": "com.mobdeve.s11.group16.foodstop"
         }
       },
       "oauth_client": [
         {
-          "client_id": "465204362913-3p7p7gs4k8g9qfhaq9gjm6b1l8dkjihc.apps.googleusercontent.com",
+          "client_id": "549160140843-np17r82o7bimc2jf312vp0hcfemptv3c.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAuPt9rtq-DOBROhdFXJoMMwjnqM4ymJ44"
+          "current_key": "AIzaSyDKAz4rFLUJl5XS0JVoOpxqI9AgPStZVlQ"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "465204362913-3p7p7gs4k8g9qfhaq9gjm6b1l8dkjihc.apps.googleusercontent.com",
+              "client_id": "549160140843-np17r82o7bimc2jf312vp0hcfemptv3c.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
