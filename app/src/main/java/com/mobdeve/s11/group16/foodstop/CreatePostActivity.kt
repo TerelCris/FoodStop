@@ -1,6 +1,7 @@
 package com.mobdeve.s11.group16.foodstop
 
 import android.app.Activity
+import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -25,6 +26,8 @@ class CreatePostActivity : AppCompatActivity() {
     private lateinit var postBinding : PostLayoutBinding
     private var addImage: Uri? = null
     private val databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://foodstop-9c45c-default-rtdb.firebaseio.com")
+    private val storageReference = FirebaseDatabase.getInstance().getReferenceFromUrl("gs://foodstop-9c45c.appspot.com")
+    val progressDialog = ProgressDialog(this)
 
     private val createPostResultLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
@@ -76,7 +79,6 @@ class CreatePostActivity : AppCompatActivity() {
                         databaseReference.child("Users").child(username).child("Description").setValue(description)
                         databaseReference.child("Users").child(username).child("Ingredient").setValue(ingredient)
                         databaseReference.child("Users").child(username).child("Procedure").setValue(procedure)
-
                         finish()
                     }
 

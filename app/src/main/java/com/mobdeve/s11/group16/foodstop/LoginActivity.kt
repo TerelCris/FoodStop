@@ -55,9 +55,6 @@ class LoginActivity : AppCompatActivity() {
                                 Toast.makeText(this@LoginActivity, "Password is Incorrect", Toast.LENGTH_SHORT).show()
                             }
                         }
-                        else{
-                            Toast.makeText(this@LoginActivity, "Password is Incorrect", Toast.LENGTH_SHORT).show()
-                        }
                     }
 
                     override fun onCancelled(databaseError: DatabaseError) {
@@ -66,8 +63,5 @@ class LoginActivity : AppCompatActivity() {
                 finish()
             }
         })
-
-
-
     }
 }
