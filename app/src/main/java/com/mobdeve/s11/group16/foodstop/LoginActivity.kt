@@ -45,7 +45,7 @@ class LoginActivity : AppCompatActivity() {
                         if(dataSnapshot.hasChild(username)){
                             val getPassword = dataSnapshot.child(username).child(password).value
 
-                            if(getPassword?.equals(password)!!){
+                            if(getPassword != null && getPassword?.equals(password)!!){
                                 Toast.makeText(this@LoginActivity, "Login Successful", Toast.LENGTH_SHORT).show()
                                 val intent : Intent = Intent(this@LoginActivity, MainActivity::class.java)
                                 startActivity(intent)
