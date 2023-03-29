@@ -52,11 +52,11 @@ class LoginActivity : AppCompatActivity() {
                             }
 
                             else{
-                                Toast.makeText(this@LoginActivity, "Incorrect Password", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this@LoginActivity, "Password is Incorrect", Toast.LENGTH_SHORT).show()
                             }
                         }
                         else{
-                            Toast.makeText(this@LoginActivity, "Incorrect Password", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@LoginActivity, "Password is Incorrect", Toast.LENGTH_SHORT).show()
                         }
                     }
 

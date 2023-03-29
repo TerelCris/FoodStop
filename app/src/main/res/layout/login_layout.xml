@@ -6,15 +6,18 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/signin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/signin"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="50dp"
+        android:gravity="center"
         android:text="Sign in"
         android:textColor="@color/black"
-        android:textSize="35dp"
-        android:textStyle="bold"
-        android:layout_margin="50dp"
-        android:gravity="center"/>
+        android:textSize="28dp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/username"
@@ -25,7 +28,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        android:background="#F0F3FA"
+
         android:drawableLeft="@drawable/baseline_person_outline_24"
         android:drawablePadding="20dp"
         android:hint="Username"
@@ -42,7 +45,6 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        android:background="#F0F3FA"
         android:drawableLeft="@drawable/baseline_info_24"
         android:drawablePadding="20dp"
         android:hint="Password"
@@ -57,11 +59,24 @@
         android:layout_below="@id/password"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         android:backgroundTint="#ffd700"
         android:text="LOGIN" />
+
+    <ImageView
+        android:id="@+id/loginIcon"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_below="@id/password"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginBottom="20dp"
+        android:src="@drawable/login_icon" />
 
     <TextView
         android:layout_width="wrap_content"
