@@ -72,10 +72,10 @@ class CreatePostActivity : AppCompatActivity() {
                 databaseReference.child("Users").addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
                         databaseReference.child("Posts").child(username).child("Image").setValue(image)
-                        databaseReference.child("Users").child(username).child("Title").setValue(title)
-                        databaseReference.child("Users").child(username).child("Description").setValue(description)
-                        databaseReference.child("Users").child(username).child("Ingredient").setValue(ingredient)
-                        databaseReference.child("Users").child(username).child("Procedure").setValue(procedure)
+                        databaseReference.child("Posts").child(username).child("Title").setValue(title)
+                        databaseReference.child("Posts").child(username).child("Description").setValue(description)
+                        databaseReference.child("Posts").child(username).child("Ingredient").setValue(ingredient)
+                        databaseReference.child("Posts").child(username).child("Procedure").setValue(procedure)
 
                         finish()
                     }
