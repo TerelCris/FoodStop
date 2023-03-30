@@ -6,9 +6,11 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import com.mobdeve.s11.group16.foodstop.databinding.MyaccountLayoutBinding
 
 class UserAccountActivity : AppCompatActivity() {
+    private val databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://foodstop-9c45c-default-rtdb.firebaseio.com")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,15 +28,10 @@ class UserAccountActivity : AppCompatActivity() {
         })
 
         viewBinding.btnSave.setOnClickListener(View.OnClickListener {
-            val intent : Intent = Intent()
+            var username = viewBinding.tvEditName.toString()
+            var email = viewBinding.tvEditEmail.toString()
+            var password = viewBinding.tvEditPass.toString()
 
-            intent.putExtra(Keys.EMAIL_KEY.name, viewBinding.tvEditName.editText.toString())
-            intent.putExtra(Keys.USERNAME_KEY.name, viewBinding.tvEditName.editText.toString())
-            intent.putExtra(Keys.PASSWORD_KEY.name, viewBinding.tvEditPass.editText.toString())
-
-            setResult(Activity.RESULT_OK, intent)
-
-            finish()
         })
     }
 }

@@ -37,21 +37,15 @@ import com.mobdeve.s11.group16.foodstop.databinding.RvLayoutBinding
 import com.squareup.picasso.Picasso
 
 class CreatePostActivity : AppCompatActivity() {
-    private lateinit var rvBinding : RvLayoutBinding
-    private lateinit var postBinding : PostLayoutBinding
     var addImage: Uri? = null
-    var btnAdd: Button = findViewById(R.id.ib_add)
-    var btnPost: Button = findViewById(R.id.postBtn)
-    var txtTitle: EditText = findViewById(R.id.postTitleEt)
-    var txtDesc: EditText = findViewById(R.id.postDescriptionEt)
-    var txtIng: EditText = findViewById(R.id.postIngredientEt)
-    var txtProc: EditText = findViewById(R.id.postProcedureEt)
-    var imgAdd: ImageView = findViewById(R.id.post_img)
     var filePathUri: Uri? = null
     var storageReference: StorageReference = FirebaseStorage.getInstance().reference
     var databaseReference: DatabaseReference = FirebaseDatabase.getInstance().reference
     val image_Request_Code = 7
     var progressDialog: ProgressDialog = ProgressDialog(this)
+    val viewBinding : RvLayoutBinding = RvLayoutBinding.inflate(layoutInflater)
+    val createBinding : CreatePostLayoutBinding = CreatePostLayoutBinding.inflate(layoutInflater)
+    val postBinding : PostLayoutBinding = PostLayoutBinding.inflate(layoutInflater)
 
     private val createPostResultLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
@@ -59,7 +53,7 @@ class CreatePostActivity : AppCompatActivity() {
             try {
                 if (result.data != null) {
                     addImage = result.data!!.data
-                    Picasso.get().load(addImage).into(rvBinding.ivCover)
+                    Picasso.get().load(addImage).into(viewBinding.ivCover)
                     Picasso.get().load(addImage).into(postBinding.postIv)
                 }
             } catch (exception: Exception) {
@@ -68,33 +62,28 @@ class CreatePostActivity : AppCompatActivity() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val viewBinding : CreatePostLayoutBinding = CreatePostLayoutBinding.inflate(layoutInflater)
-        setContentView(viewBinding.root)
-
-        val userBinding : PostLayoutBinding = PostLayoutBinding.inflate(layoutInflater)
-        setContentView(viewBinding.root)
 
         storageReference = FirebaseStorage.getInstance().getReference("Images")
         databaseReference = FirebaseDatabase.getInstance().getReference("https://foodstop-9c45c-default-rtdb.firebaseio.com/")
 
-        viewBinding.ibAdd.setOnClickListener(View.OnClickListener {
+        createBinding.ibAdd.setOnClickListener(View.OnClickListener {
             val i = Intent()
             i.type = "Post Image/*"
             i.action = Intent.ACTION_GET_CONTENT
             createPostResultLauncher.launch(Intent.createChooser(i, "Select Image"))
         })
 
-        btnPost.setOnClickListener {
+        createBinding.postBtn.setOnClickListener {
             uploadImage()
         }
 
-        viewBinding.postBtn.setOnClickListener(View.OnClickListener {
-            var image = viewBinding.ibAdd.text.toString()
-            var title = viewBinding.postTitleEt.text.toString()
-            var description = viewBinding.postDescriptionEt.text.toString()
-            var ingredient = viewBinding.postIngredientEt.text.toString()
-            var procedure = viewBinding.postProcedureEt.text.toString()
-            var username = userBinding.userTv.text.toString()
+       createBinding.postBtn.setOnClickListener(View.OnClickListener {
+            var image = createBinding.ibAdd.text.toString()
+            var title = createBinding.postTitleEt.text.toString()
+            var description = createBinding.postDescriptionEt.text.toString()
+            var ingredient = createBinding.postIngredientEt.text.toString()
+            var procedure = createBinding.postProcedureEt.text.toString()
+            var username = postBinding.userTv.text.toString()
 
 
             if(image.isEmpty() && title.isEmpty() && description.isEmpty() && ingredient.isEmpty() && procedure.isEmpty() && username.isEmpty()){
@@ -129,7 +118,7 @@ class CreatePostActivity : AppCompatActivity() {
 
             try {
                 val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, filePathUri)
-                imgAdd.setImageBitmap(bitmap)
+                createBinding.postImg.setImageBitmap(bitmap)
             } catch (e: IOException) {e.printStackTrace()
             }
         }
@@ -150,7 +139,7 @@ class CreatePostActivity : AppCompatActivity() {
             )!!)
             storageReference2.putFile(filePathUri!!)
                 .addOnSuccessListener { taskSnapshot ->
-                    val tempImageName = txtTitle.text.toString().trim()
+                    val tempImageName = createBinding.postTitleEt.text.toString().trim()
                     progressDialog.dismiss()
                     Toast.makeText(applicationContext, "Image Uploaded Successfully ", Toast.LENGTH_LONG).show()
                     @Suppress("VisibleForTests")
