@@ -47,7 +47,7 @@ class LoginActivity : AppCompatActivity() {
 
                             if(getPassword != null && getPassword?.equals(password)!!){
                                 Toast.makeText(this@LoginActivity, "Login Successful", Toast.LENGTH_SHORT).show()
-                                val intent : Intent = Intent(this@LoginActivity, MainActivity::class.java)
+                                val intent = Intent(this@LoginActivity, MainActivity::class.java)
                                 startActivity(intent)
                             }
                             else{
