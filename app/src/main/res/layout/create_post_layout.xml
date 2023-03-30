@@ -36,17 +36,13 @@
                 android:layout_height="300dp"
                 android:visibility="gone" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/ib_add"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:backgroundTint="#1B8C41"
-                android:drawableLeft="@drawable/add_image"
                 android:fontFamily="sans-serif-medium"
-                android:padding="10dp"
-                android:text="Add Image"
-                android:textStyle="normal"
                 app:srcCompat="@drawable/addicon" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
