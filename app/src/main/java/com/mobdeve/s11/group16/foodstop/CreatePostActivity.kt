@@ -36,6 +36,8 @@ import com.mobdeve.s11.group16.foodstop.databinding.MyaccountLayoutBinding
 import com.mobdeve.s11.group16.foodstop.databinding.PostLayoutBinding
 import com.mobdeve.s11.group16.foodstop.databinding.RvLayoutBinding
 import com.squareup.picasso.Picasso
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class CreatePostActivity : AppCompatActivity() {
@@ -99,15 +101,26 @@ class CreatePostActivity : AppCompatActivity() {
                     val downloadUrl: Task<Uri> = taskSnapshot.storage.downloadUrl.addOnCompleteListener { task ->
                         val t = task.result.toString()
 
+                        // Get the current date
+                        val currentDate = Date()
+
+                        // Format the date using SimpleDateFormat
+                        val dateFormat = SimpleDateFormat("MM-dd-yyyy", Locale.getDefault())
+                        val formattedDate = dateFormat.format(currentDate)
+
                         val newPost = mRef.push()
                         newPost.child("Title").setValue(txtTitle)
                         newPost.child("Description").setValue(txtDesc)
                         newPost.child("Image").setValue(task.result.toString())
+
+                        // Set the date
+                        newPost.child("Date").setValue(formattedDate)
                     }
                     finish()
                 }
             }
         })
+
     }
 
 
