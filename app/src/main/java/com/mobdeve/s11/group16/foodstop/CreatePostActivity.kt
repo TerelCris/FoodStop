@@ -51,12 +51,9 @@ class CreatePostActivity : AppCompatActivity() {
     private lateinit var imageButton: ImageButton
     private lateinit var title: EditText
     private lateinit var description: EditText
-    private lateinit var ingredient: EditText
-    private lateinit var procedure: EditText
     private lateinit var postBtn: Button
     private val galleryCode = 1
     private var imageUrl: Uri? = null
-    //var progressDialog: ProgressDialog = ProgressDialog(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,8 +64,6 @@ class CreatePostActivity : AppCompatActivity() {
         imageButton=findViewById(R.id.ib_add)
         title=findViewById(R.id.postTitleEt)
         description=findViewById(R.id.postDescriptionEt)
-        ingredient=findViewById(R.id.postIngredientEt)
-        procedure=findViewById(R.id.postProcedureEt)
         postBtn=findViewById(R.id.postBtn)
         mDatabase = FirebaseDatabase.getInstance()
         mRef = mDatabase.reference.child("Posts")
@@ -81,39 +76,6 @@ class CreatePostActivity : AppCompatActivity() {
             i.action = Intent.ACTION_GET_CONTENT
             createPostResultLauncher.launch(Intent.createChooser(i, "Select Image"))
         })
-
-//       createBinding.postBtn.setOnClickListener(View.OnClickListener {
-//            var image = createBinding.ibAdd.text.toString()
-//            var title = createBinding.postTitleEt.text.toString()
-//            var description = createBinding.postDescriptionEt.text.toString()
-//            var ingredient = createBinding.postIngredientEt.text.toString()
-//            var procedure = createBinding.postProcedureEt.text.toString()
-//            var username = postBinding.userTv.text.toString()
-//
-//
-//            if(image.isEmpty() && title.isEmpty() && description.isEmpty() && ingredient.isEmpty() && procedure.isEmpty() && username.isEmpty()){
-//                Toast.makeText(this@CreatePostActivity, "Please answer all required fields", Toast.LENGTH_SHORT).show()
-//                return@OnClickListener
-//            }
-//
-//            else{
-//                databaseReference.child("Users").addListenerForSingleValueEvent(object : ValueEventListener {
-//                    override fun onDataChange(dataSnapshot: DataSnapshot) {
-//                        databaseReference.child("Posts").child(username).child("Image").setValue(image)
-//                        databaseReference.child("Posts").child(username).child("Title").setValue(title)
-//                        databaseReference.child("Posts").child(username).child("Description").setValue(description)
-//                        databaseReference.child("Posts").child(username).child("Ingredient").setValue(ingredient)
-//                        databaseReference.child("Posts").child(username).child("Procedure").setValue(procedure)
-//                        finish()
-//                    }
-//
-//                    override fun onCancelled(databaseError: DatabaseError) {
-//                    }
-//                })
-//                finish()
-//            }
-//        })
-
     }
 
     private val createPostResultLauncher = registerForActivityResult(
@@ -130,10 +92,8 @@ class CreatePostActivity : AppCompatActivity() {
         postBtn.setOnClickListener(View.OnClickListener {
             val txtTitle = title.text.toString().trim()
             val txtDesc = description.text.toString().trim()
-            val txtIng = ingredient.text.toString().trim()
-            val txtProc = procedure.text.toString().trim()
 
-            if (txtTitle.isNotEmpty() && txtDesc.isNotEmpty() && txtIng.isNotEmpty() && txtProc.isNotEmpty() && imageUrl!=null) {
+            if (txtTitle.isNotEmpty() && txtDesc.isNotEmpty() && imageUrl!=null) {
                 val filePath: StorageReference = mStorage.reference.child("imagePost").child(imageUrl!!.lastPathSegment.toString())
                 filePath.putFile(imageUrl!!).addOnSuccessListener { taskSnapshot ->
                     val downloadUrl: Task<Uri> = taskSnapshot.storage.downloadUrl.addOnCompleteListener { task ->
@@ -142,9 +102,7 @@ class CreatePostActivity : AppCompatActivity() {
                         val newPost = mRef.push()
                         newPost.child("Title").setValue(txtTitle)
                         newPost.child("Description").setValue(txtDesc)
-                        newPost.child("Ingredient").setValue(txtIng)
-                        newPost.child("Procedure").setValue(txtProc)
-                        newPost.child("image").setValue(task.result.toString())
+                        newPost.child("Image").setValue(task.result.toString())
                     }
                     finish()
                 }

@@ -92,6 +92,7 @@
                     android:id="@+id/postDescriptionEt"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
+                    android:hint="Add Meal's Description, Ingredients and Procedure"
                     android:background="@drawable/shape_border_create_post"
                     android:gravity="top"
                     android:paddingLeft="5dp"
@@ -99,53 +100,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/Description" />
 
-                <TextView
-                    android:id="@+id/Ingredients"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="Ingredients"
-                    android:textColor="#3F3F3F"
-                    android:textSize="18dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/postDescriptionEt"
-                    tools:layout_editor_absoluteX="20dp" />
 
-                <EditText
-                    android:id="@+id/postIngredientEt"
-                    android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:background="@drawable/shape_border_create_post"
-                    android:gravity="top"
-                    android:inputType="textPersonName"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/Ingredients" />
-
-                <TextView
-                    android:id="@+id/Procedure"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="Procedure"
-                    android:textColor="#3F3F3F"
-                    android:textSize="18dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/postIngredientEt"
-                    tools:layout_editor_absoluteX="20dp" />
-
-                <EditText
-                    android:id="@+id/postProcedureEt"
-                    android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:background="@drawable/shape_border_create_post"
-                    android:gravity="top"
-                    android:inputType="textPersonName"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/Procedure" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -153,9 +108,8 @@
                 android:id="@+id/postBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
+                android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:layout_marginRight="20dp"
                 android:backgroundTint="#1B8C41"
                 android:text="Post" />
 
