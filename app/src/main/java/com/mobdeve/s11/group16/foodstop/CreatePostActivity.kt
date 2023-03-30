@@ -146,10 +146,12 @@ class CreatePostActivity : AppCompatActivity() {
                         newPost.child("Procedure").setValue(txtProc)
                         newPost.child("image").setValue(task.result.toString())
                     }
+                    finish()
                 }
             }
         })
     }
+
 
 
 
