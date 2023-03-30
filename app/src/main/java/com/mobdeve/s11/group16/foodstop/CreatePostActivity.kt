@@ -39,19 +39,19 @@ import com.squareup.picasso.Picasso
 class CreatePostActivity : AppCompatActivity() {
     private lateinit var rvBinding : RvLayoutBinding
     private lateinit var postBinding : PostLayoutBinding
-    private var addImage: Uri? = null
-    private var btnAdd: Button = findViewById(R.id.ib_add)
-    private var btnPost: Button = findViewById(R.id.postBtn)
-    private var txtTitle: EditText = findViewById(R.id.postTitleEt)
-    private var txtDesc: EditText = findViewById(R.id.postDescriptionEt)
-    private var txtIng: EditText = findViewById(R.id.postIngredientEt)
-    private var txtProc: EditText = findViewById(R.id.postProcedureEt)
-    private var imgAdd: ImageView = findViewById(R.id.post_img)
-    private var filePathUri: Uri? = null
-    private var storageReference: StorageReference = FirebaseStorage.getInstance().reference
-    private var databaseReference: DatabaseReference = FirebaseDatabase.getInstance().reference
-    private val image_Request_Code = 7
-    private var progressDialog: ProgressDialog = ProgressDialog(this)
+    var addImage: Uri? = null
+    var btnAdd: Button = findViewById(R.id.ib_add)
+    var btnPost: Button = findViewById(R.id.postBtn)
+    var txtTitle: EditText = findViewById(R.id.postTitleEt)
+    var txtDesc: EditText = findViewById(R.id.postDescriptionEt)
+    var txtIng: EditText = findViewById(R.id.postIngredientEt)
+    var txtProc: EditText = findViewById(R.id.postProcedureEt)
+    var imgAdd: ImageView = findViewById(R.id.post_img)
+    var filePathUri: Uri? = null
+    var storageReference: StorageReference = FirebaseStorage.getInstance().reference
+    var databaseReference: DatabaseReference = FirebaseDatabase.getInstance().reference
+    val image_Request_Code = 7
+    var progressDialog: ProgressDialog = ProgressDialog(this)
 
     private val createPostResultLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
