@@ -19,11 +19,6 @@ class UserAccountActivity : AppCompatActivity() {
         val viewBinding : MyaccountLayoutBinding = MyaccountLayoutBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
 
-        if(user == null){
-            val intent : Intent = Intent(this@UserAccountActivity, LoginActivity::class.java)
-            this.startActivity(intent)
-        }
-
         viewBinding.btnLogout.setOnClickListener(View.OnClickListener {
             FirebaseAuth.getInstance().signOut()
             val intent : Intent = Intent(this@UserAccountActivity, LoginActivity::class.java)
@@ -40,11 +35,6 @@ class UserAccountActivity : AppCompatActivity() {
             setResult(Activity.RESULT_OK, intent)
 
             finish()
-        })
-
-        viewBinding.btnLogout.setOnClickListener(View.OnClickListener {
-            val intent : Intent = Intent(this@UserAccountActivity, LoginActivity::class.java)
-            this.startActivity(intent)
         })
     }
 }

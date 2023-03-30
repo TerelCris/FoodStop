@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity() {
 
         viewBinding.ibUser.setOnClickListener(View.OnClickListener {
             val intent = Intent(this@MainActivity, UserAccountActivity::class.java)
-            this.startActivity(intent)
+            startActivity(intent)
         })
 
         val snapHelper: SnapHelper = PagerSnapHelper()

@@ -50,11 +50,9 @@ class LoginActivity : AppCompatActivity() {
                                 val intent : Intent = Intent(this@LoginActivity, MainActivity::class.java)
                                 startActivity(intent)
                             }
-
-                            else{
-                                Toast.makeText(this@LoginActivity, "Password is Incorrect", Toast.LENGTH_SHORT).show()
-                            }
-
+                        }
+                        else{
+                            Toast.makeText(this@LoginActivity, "Your Username or Password may be incorrect", Toast.LENGTH_SHORT).show()
                         }
                     }
 
