@@ -39,13 +39,12 @@ class LoginActivity : AppCompatActivity() {
             }
 
             else{
-                databaseReference.child("Users").addListenerForSingleValueEvent(object :
-                    ValueEventListener {
+                databaseReference.child("Users").addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
                         if(dataSnapshot.hasChild(username)){
-                            val getPassword = dataSnapshot.child(username).child(password).value
+                            val getPassword = dataSnapshot.child(username).child("Password").value // get the actual password from the database
 
-                            if(getPassword != null && getPassword?.equals(password)!!){
+                            if(getPassword != null && getPassword.equals(password)){ // compare the entered password with the password retrieved from the database
                                 Toast.makeText(this@LoginActivity, "Login Successful", Toast.LENGTH_SHORT).show()
                                 val intent = Intent(this@LoginActivity, MainActivity::class.java)
                                 startActivity(intent)
@@ -62,6 +61,7 @@ class LoginActivity : AppCompatActivity() {
                     override fun onCancelled(databaseError: DatabaseError) {
                     }
                 })
+
             }
         })
     }
