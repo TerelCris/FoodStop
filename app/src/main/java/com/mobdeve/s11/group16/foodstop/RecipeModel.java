@@ -1,6 +1,7 @@
 package com.mobdeve.s11.group16.foodstop;
 
 import android.view.View;
+import android.widget.Button;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -11,17 +12,19 @@ public class RecipeModel {
     String Username;
     String Image;
     FloatingActionButton fab;
+    Button btnListener;
 
 
     public RecipeModel() {
     }
 
-    public RecipeModel(String title, String date, String username, String image, FloatingActionButton fab) {
+    public RecipeModel(String title, String date, String username, String image, FloatingActionButton fab,  Button btnListener) {
         Title = title;
         Date = date;
         Username = username;
         this.fab = fab;
         this.Image = image;
+        this.btnListener = btnListener;
     }
 
     public String getTitle() {
@@ -71,5 +74,12 @@ public class RecipeModel {
 
     public void setImage(String image) {
         this.Image = image;
+    }
+    public Button getBtnListener() {
+        return btnListener;
+    }
+
+    public void setBtnListener(Button btnListener) {
+        this.btnListener = btnListener;
     }
 }
