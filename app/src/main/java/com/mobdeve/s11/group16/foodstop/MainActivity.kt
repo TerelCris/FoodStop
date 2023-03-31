@@ -18,7 +18,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.mobdeve.s11.group16.foodstop.databinding.ActivityMainBinding
 import com.mobdeve.s11.group16.foodstop.databinding.PostLayoutBinding
 
-class MainActivity(private val recipeList: ArrayList<Recipe> = arrayListOf()) : AppCompatActivity() {
+class MainActivity(private val recipeList: MutableList<Recipe> = mutableListOf()) : AppCompatActivity() {
 
     private lateinit var database: FirebaseDatabase
     private lateinit var ref: DatabaseReference
@@ -47,7 +47,7 @@ class MainActivity(private val recipeList: ArrayList<Recipe> = arrayListOf()) : 
             override fun onChildAdded(snapshot : DataSnapshot, previousChildName: String?){
                 val recipe = snapshot.getValue(Recipe::class.java)
                 recipeList.add(recipe!!)
-                adapter.notifyDataSetChanged()
+                adapter.notifyItemInserted(recipeList.size - 1) // Notify adapter to update the UI
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
@@ -105,4 +105,5 @@ class MainActivity(private val recipeList: ArrayList<Recipe> = arrayListOf()) : 
         this.recyclerView.adapter = adapter
         this.recyclerView.layoutManager = LinearLayoutManager(this)
     }
+
 }
