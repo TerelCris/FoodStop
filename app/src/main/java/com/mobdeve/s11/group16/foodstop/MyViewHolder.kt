@@ -28,12 +28,6 @@ class MyViewHolder(private val viewBinding: RvLayoutBinding): RecyclerView.ViewH
         fabFav.isActivated = recipe.favorite
         tvBody.text = recipe.body
     }
-
-
-    fun getBtnListener(): Button {
-        return this.btnListener
-    }
-
     fun setFavoriteOnClickListener(onClickListener: OnClickListener){
         fabFav.setOnClickListener(onClickListener)
         if(fabFav.isActivated){
