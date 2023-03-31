@@ -9,4 +9,6 @@ class Recipe(
     val date: String,
     var favorite: Boolean,
     var body: String?) {
+
+    private val recipeList = ArrayList<Recipe>()
 }

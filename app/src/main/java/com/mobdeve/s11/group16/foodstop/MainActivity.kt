@@ -13,64 +13,57 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
+import com.google.firebase.database.*
+import com.google.firebase.storage.FirebaseStorage
 import com.mobdeve.s11.group16.foodstop.databinding.ActivityMainBinding
 import com.mobdeve.s11.group16.foodstop.databinding.PostLayoutBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity(private val recipeList: ArrayList<Recipe>) : AppCompatActivity() {
 
-    var currentUsername: String? = null
-    var currentEmail: String? = null
-    var currentPassword: String? = null
-
-    companion object{
-        private val data = ArrayList<Recipe>()
-    }
-
-    private val recipeList: ArrayList<Recipe> = DataHelper.initializeData()
-
+    private lateinit var database: FirebaseDatabase
+    private lateinit var ref: DatabaseReference
+    private lateinit var storage: FirebaseStorage
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: MyAdapter
 
-    private val postActivityLauncher = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()) { result: androidx.activity.result.ActivityResult ->
-
-        val viewBinding : PostLayoutBinding = PostLayoutBinding.inflate(layoutInflater)
-        setContentView(viewBinding.root)
-
-        if(result.resultCode == RESULT_OK){
-            val position = result.data?.getIntExtra(Keys.POSITION_KEY.name, 0)!!
-            this.adapter.notifyDataSetChanged()
-        }
-    }
-    private val createPostActivityLauncher = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()) { result: androidx.activity.result.ActivityResult ->
-
-        if(result.resultCode == RESULT_OK){
-            val image : Int = result.data?.getIntExtra(Keys.IMAGE_KEY.name, 0)!!
-            val author : String = result.data?.getStringExtra(Keys.USERNAME_KEY.name)!!
-            val date : String = result.data?.getStringExtra(Keys.DATE_KEY.name)!!
-            val favorite : Boolean = result.data?.getBooleanExtra(Keys.FAVORITE_KEY.name, false)!!
-            val title : String = result.data?.getStringExtra(Keys.TITLE_KEY.name)!!
-            val description : String = result.data?.getStringExtra(Keys.DESCRIPTION_KEY.name)!!
-            val ingredient : String = result.data?.getStringExtra(Keys.INGREDIENT_KEY.name)!!
-            val procedure : String = result.data?.getStringExtra(Keys.PROCEDURE_KEY.name)!!
-
-            val body = title + description + ingredient + procedure
-
-            val recipe = Recipe(image, title, author.toString(), date.toString(), favorite, body)
-
-            MainActivity.data.add(recipe)
-
-            this.adapter.notifyDataSetChanged()
-        }
-    }
-
+    private var currentUsername: String? = null
+    private var currentEmail: String? = null
+    private var currentPassword: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        database = FirebaseDatabase.getInstance()
+        ref = database.reference.child("Posts")
+        storage = FirebaseStorage.getInstance()
+
         val viewBinding : ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
+
+        val currentUserRef = ref.child(currentUsername.toString())
+        currentUserRef.addChildEventListener(object : ChildEventListener{
+            override fun onChildAdded(snapshot : DataSnapshot, previousChildName: String?){
+                val recipe = snapshot.getValue(Recipe::class.java)
+                recipeList.add(recipe!!)
+                adapter.notifyDataSetChanged()
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                //Handles Post Updates
+            }
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {
+                //Handles Pose Deletion
+            }
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                //Handles Post Errors
+            }
+        })
 
         viewBinding.recyclerView.setOnClickListener(View.OnClickListener {
             val intent = Intent(this@MainActivity, PostActivity::class.java)
@@ -106,8 +99,7 @@ class MainActivity : AppCompatActivity() {
         snapHelper.attachToRecyclerView(viewBinding.recyclerView)
 
         this.recyclerView = viewBinding.recyclerView
-        this.adapter = MyAdapter(this.recipeList, postActivityLauncher)
-        this.adapter = MyAdapter(this.recipeList, createPostActivityLauncher)
+        this.adapter = MyAdapter(this.recipeList)
         this.recyclerView.adapter = adapter
         this.recyclerView.layoutManager = LinearLayoutManager(this)
     }

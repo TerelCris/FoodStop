@@ -41,9 +41,9 @@ import java.util.*
 
 
 class CreatePostActivity : AppCompatActivity() {
-    private lateinit var mDatabase: FirebaseDatabase
-    private lateinit var mRef: DatabaseReference
-    private lateinit var mStorage: FirebaseStorage
+    private lateinit var database: FirebaseDatabase
+    private lateinit var ref: DatabaseReference
+    private lateinit var storage: FirebaseStorage
     private lateinit var imageButton: ImageButton
     private lateinit var title: EditText
     private lateinit var description: EditText
@@ -62,9 +62,9 @@ class CreatePostActivity : AppCompatActivity() {
         title=findViewById(R.id.postTitleEt)
         description=findViewById(R.id.postDescriptionEt)
         postBtn=findViewById(R.id.postBtn)
-        mDatabase = FirebaseDatabase.getInstance()
-        mRef = mDatabase.reference.child("Posts")
-        mStorage = FirebaseStorage.getInstance()
+        database = FirebaseDatabase.getInstance()
+        ref = database.reference.child("Posts")
+        storage = FirebaseStorage.getInstance()
 
         // get the passed currentUsername variable here
         currentUsername = intent.getStringExtra("username")
@@ -94,7 +94,7 @@ class CreatePostActivity : AppCompatActivity() {
             val txtDesc = description.text.toString().trim()
 
             if (txtTitle.isNotEmpty() && txtDesc.isNotEmpty() && imageUrl!=null) {
-                val filePath: StorageReference = mStorage.reference.child("imagePost").child(imageUrl!!.lastPathSegment.toString())
+                val filePath: StorageReference = storage.reference.child("imagePost").child(imageUrl!!.lastPathSegment.toString())
                 filePath.putFile(imageUrl!!).addOnSuccessListener { taskSnapshot ->
                     val downloadUrl: Task<Uri> = taskSnapshot.storage.downloadUrl.addOnCompleteListener { task ->
                         val t = task.result.toString()
@@ -105,7 +105,7 @@ class CreatePostActivity : AppCompatActivity() {
                         val dateFormat = SimpleDateFormat("MM-dd-yyyy", Locale.getDefault())
                         val formattedDate = dateFormat.format(currentDate)
 
-                        val currentUserRef = mRef.child(currentUsername.toString()).push()
+                        val currentUserRef = ref.child(currentUsername.toString()).push()
                         currentUserRef.child("Title").setValue(txtTitle)
                         currentUserRef.child("Description").setValue(txtDesc)
                         currentUserRef.child("Image").setValue(task.result.toString())

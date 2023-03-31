@@ -72,8 +72,8 @@ class FavoritesActivity : AppCompatActivity() {
         snapHelper.attachToRecyclerView(viewBinding.recyclerView)
 
         this.recyclerView = viewBinding.recyclerView
-        this.adapter = MyAdapter(this.recipeList, postActivityLauncher)
-        this.adapter = MyAdapter(this.recipeList, createPostActivityLauncher)
+        this.adapter = MyAdapter(this.recipeList)
+        this.adapter = MyAdapter(this.recipeList)
         this.recyclerView.adapter = adapter
         this.recyclerView.layoutManager = LinearLayoutManager(this)
     }

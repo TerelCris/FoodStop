@@ -8,8 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.mobdeve.s11.group16.foodstop.databinding.PostLayoutBinding
 import com.mobdeve.s11.group16.foodstop.databinding.RvLayoutBinding
+import com.squareup.picasso.Picasso
 
-class MyViewHolder(private val viewBinding: RvLayoutBinding, private val postBinding: PostLayoutBinding): RecyclerView.ViewHolder(viewBinding.root) {
+class MyViewHolder(private val viewBinding: RvLayoutBinding): RecyclerView.ViewHolder(viewBinding.root) {
     private val ivCover: ImageView = itemView.findViewById(R.id.iv_cover)
     private val tvTitle: TextView = itemView.findViewById(R.id.tv_title)
     private val tvAuthor:TextView = itemView.findViewById(R.id.tv_author)
@@ -20,10 +21,10 @@ class MyViewHolder(private val viewBinding: RvLayoutBinding, private val postBin
 
 
     fun bindData(recipe: Recipe){
-        ivCover.setImageResource(recipe.imageId)
+        Picasso.get().load(recipe.imageId).into(ivCover)
         tvTitle.text = recipe.title
         tvAuthor.text = recipe.author
-        tvDate.text = recipe.date.toString()
+        tvDate.text = recipe.date
         fabFav.isActivated = recipe.favorite
         tvBody.text = recipe.body
     }
