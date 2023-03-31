@@ -56,6 +56,7 @@ class CreatePostActivity : AppCompatActivity() {
     private lateinit var postBtn: Button
     private val galleryCode = 1
     private var imageUrl: Uri? = null
+    var currentUsername: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -103,18 +104,18 @@ class CreatePostActivity : AppCompatActivity() {
 
                         // Get the current date
                         val currentDate = Date()
-
                         // Format the date using SimpleDateFormat
                         val dateFormat = SimpleDateFormat("MM-dd-yyyy", Locale.getDefault())
                         val formattedDate = dateFormat.format(currentDate)
 
-                        val newPost = mRef.push()
-                        newPost.child("Title").setValue(txtTitle)
-                        newPost.child("Description").setValue(txtDesc)
-                        newPost.child("Image").setValue(task.result.toString())
+                        currentUsername = intent.getStringExtra("username")
 
+                        val currentUserRef = mRef.child("Users").child(currentUsername.toString()).push() // Create a new node for the user
+                        currentUserRef.child("Title").setValue(txtTitle)
+                        currentUserRef.child("Description").setValue(txtDesc)
+                        currentUserRef.child("Image").setValue(task.result.toString())
                         // Set the date
-                        newPost.child("Date").setValue(formattedDate)
+                        currentUserRef.child("Date").setValue(formattedDate)
                     }
                     finish()
                 }
@@ -122,9 +123,6 @@ class CreatePostActivity : AppCompatActivity() {
         })
 
     }
-
-
-
 
 }
 
