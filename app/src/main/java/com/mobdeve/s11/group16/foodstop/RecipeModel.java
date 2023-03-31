@@ -4,26 +4,22 @@ import android.view.View;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-
-
 public class RecipeModel {
 
     String Title;
     String Date;
     String Username;
-    String Image;
+    String image;
     FloatingActionButton fab;
 
-    public RecipeModel() {
-        // Required empty constructor
-    }
+
 
     public RecipeModel(String title, String date, String username, String image, FloatingActionButton fab) {
         Title = title;
         Date = date;
         Username = username;
         this.fab = fab;
-        this.Image = image;
+        this.image = image;
     }
 
     public String getTitle() {
@@ -68,10 +64,10 @@ public class RecipeModel {
     }
 
     public String getImage() {
-        return Image;
+        return image;
     }
 
     public void setImage(String image) {
-        this.Image = image;
+        this.image = image;
     }
 }
