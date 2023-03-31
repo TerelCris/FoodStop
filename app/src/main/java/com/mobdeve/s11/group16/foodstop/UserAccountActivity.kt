@@ -20,8 +20,15 @@ class UserAccountActivity : AppCompatActivity() {
     private lateinit var usernameEt : TextInputLayout
     private lateinit var emailEt : TextInputLayout
     private lateinit var passwordEt : TextInputLayout
+    var currentUsername: String? = null
+    var currentEmail: String? = null
+    var currentPassword: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        currentUsername = intent.getStringExtra("username")
+        currentPassword = intent.getStringExtra("password")
 
         val viewBinding : MyaccountLayoutBinding = MyaccountLayoutBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
@@ -34,24 +41,10 @@ class UserAccountActivity : AppCompatActivity() {
         this.emailEt = findViewById(R.id.tv_editEmail)
         this.passwordEt = findViewById(R.id.tv_editPass)
 
-        databaseReference.child("Users").addListenerForSingleValueEvent(object :
-            ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                if (dataSnapshot.hasChild(username)) {
-                    username = dataSnapshot.child("Users").child(username).child(username).value.toString()
-                    email = dataSnapshot.child("Users").child(username).child(email).value.toString()
-                    password = dataSnapshot.child("Users").child(username).child(password).value.toString()
+        usernameEt.editText!!.setText(currentUsername)
+        emailEt.editText!!.setText(currentEmail)
+        passwordEt.editText!!.setText(currentPassword)
 
-                    usernameEt.editText!!.setText(username)
-                    emailEt.editText!!.setText(email)
-                    passwordEt.editText!!.setText(password)
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
 
         viewBinding.btnLogout.setOnClickListener(View.OnClickListener {
             FirebaseAuth.getInstance().signOut()

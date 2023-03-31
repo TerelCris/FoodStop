@@ -13,6 +13,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.mobdeve.s11.group16.foodstop.databinding.LoginLayoutBinding
+import com.mobdeve.s11.group16.foodstop.databinding.SignupLayoutBinding
 
 
 class LoginActivity : AppCompatActivity() {
@@ -24,6 +25,9 @@ class LoginActivity : AppCompatActivity() {
         val viewBinding : LoginLayoutBinding = LoginLayoutBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
 
+        val userBinding : SignupLayoutBinding = SignupLayoutBinding.inflate(layoutInflater)
+        setContentView(viewBinding.root)
+
         viewBinding.startsingupbtn.setOnClickListener(View.OnClickListener {
             val intent : Intent = Intent(this@LoginActivity, SignUpActivity::class.java)
             this.startActivity(intent)
@@ -31,6 +35,7 @@ class LoginActivity : AppCompatActivity() {
 
         viewBinding.loginbtn.setOnClickListener(View.OnClickListener {
             var username = viewBinding.username.text.toString()
+            var email = userBinding.email.text.toString()
             var password = viewBinding.password.text.toString()
 
             if(username.isEmpty() && password.isEmpty()){
@@ -48,6 +53,8 @@ class LoginActivity : AppCompatActivity() {
                                 Toast.makeText(this@LoginActivity, "Login Successful", Toast.LENGTH_SHORT).show()
                                 val intent = Intent(this@LoginActivity, MainActivity::class.java)
                                 intent.putExtra("username", username)
+                                intent.putExtra("email", email)
+                                intent.putExtra("password", password)
                                 startActivity(intent)
                                 finish()
                             }

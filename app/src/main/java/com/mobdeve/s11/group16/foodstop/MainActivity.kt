@@ -19,6 +19,8 @@ import com.mobdeve.s11.group16.foodstop.databinding.PostLayoutBinding
 class MainActivity : AppCompatActivity() {
 
     var currentUsername: String? = null
+    var currentEmail: String? = null
+    var currentPassword: String? = null
 
     companion object{
         private val data = ArrayList<Recipe>()
@@ -77,6 +79,8 @@ class MainActivity : AppCompatActivity() {
 
         // get the passed currentUsername variable here
         currentUsername = intent.getStringExtra("username")
+        currentEmail = intent.getStringExtra("email")
+        currentPassword = intent.getStringExtra("password")
 
 
         viewBinding.ibCreate.setOnClickListener(View.OnClickListener {
@@ -92,6 +96,9 @@ class MainActivity : AppCompatActivity() {
 
         viewBinding.ibUser.setOnClickListener(View.OnClickListener {
             val intent = Intent(this@MainActivity, UserAccountActivity::class.java)
+            intent.putExtra("username", currentUsername)
+            intent.putExtra("email", currentEmail)
+            intent.putExtra("password", currentPassword)
             startActivity(intent)
         })
 
