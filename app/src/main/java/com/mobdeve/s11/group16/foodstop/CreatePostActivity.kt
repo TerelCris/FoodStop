@@ -41,12 +41,6 @@ import java.util.*
 
 
 class CreatePostActivity : AppCompatActivity() {
-    //var addImage: Uri? = null
-    //var storageReference: StorageReference = FirebaseStorage.getInstance().reference
-    //var databaseReference: DatabaseReference = FirebaseDatabase.getInstance().reference
-    //private val viewBinding : RvLayoutBinding = RvLayoutBinding.inflate(layoutInflater)
-    //private val createBinding : CreatePostLayoutBinding = CreatePostLayoutBinding.inflate(layoutInflater)
-    //private val postBinding : PostLayoutBinding = PostLayoutBinding.inflate(layoutInflater)
     private lateinit var mDatabase: FirebaseDatabase
     private lateinit var mRef: DatabaseReference
     private lateinit var mStorage: FirebaseStorage
@@ -125,6 +119,8 @@ class CreatePostActivity : AppCompatActivity() {
     }
 
 }
+
+
 
 
 
