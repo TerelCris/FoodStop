@@ -48,6 +48,7 @@ public class RetrieveDataRV extends AppCompatActivity {
                 RecipeModel recipeModel=snapshot.getValue(RecipeModel.class);
                 recipeMDList.add(recipeModel);
                 recipeAdapter.notifyDataSetChanged();
+                recyclerView.setAdapter(recipeAdapter);
             }
 
             @Override

@@ -113,6 +113,7 @@ class CreatePostActivity : AppCompatActivity() {
                         newPost.child("Date").setValue(formattedDate)
 
                         val intent = Intent(this@CreatePostActivity, RetrieveDataRV::class.java)
+                        startActivity(intent)
                     }
 //                    ref.child("Posts").addChildEventListener(object : ChildEventListener {
 //                        override fun onChildAdded(snapshot : DataSnapshot, previousChildName: String?){
