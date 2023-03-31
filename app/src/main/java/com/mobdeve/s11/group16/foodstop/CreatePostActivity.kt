@@ -115,34 +115,7 @@ class CreatePostActivity : AppCompatActivity() {
                         val intent = Intent(this@CreatePostActivity, RetrieveDataRV::class.java)
                         startActivity(intent)
                     }
-//                    ref.child("Posts").addChildEventListener(object : ChildEventListener {
-//                        override fun onChildAdded(snapshot : DataSnapshot, previousChildName: String?){
-//                            val post = snapshot.getValue(Recipe::class.java)
-//                            recipeList.add(post!!)
-//                            adapter.notifyItemInserted(recipeList.size - 1) // Notify adapter to update the UI
-//
-//                            // Add print statements to check if recipeList is being populated with data
-//                            println("Recipe added: ${post.title}, ${post.username}, ${post.date}, ${post.imageUrl}")
-//                            println("Recipe list size: ${recipeList.size}")
-//                        }
-//
-//                        override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-//                            //Handles Post Updates
-//                        }
-//
-//                        override fun onChildRemoved(snapshot: DataSnapshot) {
-//                            //Handles Post Deletion
-//                        }
-//
-//                        override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-//                            //Handles Post Movement
-//                        }
-//
-//                        override fun onCancelled(error: DatabaseError) {
-//                            //Handles Post Errors
-//                        }
-//                    })
-                    finish()
+
                 }
             }
         })
