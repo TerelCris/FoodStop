@@ -25,6 +25,8 @@ class MainActivity(private val recipeList: MutableList<Recipe> = mutableListOf()
     private lateinit var storage: FirebaseStorage
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: MyAdapter
+    private lateinit var recipeAdapter: RecipeAdapter
+    private var recipeMDList = mutableListOf<RecipeModel>()
 
     private var currentUsername: String? = null
     private var currentEmail: String? = null
@@ -42,18 +44,10 @@ class MainActivity(private val recipeList: MutableList<Recipe> = mutableListOf()
         val viewBinding : ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
 
-
-
-        viewBinding.recyclerView.setOnClickListener(View.OnClickListener {
-            val intent = Intent(this@MainActivity, PostActivity::class.java)
-            this.startActivity(intent)
-        })
-
         // get the passed currentUsername variable here
         currentUsername = intent.getStringExtra("username")
         currentEmail = intent.getStringExtra("email")
         currentPassword = intent.getStringExtra("password")
-
 
         viewBinding.ibCreate.setOnClickListener(View.OnClickListener {
             val intent = Intent(this@MainActivity, CreatePostActivity::class.java)
@@ -81,6 +75,27 @@ class MainActivity(private val recipeList: MutableList<Recipe> = mutableListOf()
         this.adapter = MyAdapter(this.recipeList)
         this.recyclerView.adapter = adapter
         this.recyclerView.layoutManager = LinearLayoutManager(this)
+
+        recyclerView = viewBinding.recyclerView
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
+        recipeAdapter = RecipeAdapter(this, recipeMDList)
+        recyclerView.adapter = recipeAdapter
+
+        ref.addChildEventListener(object : ChildEventListener {
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                val recipeModel = snapshot.getValue(RecipeModel::class.java)
+                recipeModel?.let { recipeMDList.add(it) }
+                recipeAdapter.notifyDataSetChanged()
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
+            override fun onChildRemoved(snapshot: DataSnapshot) {}
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
+            override fun onCancelled(error: DatabaseError) {}
+        })
+
+
     }
 
 }

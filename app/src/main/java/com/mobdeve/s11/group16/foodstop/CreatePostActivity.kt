@@ -112,7 +112,7 @@ class CreatePostActivity : AppCompatActivity() {
                         // Set the date
                         newPost.child("Date").setValue(formattedDate)
 
-                        val intent = Intent(this@CreatePostActivity, RetrieveDataRV::class.java)
+                        val intent = Intent(this@CreatePostActivity, MainActivity::class.java)
                         startActivity(intent)
                     }
 

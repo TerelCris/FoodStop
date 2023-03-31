@@ -9,17 +9,19 @@ public class RecipeModel {
     String Title;
     String Date;
     String Username;
-    String image;
+    String Image;
     FloatingActionButton fab;
 
 
+    public RecipeModel() {
+    }
 
     public RecipeModel(String title, String date, String username, String image, FloatingActionButton fab) {
         Title = title;
         Date = date;
         Username = username;
         this.fab = fab;
-        this.image = image;
+        this.Image = image;
     }
 
     public String getTitle() {
@@ -64,10 +66,10 @@ public class RecipeModel {
     }
 
     public String getImage() {
-        return image;
+        return Image;
     }
 
     public void setImage(String image) {
-        this.image = image;
+        this.Image = image;
     }
 }

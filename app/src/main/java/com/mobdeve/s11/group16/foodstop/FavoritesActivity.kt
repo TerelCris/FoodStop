@@ -11,51 +11,42 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
+import com.google.firebase.database.*
+import com.google.firebase.storage.FirebaseStorage
+import com.mobdeve.s11.group16.foodstop.databinding.ActivityMainBinding
 import com.mobdeve.s11.group16.foodstop.databinding.FavoritesBinding
 
-class FavoritesActivity : AppCompatActivity() {
+class FavoritesActivity(private val recipeList: MutableList<Recipe> = mutableListOf()) : AppCompatActivity(){
 
-    private val recipeList: ArrayList<Recipe> = DataHelper.initializeData()
-
+    private lateinit var database: FirebaseDatabase
+    private lateinit var ref: DatabaseReference
+    private lateinit var storage: FirebaseStorage
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: MyAdapter
+    private lateinit var recipeAdapter: RecipeAdapter
+    private var recipeMDList = mutableListOf<RecipeModel>()
 
-    private val postActivityLauncher = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()) { result: androidx.activity.result.ActivityResult ->
+    private var currentUsername: String? = null
+    private var currentEmail: String? = null
+    private var currentPassword: String? = null
 
-        if(result.resultCode == RESULT_OK){
-            val position = result.data?.getIntExtra(Keys.POSITION_KEY.name, 0)!!
-            this.adapter.notifyDataSetChanged()
-        }
-    }
-    private val createPostActivityLauncher = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()) { result: androidx.activity.result.ActivityResult ->
-
-        if(result.resultCode == RESULT_OK){
-            val title : String = result.data?.getStringExtra(Keys.TITLE_KEY.name)!!
-            val description : String = result.data?.getStringExtra(Keys.DESCRIPTION_KEY.name)!!
-            val ingredient : String = result.data?.getStringExtra(Keys.INGREDIENT_KEY.name)!!
-            val procedure : String = result.data?.getStringExtra(Keys.PROCEDURE_KEY.name)!!
-
-            this.adapter.notifyDataSetChanged()
-        }
-    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val viewBinding : FavoritesBinding = FavoritesBinding.inflate(layoutInflater)
+        val viewBinding: FavoritesBinding = FavoritesBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
 
-        viewBinding.recyclerView.setOnClickListener(View.OnClickListener {
-            val intent = Intent(this@FavoritesActivity, PostActivity::class.java)
-            this.startActivity(intent)
-        })
+        database = FirebaseDatabase.getInstance()
+        ref = database.reference.child("Posts")
+        storage = FirebaseStorage.getInstance()
+
+
 
         viewBinding.ibCreate.setOnClickListener(View.OnClickListener {
             val intent = Intent(this@FavoritesActivity, CreatePostActivity::class.java)
-            this.startActivity(intent)
+            intent.putExtra("username", currentUsername)
+            startActivity(intent)
         })
 
         viewBinding.btnAll.setOnClickListener(View.OnClickListener {
@@ -65,7 +56,10 @@ class FavoritesActivity : AppCompatActivity() {
 
         viewBinding.ibUser.setOnClickListener(View.OnClickListener {
             val intent = Intent(this@FavoritesActivity, UserAccountActivity::class.java)
-            this.startActivity(intent)
+            intent.putExtra("username", currentUsername)
+            intent.putExtra("email", currentEmail)
+            intent.putExtra("password", currentPassword)
+            startActivity(intent)
         })
 
         val snapHelper: SnapHelper = PagerSnapHelper()
@@ -73,8 +67,31 @@ class FavoritesActivity : AppCompatActivity() {
 
         this.recyclerView = viewBinding.recyclerView
         this.adapter = MyAdapter(this.recipeList)
-        this.adapter = MyAdapter(this.recipeList)
         this.recyclerView.adapter = adapter
         this.recyclerView.layoutManager = LinearLayoutManager(this)
+
+        recyclerView = viewBinding.recyclerView
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
+        recipeAdapter = RecipeAdapter(this, recipeMDList)
+        recyclerView.adapter = recipeAdapter
+
+        ref.addChildEventListener(object : ChildEventListener {
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                val recipeModel = snapshot.getValue(RecipeModel::class.java)
+                recipeModel?.let { recipeMDList.add(it) }
+                recipeAdapter.notifyDataSetChanged()
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
+            override fun onChildRemoved(snapshot: DataSnapshot) {}
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
+            override fun onCancelled(error: DatabaseError) {}
+        })
+
+        // get the passed currentUsername variable here
+        currentUsername = intent.getStringExtra("username")
+        currentEmail = intent.getStringExtra("email")
+        currentPassword = intent.getStringExtra("password")
     }
 }
