@@ -18,7 +18,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.mobdeve.s11.group16.foodstop.databinding.ActivityMainBinding
 import com.mobdeve.s11.group16.foodstop.databinding.PostLayoutBinding
 
-class MainActivity(private val recipeList: ArrayList<Recipe>) : AppCompatActivity() {
+class MainActivity(private val recipeList: ArrayList<Recipe> = arrayListOf()) : AppCompatActivity() {
 
     private lateinit var database: FirebaseDatabase
     private lateinit var ref: DatabaseReference
@@ -29,6 +29,8 @@ class MainActivity(private val recipeList: ArrayList<Recipe>) : AppCompatActivit
     private var currentUsername: String? = null
     private var currentEmail: String? = null
     private var currentPassword: String? = null
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
