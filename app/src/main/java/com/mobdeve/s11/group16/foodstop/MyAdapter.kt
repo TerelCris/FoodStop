@@ -33,6 +33,8 @@ class MyAdapter(
             intent.putExtra(Keys.BODY_KEY.name, this.recipe[position].body)
             holder.itemView.context.startActivity(intent)
         }
+
+        this.recipe[position].favorite = !this.recipe[position].favorite
     }
 
     override fun getItemCount(): Int {
