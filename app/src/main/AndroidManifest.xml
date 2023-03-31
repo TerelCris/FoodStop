@@ -28,6 +28,9 @@
             android:name=".UserAccountActivity"
             android:exported="true"/>
         <activity
+            android:name=".RetrieveDataRV"
+            android:exported="true"/>
+        <activity
             android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>

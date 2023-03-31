@@ -23,8 +23,8 @@ class MainActivity(private val recipeList: MutableList<Recipe> = mutableListOf()
     private lateinit var database: FirebaseDatabase
     private lateinit var ref: DatabaseReference
     private lateinit var storage: FirebaseStorage
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: MyAdapter
+    private lateinit var recyclerView: RetrieveDataRV
+    private lateinit var adapter: RecipeAdapter
 
     private var currentUsername: String? = null
     private var currentEmail: String? = null
@@ -42,6 +42,8 @@ class MainActivity(private val recipeList: MutableList<Recipe> = mutableListOf()
         val viewBinding : ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
 
+        val intent = Intent(this, RetrieveDataRV::class.java)
+        startActivity(intent)
 
 
         viewBinding.recyclerView.setOnClickListener(View.OnClickListener {
@@ -77,10 +79,6 @@ class MainActivity(private val recipeList: MutableList<Recipe> = mutableListOf()
         val snapHelper: SnapHelper = PagerSnapHelper()
         snapHelper.attachToRecyclerView(viewBinding.recyclerView)
 
-        this.recyclerView = viewBinding.recyclerView
-        this.adapter = MyAdapter(this.recipeList)
-        this.recyclerView.adapter = adapter
-        this.recyclerView.layoutManager = LinearLayoutManager(this)
     }
 
 }
