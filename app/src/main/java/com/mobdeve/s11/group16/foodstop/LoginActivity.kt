@@ -49,8 +49,9 @@ class LoginActivity : AppCompatActivity() {
                             if(getPassword != null && getPassword.equals(password)){ // compare the entered password with the password retrieved from the database
                                 currentUsername = username // Save the username
                                 Toast.makeText(this@LoginActivity, "Login Successful", Toast.LENGTH_SHORT).show()
-                                val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                                val intent = Intent(this@LoginActivity, CreatePostActivity::class.java)
                                 intent.putExtra("username", username)
+                                intent.putExtra("fromLogin", true)
                                 startActivity(intent)
                             }
                             else{

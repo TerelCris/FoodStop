@@ -66,6 +66,9 @@ class CreatePostActivity : AppCompatActivity() {
         mRef = mDatabase.reference.child("Posts")
         mStorage = FirebaseStorage.getInstance()
 
+        // get the passed currentUsername variable here
+        currentUsername = intent.getStringExtra("username")
+
 
         imageButton.setOnClickListener(View.OnClickListener {
             val i = Intent(Intent.ACTION_PICK)
@@ -102,9 +105,7 @@ class CreatePostActivity : AppCompatActivity() {
                         val dateFormat = SimpleDateFormat("MM-dd-yyyy", Locale.getDefault())
                         val formattedDate = dateFormat.format(currentDate)
 
-                        currentUsername = intent.getStringExtra("username")
-
-                        val currentUserRef = mRef.child("Users").child(currentUsername.toString()).push() // Create a new node for the user
+                        val currentUserRef = mRef.child(currentUsername.toString()).push()
                         currentUserRef.child("Title").setValue(txtTitle)
                         currentUserRef.child("Description").setValue(txtDesc)
                         currentUserRef.child("Image").setValue(task.result.toString())
