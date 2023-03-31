@@ -18,8 +18,6 @@ import com.mobdeve.s11.group16.foodstop.databinding.LoginLayoutBinding
 class LoginActivity : AppCompatActivity() {
     private val databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://foodstop-9c45c-default-rtdb.firebaseio.com")
 
-    var currentUsername: String? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -47,12 +45,11 @@ class LoginActivity : AppCompatActivity() {
                             val getPassword = dataSnapshot.child(username).child("Password").value // get the actual password from the database
 
                             if(getPassword != null && getPassword.equals(password)){ // compare the entered password with the password retrieved from the database
-                                currentUsername = username // Save the username
                                 Toast.makeText(this@LoginActivity, "Login Successful", Toast.LENGTH_SHORT).show()
-                                val intent = Intent(this@LoginActivity, CreatePostActivity::class.java)
+                                val intent = Intent(this@LoginActivity, MainActivity::class.java)
                                 intent.putExtra("username", username)
-                                intent.putExtra("fromLogin", true)
                                 startActivity(intent)
+                                finish()
                             }
                             else{
                                 Toast.makeText(this@LoginActivity, "Your Username or Password may be incorrect", Toast.LENGTH_SHORT).show()

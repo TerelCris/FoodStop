@@ -17,6 +17,9 @@ import com.mobdeve.s11.group16.foodstop.databinding.ActivityMainBinding
 import com.mobdeve.s11.group16.foodstop.databinding.PostLayoutBinding
 
 class MainActivity : AppCompatActivity() {
+
+    var currentUsername: String? = null
+
     companion object{
         private val data = ArrayList<Recipe>()
     }
@@ -72,9 +75,14 @@ class MainActivity : AppCompatActivity() {
             this.startActivity(intent)
         })
 
+        // get the passed currentUsername variable here
+        currentUsername = intent.getStringExtra("username")
+
+
         viewBinding.ibCreate.setOnClickListener(View.OnClickListener {
             val intent = Intent(this@MainActivity, CreatePostActivity::class.java)
-            this.startActivity(intent)
+            intent.putExtra("username", currentUsername)
+            startActivity(intent)
         })
 
         viewBinding.btnFaved.setOnClickListener(View.OnClickListener {
