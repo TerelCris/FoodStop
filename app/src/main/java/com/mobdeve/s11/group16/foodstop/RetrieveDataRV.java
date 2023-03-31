@@ -1,0 +1,76 @@
+package com.mobdeve.s11.group16.foodstop;
+
+import android.annotation.SuppressLint;
+import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class RetrieveDataRV extends AppCompatActivity {
+
+    private FirebaseDatabase database;
+    private DatabaseReference ref;
+    private FirebaseStorage storage;
+    RecyclerView recyclerView;
+    RecipeAdapter recipeAdapter;
+    List<RecipeModel> recipeMDList;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        database=FirebaseDatabase.getInstance();
+        ref=database.getReference().child("Posts");
+        storage=FirebaseStorage.getInstance();
+        recyclerView=findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        recipeMDList=new ArrayList<RecipeModel>();
+        recipeAdapter=new RecipeAdapter(RetrieveDataRV.this, recipeMDList);
+
+        ref.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                RecipeModel recipeModel=snapshot.getValue(RecipeModel.class);
+                recipeMDList.add(recipeModel);
+                recipeAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+    }
+}

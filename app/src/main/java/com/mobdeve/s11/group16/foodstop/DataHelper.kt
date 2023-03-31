@@ -77,6 +77,17 @@ class DataHelper {
             return data
         }
 
+        private fun Recipe(
+            username: Int,
+            title: String,
+            date: String,
+            imageUrl: String,
+            favorite: Boolean,
+            body: String
+        ): Recipe {
+            TODO("Not yet implemented")
+        }
+
         fun initializeComment(): ArrayList<Comment> {
             val data = ArrayList<Comment>()
             data.add(

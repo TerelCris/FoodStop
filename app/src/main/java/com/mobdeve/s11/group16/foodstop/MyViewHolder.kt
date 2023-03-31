@@ -23,7 +23,7 @@ class MyViewHolder(private val viewBinding: RvLayoutBinding): RecyclerView.ViewH
     fun bindData(recipe: Recipe){
         Picasso.get().load(recipe.imageUrl).into(ivCover)
         tvTitle.text = recipe.title
-        tvAuthor.text = recipe.username.toString()
+        tvAuthor.text = recipe.username
         tvDate.text = recipe.date
         fabFav.isActivated = recipe.favorite
         tvBody.text = recipe.body

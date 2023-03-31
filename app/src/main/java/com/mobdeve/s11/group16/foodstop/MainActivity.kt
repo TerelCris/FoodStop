@@ -42,30 +42,7 @@ class MainActivity(private val recipeList: MutableList<Recipe> = mutableListOf()
         val viewBinding : ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
 
-        val currentUserRef = ref.child(currentUsername.toString())
-        currentUserRef.addChildEventListener(object : ChildEventListener{
-            override fun onChildAdded(snapshot : DataSnapshot, previousChildName: String?){
-                val recipe = snapshot.getValue(Recipe::class.java)
-                recipeList.add(recipe!!)
-                adapter.notifyItemInserted(recipeList.size - 1) // Notify adapter to update the UI
-            }
 
-            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                //Handles Post Updates
-            }
-
-            override fun onChildRemoved(snapshot: DataSnapshot) {
-                //Handles Pose Deletion
-            }
-
-            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-                TODO("Not yet implemented")
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                //Handles Post Errors
-            }
-        })
 
         viewBinding.recyclerView.setOnClickListener(View.OnClickListener {
             val intent = Intent(this@MainActivity, PostActivity::class.java)

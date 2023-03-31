@@ -9,7 +9,6 @@ import android.support.annotation.NonNull
 import android.webkit.MimeTypeMap
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.OnProgressListener
 import com.google.firebase.storage.StorageReference
@@ -27,15 +26,13 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.tasks.Task
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import com.mobdeve.s11.group16.foodstop.databinding.CreatePostLayoutBinding
 import com.mobdeve.s11.group16.foodstop.databinding.MyaccountLayoutBinding
 import com.mobdeve.s11.group16.foodstop.databinding.PostLayoutBinding
 import com.mobdeve.s11.group16.foodstop.databinding.RvLayoutBinding
 import com.squareup.picasso.Picasso
+import java.sql.Ref
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -51,6 +48,8 @@ class CreatePostActivity : AppCompatActivity() {
     private val galleryCode = 1
     private var imageUrl: Uri? = null
     var currentUsername: String? = null
+    private val recipeList = ArrayList<Recipe>()
+    private lateinit var adapter: MyAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -105,13 +104,43 @@ class CreatePostActivity : AppCompatActivity() {
                         val dateFormat = SimpleDateFormat("MM-dd-yyyy", Locale.getDefault())
                         val formattedDate = dateFormat.format(currentDate)
 
-                        val currentUserRef = ref.child(currentUsername.toString()).push()
-                        currentUserRef.child("Title").setValue(txtTitle)
-                        currentUserRef.child("Description").setValue(txtDesc)
-                        currentUserRef.child("Image").setValue(task.result.toString())
+                        val newPost = ref.push()
+                        newPost.child("Title").setValue(txtTitle)
+                        newPost.child("Description").setValue(txtDesc)
+                        newPost.child("Username").setValue(currentUsername)
+                        newPost.child("Image").setValue(task.result.toString())
                         // Set the date
-                        currentUserRef.child("Date").setValue(formattedDate)
+                        newPost.child("Date").setValue(formattedDate)
+
+                        val intent = Intent(this@CreatePostActivity, RetrieveDataRV::class.java)
                     }
+//                    ref.child("Posts").addChildEventListener(object : ChildEventListener {
+//                        override fun onChildAdded(snapshot : DataSnapshot, previousChildName: String?){
+//                            val post = snapshot.getValue(Recipe::class.java)
+//                            recipeList.add(post!!)
+//                            adapter.notifyItemInserted(recipeList.size - 1) // Notify adapter to update the UI
+//
+//                            // Add print statements to check if recipeList is being populated with data
+//                            println("Recipe added: ${post.title}, ${post.username}, ${post.date}, ${post.imageUrl}")
+//                            println("Recipe list size: ${recipeList.size}")
+//                        }
+//
+//                        override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+//                            //Handles Post Updates
+//                        }
+//
+//                        override fun onChildRemoved(snapshot: DataSnapshot) {
+//                            //Handles Post Deletion
+//                        }
+//
+//                        override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+//                            //Handles Post Movement
+//                        }
+//
+//                        override fun onCancelled(error: DatabaseError) {
+//                            //Handles Post Errors
+//                        }
+//                    })
                     finish()
                 }
             }
