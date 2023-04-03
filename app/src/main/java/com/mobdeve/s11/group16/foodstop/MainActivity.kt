@@ -51,6 +51,7 @@ class MainActivity(private val recipeList: MutableList<Recipe> = mutableListOf()
 
         viewBinding.recyclerView.setOnClickListener(View.OnClickListener {
             val intent = Intent(this@MainActivity, PostActivity::class.java)
+            intent.putExtra("username", currentUsername)
             startActivity(intent)
         })
 

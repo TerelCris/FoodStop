@@ -62,10 +62,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            txtDate=itemView.findViewById(R.id.tv_date);
-            imageView=itemView.findViewById(R.id.iv_cover);
-            txtTitle=itemView.findViewById(R.id.tv_title);
-            txtUser=itemView.findViewById(R.id.tv_author);
+            txtDate = itemView.findViewById(R.id.tv_date);
+            imageView = itemView.findViewById(R.id.iv_cover);
+            txtTitle = itemView.findViewById(R.id.tv_title);
+            txtUser = itemView.findViewById(R.id.tv_author);
 
 
 
