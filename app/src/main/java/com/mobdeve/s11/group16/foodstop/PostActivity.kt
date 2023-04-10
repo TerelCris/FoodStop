@@ -30,7 +30,6 @@ class PostActivity : AppCompatActivity() {
     private lateinit var body : TextView
     var currentUsername: String? = null
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: MyAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

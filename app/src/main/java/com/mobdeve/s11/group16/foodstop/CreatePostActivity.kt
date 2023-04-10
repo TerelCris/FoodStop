@@ -49,7 +49,7 @@ class CreatePostActivity : AppCompatActivity() {
     private var imageUrl: Uri? = null
     var currentUsername: String? = null
     private val recipeList = ArrayList<Recipe>()
-    private lateinit var adapter: MyAdapter
+    private lateinit var adapter: RecipeAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
