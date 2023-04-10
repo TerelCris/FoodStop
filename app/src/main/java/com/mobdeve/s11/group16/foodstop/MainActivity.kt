@@ -43,12 +43,6 @@ class MainActivity(private val recipeList: MutableList<Recipe> = mutableListOf()
         currentEmail = intent.getStringExtra("email")
         currentPassword = intent.getStringExtra("password")
 
-        viewBinding.recyclerView.setOnClickListener(View.OnClickListener {
-            val intent = Intent(this@MainActivity, PostActivity::class.java)
-            intent.putExtra("username", currentUsername)
-            startActivity(intent)
-        })
-
         viewBinding.ibCreate.setOnClickListener(View.OnClickListener {
             val intent = Intent(this@MainActivity, CreatePostActivity::class.java)
             intent.putExtra("username", currentUsername)
