@@ -4,9 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.view.View.OnClickListener
-import android.widget.Button
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -22,7 +19,6 @@ class FavoritesActivity(private val recipeList: MutableList<Recipe> = mutableLis
     private lateinit var ref: DatabaseReference
     private lateinit var storage: FirebaseStorage
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: MyAdapter
     private lateinit var recipeAdapter: RecipeAdapter
     private var recipeMDList = mutableListOf<RecipeModel>()
 
@@ -66,15 +62,9 @@ class FavoritesActivity(private val recipeList: MutableList<Recipe> = mutableLis
         snapHelper.attachToRecyclerView(viewBinding.recyclerView)
 
         this.recyclerView = viewBinding.recyclerView
-        this.adapter = MyAdapter(this.recipeList)
-        this.recyclerView.adapter = adapter
+        this.recipeAdapter = RecipeAdapter(this, recipeMDList)
+        this.recyclerView.adapter = recipeAdapter
         this.recyclerView.layoutManager = LinearLayoutManager(this)
-
-        recyclerView = viewBinding.recyclerView
-        recyclerView.layoutManager = LinearLayoutManager(this)
-
-        recipeAdapter = RecipeAdapter(this, recipeMDList)
-        recyclerView.adapter = recipeAdapter
 
         ref.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {

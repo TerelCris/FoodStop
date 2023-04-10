@@ -109,7 +109,6 @@
                 android:paddingTop="20dp"
                 android:paddingRight="20dp"
                 android:paddingBottom="20dp"
-                android:text="@string/post_content_01"
                 android:textColor="@color/black" />
 
             <LinearLayout

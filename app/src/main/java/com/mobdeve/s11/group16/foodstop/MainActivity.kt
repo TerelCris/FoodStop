@@ -1,14 +1,9 @@
 package com.mobdeve.s11.group16.foodstop
 
-import android.app.Instrumentation.ActivityResult
 import android.content.Intent
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.view.View.OnClickListener
-import android.widget.Button
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -16,7 +11,7 @@ import androidx.recyclerview.widget.SnapHelper
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.mobdeve.s11.group16.foodstop.databinding.ActivityMainBinding
-import com.mobdeve.s11.group16.foodstop.databinding.PostLayoutBinding
+import com.mobdeve.s11.group16.foodstop.RecipeAdapter as recipeAdapter
 
 class MainActivity(private val recipeList: MutableList<Recipe> = mutableListOf()) : AppCompatActivity() {
 
@@ -24,8 +19,7 @@ class MainActivity(private val recipeList: MutableList<Recipe> = mutableListOf()
     private lateinit var ref: DatabaseReference
     private lateinit var storage: FirebaseStorage
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: MyAdapter
-    private lateinit var recipeAdapter: RecipeAdapter
+    private lateinit var recipeAdapter: recipeAdapter
     private var recipeMDList = mutableListOf<RecipeModel>()
 
     private var currentUsername: String? = null
@@ -48,11 +42,6 @@ class MainActivity(private val recipeList: MutableList<Recipe> = mutableListOf()
         currentUsername = intent.getStringExtra("username")
         currentEmail = intent.getStringExtra("email")
         currentPassword = intent.getStringExtra("password")
-
-        viewBinding.recyclerView.setOnClickListener(View.OnClickListener {
-            val intent = Intent(this@MainActivity, PostActivity::class.java)
-            startActivity(intent)
-        })
 
         viewBinding.ibCreate.setOnClickListener(View.OnClickListener {
             val intent = Intent(this@MainActivity, CreatePostActivity::class.java)
@@ -77,15 +66,9 @@ class MainActivity(private val recipeList: MutableList<Recipe> = mutableListOf()
         snapHelper.attachToRecyclerView(viewBinding.recyclerView)
 
         this.recyclerView = viewBinding.recyclerView
-        this.adapter = MyAdapter(this.recipeList)
-        this.recyclerView.adapter = adapter
+        this.recipeAdapter = recipeAdapter(this.applicationContext, recipeMDList)
+        this.recyclerView.adapter = recipeAdapter
         this.recyclerView.layoutManager = LinearLayoutManager(this)
-
-        recyclerView = viewBinding.recyclerView
-        recyclerView.layoutManager = LinearLayoutManager(this)
-
-        recipeAdapter = RecipeAdapter(this, recipeMDList)
-        recyclerView.adapter = recipeAdapter
 
         ref.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
@@ -99,8 +82,6 @@ class MainActivity(private val recipeList: MutableList<Recipe> = mutableListOf()
             override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
             override fun onCancelled(error: DatabaseError) {}
         })
-
-
     }
 
 }

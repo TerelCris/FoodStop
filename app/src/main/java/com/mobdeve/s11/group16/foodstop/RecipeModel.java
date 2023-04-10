@@ -2,7 +2,6 @@ package com.mobdeve.s11.group16.foodstop;
 
 import android.view.View;
 import android.widget.Button;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class RecipeModel {
@@ -57,15 +56,6 @@ public class RecipeModel {
 
     public void setFab(FloatingActionButton fab) {
         this.fab = fab;
-    }
-
-    public void setFavoriteOnClickListener(View.OnClickListener onClickListener) {
-        fab.setOnClickListener(onClickListener);
-        if (fab.isActivated()) {
-            fab.setImageResource(R.mipmap.star);
-        } else {
-            fab.setImageResource(R.mipmap.favorite);
-        }
     }
 
     public String getImage() {

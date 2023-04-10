@@ -49,7 +49,7 @@ class CreatePostActivity : AppCompatActivity() {
     private var imageUrl: Uri? = null
     var currentUsername: String? = null
     private val recipeList = ArrayList<Recipe>()
-    private lateinit var adapter: MyAdapter
+    private lateinit var adapter: RecipeAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,10 +57,10 @@ class CreatePostActivity : AppCompatActivity() {
         val viewBinding : CreatePostLayoutBinding = CreatePostLayoutBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
 
-        imageButton=findViewById(R.id.ib_add)
-        title=findViewById(R.id.postTitleEt)
-        description=findViewById(R.id.postDescriptionEt)
-        postBtn=findViewById(R.id.postBtn)
+        imageButton = findViewById(R.id.ib_add)
+        title = findViewById(R.id.postTitleEt)
+        description = findViewById(R.id.postDescriptionEt)
+        postBtn = findViewById(R.id.postBtn)
         database = FirebaseDatabase.getInstance()
         ref = database.reference.child("Posts")
         storage = FirebaseStorage.getInstance()
