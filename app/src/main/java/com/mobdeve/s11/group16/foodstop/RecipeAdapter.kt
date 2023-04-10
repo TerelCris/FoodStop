@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.squareup.picasso.Picasso
 
 
@@ -17,6 +18,7 @@ class RecipeAdapter(private val context: Context, private val recipeModelList: L
         var txtTitle: TextView = itemView.findViewById(R.id.tv_title)
         var txtDate: TextView = itemView.findViewById(R.id.tv_date)
         var txtUser: TextView = itemView.findViewById(R.id.tv_author)
+        var fabFav: FloatingActionButton = itemView.findViewById(R.id.fab_fav)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -29,10 +31,22 @@ class RecipeAdapter(private val context: Context, private val recipeModelList: L
         holder.txtDate.text = recipeModel.date
         holder.txtTitle.text = recipeModel.title
         holder.txtUser.text = recipeModel.username
+        holder.fabFav.isActivated = true
 
         var imageUri: String? = null
         imageUri = recipeModel.image
         Picasso.get().load(imageUri).into(holder.imageView)
+
+       holder.fabFav.setOnClickListener(View.OnClickListener {
+           if(holder.fabFav.isActivated){
+               holder.fabFav.setImageResource(R.mipmap.star)
+           }
+           else{
+               holder.fabFav.setImageResource(R.mipmap.favorite)
+           }
+
+           holder.fabFav.isActivated = !holder.fabFav.isActivated
+       })
     }
 
     override fun getItemCount(): Int {
