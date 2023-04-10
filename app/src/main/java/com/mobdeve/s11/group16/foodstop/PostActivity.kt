@@ -37,16 +37,16 @@ class PostActivity : AppCompatActivity() {
         val viewBinding : PostLayoutBinding = PostLayoutBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
 
-        viewBinding.postIv.setImageResource(intent.getIntExtra(Keys.IMAGE_KEY.name, 0))
-        viewBinding.titleTv.text = intent.getStringExtra(Keys.TITLE_KEY.name)
-        viewBinding.userTv.text = intent.getStringExtra(Keys.USERNAME_KEY.name)
-        viewBinding.datePostTv.text = intent.getStringExtra(Keys.DATE_KEY.name)
-        viewBinding.bodyTv.text = intent.getStringExtra(Keys.BODY_KEY.name)
+        image = findViewById(R.id.postIv)
+        title = findViewById(R.id.titleTv)
+        body = findViewById(R.id.bodyTv)
+        date = findViewById(R.id.datePostTv)
+        database = FirebaseDatabase.getInstance()
+        ref = database.reference.child("Posts")
+        storage = FirebaseStorage.getInstance()
 
-        val position = intent.getIntExtra(Keys.POSITION_KEY.name, 0)
-
-        val intent : Intent = Intent()
-        intent.putExtra(Keys.POSITION_KEY.name, position)
+        // get the passed currentUsername variable here
+        currentUsername = intent.getStringExtra("username")
 
 
         val snapHelper: SnapHelper = PagerSnapHelper()

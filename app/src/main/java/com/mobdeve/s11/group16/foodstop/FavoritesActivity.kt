@@ -62,7 +62,7 @@ class FavoritesActivity(private val recipeList: MutableList<Recipe> = mutableLis
         snapHelper.attachToRecyclerView(viewBinding.recyclerView)
 
         this.recyclerView = viewBinding.recyclerView
-        this.recipeAdapter = RecipeAdapter(this.applicationContext, recipeMDList)
+        this.recipeAdapter = RecipeAdapter(this, recipeMDList)
         this.recyclerView.adapter = recipeAdapter
         this.recyclerView.layoutManager = LinearLayoutManager(this)
 

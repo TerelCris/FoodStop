@@ -1,14 +1,9 @@
 package com.mobdeve.s11.group16.foodstop
 
-import android.app.Instrumentation.ActivityResult
 import android.content.Intent
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.view.View.OnClickListener
-import android.widget.Button
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -16,7 +11,6 @@ import androidx.recyclerview.widget.SnapHelper
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.mobdeve.s11.group16.foodstop.databinding.ActivityMainBinding
-import com.mobdeve.s11.group16.foodstop.databinding.PostLayoutBinding
 import com.mobdeve.s11.group16.foodstop.RecipeAdapter as recipeAdapter
 
 class MainActivity(private val recipeList: MutableList<Recipe> = mutableListOf()) : AppCompatActivity() {
@@ -95,4 +89,5 @@ class MainActivity(private val recipeList: MutableList<Recipe> = mutableListOf()
             override fun onCancelled(error: DatabaseError) {}
         })
     }
+
 }

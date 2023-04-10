@@ -1,5 +1,6 @@
 package com.mobdeve.s11.group16.foodstop
 
+import android.content.Intent
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -36,6 +37,12 @@ class RecipeAdapter(private val context: Context, private val recipeModelList: L
         var imageUri: String? = null
         imageUri = recipeModel.image
         Picasso.get().load(imageUri).into(holder.imageView)
+
+        holder.itemView.setOnClickListener {
+            val intent = Intent(context, PostActivity::class.java)
+            intent.putExtra("username", recipeModel.username)
+            context.startActivity(intent)
+        }
 
        holder.fabFav.setOnClickListener(View.OnClickListener {
            if(holder.fabFav.isActivated){
