@@ -70,6 +70,7 @@ class MainActivity(private val recipeList: MutableList<Recipe> = mutableListOf()
         this.recyclerView.adapter = recipeAdapter
         this.recyclerView.layoutManager = LinearLayoutManager(this)
 
+
         ref.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 val recipeModel = snapshot.getValue(RecipeModel::class.java)

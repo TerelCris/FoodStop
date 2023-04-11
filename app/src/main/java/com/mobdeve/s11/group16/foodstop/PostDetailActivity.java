@@ -10,7 +10,7 @@ import com.squareup.picasso.Picasso;
 
 public class PostDetailActivity extends AppCompatActivity {
 
-    TextView title, date, author;
+    TextView title, date, author, description;
     ImageView image;
 
     @Override
@@ -21,6 +21,7 @@ public class PostDetailActivity extends AppCompatActivity {
         title = findViewById(R.id.titleTv);
         author = findViewById(R.id.userTv);
         date = findViewById(R.id.datePostTv);
+        description = findViewById(R.id.bodyTv);
 
         image = findViewById(R.id.postIv);
 
@@ -31,6 +32,7 @@ public class PostDetailActivity extends AppCompatActivity {
         title.setText(getIntent().getStringExtra("title"));
         author.setText(getIntent().getStringExtra("author"));
         date.setText(getIntent().getStringExtra("date"));
+        description.setText(getIntent().getStringExtra("description"));
 
     }
 }
