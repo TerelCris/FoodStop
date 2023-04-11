@@ -19,6 +19,7 @@ class RecipeAdapter(private val context: Context, private val recipeModelList: L
         var txtTitle: TextView = itemView.findViewById(R.id.tv_title)
         var txtDate: TextView = itemView.findViewById(R.id.tv_date)
         var txtUser: TextView = itemView.findViewById(R.id.tv_author)
+        var txtDesc: TextView = itemView.findViewById(R.id.tv_desc)
         var fabFav: FloatingActionButton = itemView.findViewById(R.id.fab_fav)
     }
 
@@ -32,6 +33,7 @@ class RecipeAdapter(private val context: Context, private val recipeModelList: L
         holder.txtDate.text = recipeModel.date
         holder.txtTitle.text = recipeModel.title
         holder.txtUser.text = recipeModel.username
+        holder.txtDesc.text = recipeModel.description
         holder.fabFav.isActivated = true
 
         var imageUri: String? = null
@@ -39,8 +41,13 @@ class RecipeAdapter(private val context: Context, private val recipeModelList: L
         Picasso.get().load(imageUri).into(holder.imageView)
 
         holder.itemView.setOnClickListener {
-            val intent = Intent(context, PostActivity::class.java)
-            intent.putExtra("username", recipeModel.username)
+            val intent = Intent(context, PostDetailActivity::class.java)
+            intent.putExtra("image", recipeModel.image)
+            intent.putExtra("title", recipeModel.title)
+            intent.putExtra("author", recipeModel.username)
+            intent.putExtra("date", recipeModel.date)
+            intent.putExtra("description", recipeModel.description)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
         }
 

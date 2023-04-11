@@ -9,15 +9,15 @@ public class RecipeModel {
     String Title;
     String Date;
     String Username;
+    String Description;
     String Image;
     FloatingActionButton fab;
     Button btnListener;
 
-
     public RecipeModel() {
     }
 
-    public RecipeModel(String title, String date, String username, String image, FloatingActionButton fab,  Button btnListener) {
+    public RecipeModel(String title, String date, String username, String image, String description, FloatingActionButton fab,  Button btnListener) {
         Title = title;
         Date = date;
         Username = username;
@@ -48,6 +48,14 @@ public class RecipeModel {
 
     public void setUsername(String username) {
         Username = username;
+    }
+
+    public String getDescription() {
+        return Description;
+    }
+
+    public void setDescription(String description) {
+        Description = description;
     }
 
     public FloatingActionButton getFab() {
