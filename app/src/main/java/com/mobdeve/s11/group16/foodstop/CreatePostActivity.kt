@@ -112,11 +112,17 @@ class CreatePostActivity : AppCompatActivity() {
                         // Set the date
                         newPost.child("Date").setValue(formattedDate)
 
+                        Toast.makeText(this@CreatePostActivity, "Post has been created", Toast.LENGTH_SHORT).show()
+
                         val intent = Intent(this@CreatePostActivity, MainActivity::class.java)
                         startActivity(intent)
                     }
 
                 }
+            }
+
+            else{
+                Toast.makeText(this@CreatePostActivity, "Please enter all fields!", Toast.LENGTH_SHORT).show()
             }
         })
 
