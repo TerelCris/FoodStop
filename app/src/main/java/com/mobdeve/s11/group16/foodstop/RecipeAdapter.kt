@@ -39,8 +39,12 @@ class RecipeAdapter(private val context: Context, private val recipeModelList: L
         Picasso.get().load(imageUri).into(holder.imageView)
 
         holder.itemView.setOnClickListener {
-            val intent = Intent(context, PostActivity::class.java)
-            intent.putExtra("username", recipeModel.username)
+            val intent = Intent(context, PostDetailActivity::class.java)
+            intent.putExtra("image", recipeModel.image)
+            intent.putExtra("title", recipeModel.title)
+            intent.putExtra("author", recipeModel.username)
+            intent.putExtra("date", recipeModel.date)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
         }
 
