@@ -25,9 +25,7 @@ class MainActivity(private val recipeList: MutableList<Recipe> = mutableListOf()
     private var currentUsername: String? = null
     private var currentEmail: String? = null
     private var currentPassword: String? = null
-
-
-
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
