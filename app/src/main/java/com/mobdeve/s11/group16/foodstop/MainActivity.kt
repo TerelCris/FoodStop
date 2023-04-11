@@ -74,7 +74,7 @@ class MainActivity(private val recipeList: MutableList<Recipe> = mutableListOf()
         ref.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 val recipeModel = snapshot.getValue(RecipeModel::class.java)
-                recipeModel?.let { recipeMDList.add(it) }
+                recipeModel?.let { recipeMDList.add(0, it) }
                 recipeAdapter.notifyDataSetChanged()
             }
 
