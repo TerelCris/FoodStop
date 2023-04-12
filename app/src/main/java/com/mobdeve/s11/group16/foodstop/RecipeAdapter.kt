@@ -12,7 +12,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.squareup.picasso.Picasso
 
 
-class RecipeAdapter(private val context: Context, private val recipeModelList: List<RecipeModel>) : RecyclerView.Adapter<RecipeAdapter.ViewHolder>() {
+class RecipeAdapter(private val context: Context, private var recipeModelList: List<RecipeModel>) : RecyclerView.Adapter<RecipeAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var imageView: ImageView = itemView.findViewById(R.id.iv_cover)
@@ -51,6 +51,7 @@ class RecipeAdapter(private val context: Context, private val recipeModelList: L
             context.startActivity(intent)
         }
 
+
        holder.fabFav.setOnClickListener(View.OnClickListener {
            if(holder.fabFav.isActivated){
                holder.fabFav.setImageResource(R.mipmap.star)
@@ -61,6 +62,11 @@ class RecipeAdapter(private val context: Context, private val recipeModelList: L
 
            holder.fabFav.isActivated = !holder.fabFav.isActivated
        })
+    }
+
+    fun filterList(filteredList: List<RecipeModel>) {
+        recipeModelList = filteredList
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {

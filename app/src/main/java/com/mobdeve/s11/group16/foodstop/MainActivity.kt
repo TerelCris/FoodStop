@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.SnapHelper
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.mobdeve.s11.group16.foodstop.databinding.ActivityMainBinding
+import java.util.*
 import com.mobdeve.s11.group16.foodstop.RecipeAdapter as recipeAdapter
 
 class MainActivity(private val recipeList: MutableList<Recipe> = mutableListOf()) : AppCompatActivity() {
@@ -20,6 +22,7 @@ class MainActivity(private val recipeList: MutableList<Recipe> = mutableListOf()
     private lateinit var storage: FirebaseStorage
     private lateinit var recyclerView: RecyclerView
     private lateinit var recipeAdapter: recipeAdapter
+    private lateinit var searchView: SearchView
     private var recipeMDList = mutableListOf<RecipeModel>()
 
     private var currentUsername: String? = null
@@ -35,6 +38,31 @@ class MainActivity(private val recipeList: MutableList<Recipe> = mutableListOf()
 
         val viewBinding : ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
+
+        searchView = findViewById(R.id.searchView)
+        searchView.clearFocus()
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                val filteredList = mutableListOf<RecipeModel>()
+                for (recipeModel in recipeMDList) {
+                    if (recipeModel.title.lowercase(Locale.getDefault())
+                            .contains(newText.toString().lowercase(Locale.getDefault()))) {
+                        filteredList.add(recipeModel)
+                    }
+                }
+                recipeAdapter.filterList(filteredList)
+                return true
+            }
+        })
+
+
+
+
 
         // get the passed currentUsername variable here
         currentUsername = intent.getStringExtra("username")
@@ -82,5 +110,8 @@ class MainActivity(private val recipeList: MutableList<Recipe> = mutableListOf()
             override fun onCancelled(error: DatabaseError) {}
         })
     }
+
+
+
 
 }
