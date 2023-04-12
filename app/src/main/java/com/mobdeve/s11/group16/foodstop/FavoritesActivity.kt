@@ -37,8 +37,6 @@ class FavoritesActivity(private val recipeList: MutableList<Recipe> = mutableLis
         ref = database.reference.child("Posts")
         storage = FirebaseStorage.getInstance()
 
-
-
         viewBinding.ibCreate.setOnClickListener(View.OnClickListener {
             val intent = Intent(this@FavoritesActivity, CreatePostActivity::class.java)
             intent.putExtra("username", currentUsername)
