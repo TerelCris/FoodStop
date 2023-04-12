@@ -67,8 +67,10 @@ class FavoritesActivity(private val recipeList: MutableList<Recipe> = mutableLis
         ref.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 val recipeModel = snapshot.getValue(RecipeModel::class.java)
-                recipeModel?.let { recipeMDList.add(it) }
-                recipeAdapter.notifyDataSetChanged()
+                if (recipeModel?.isBooleanValue == true) { // filter based on BooleanValue
+                    recipeModel.let { recipeMDList.add(it) }
+                    recipeAdapter.notifyDataSetChanged()
+                }
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
