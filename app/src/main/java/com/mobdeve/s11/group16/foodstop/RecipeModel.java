@@ -14,9 +14,6 @@ public class RecipeModel {
     FloatingActionButton fab;
     Button btnListener;
 
-    public RecipeModel() {
-    }
-
     public RecipeModel(String title, String date, String username, String image, String description, FloatingActionButton fab,  Button btnListener) {
         Title = title;
         Date = date;

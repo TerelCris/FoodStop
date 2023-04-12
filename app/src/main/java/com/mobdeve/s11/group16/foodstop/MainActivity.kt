@@ -60,10 +60,6 @@ class MainActivity(private val recipeList: MutableList<Recipe> = mutableListOf()
             }
         })
 
-
-
-
-
         // get the passed currentUsername variable here
         currentUsername = intent.getStringExtra("username")
         currentEmail = intent.getStringExtra("email")
@@ -110,8 +106,4 @@ class MainActivity(private val recipeList: MutableList<Recipe> = mutableListOf()
             override fun onCancelled(error: DatabaseError) {}
         })
     }
-
-
-
-
 }

@@ -88,10 +88,10 @@ class DataHelper {
             TODO("Not yet implemented")
         }
 
-        fun initializeComment(): ArrayList<Comment> {
-            val data = ArrayList<Comment>()
+        fun initializeComment(): ArrayList<CommentModel> {
+            val data = ArrayList<CommentModel>()
             data.add(
-                Comment(
+                CommentModel(
                     "Frannie Kim",
                     "1y",
                     "Nice!, It looks so yummy"

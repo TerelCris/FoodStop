@@ -33,6 +33,5 @@ public class PostDetailActivity extends AppCompatActivity {
         author.setText(getIntent().getStringExtra("author"));
         date.setText(getIntent().getStringExtra("date"));
         description.setText(getIntent().getStringExtra("description"));
-
     }
 }
