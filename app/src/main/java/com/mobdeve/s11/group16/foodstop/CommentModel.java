@@ -8,6 +8,10 @@ public class CommentModel {
 
     String Username;
 
+    public CommentModel(){
+
+    }
+
     public CommentModel(String date, String body, String username){
         Date = date;
         Body = body;
