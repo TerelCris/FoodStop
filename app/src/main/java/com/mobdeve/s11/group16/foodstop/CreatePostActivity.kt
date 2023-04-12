@@ -105,6 +105,7 @@ class CreatePostActivity : AppCompatActivity() {
                         val formattedDate = dateFormat.format(currentDate)
 
                         val newPost = ref.push()
+                        newPost.child("postId").setValue(newPost.key)
                         newPost.child("Title").setValue(txtTitle)
                         newPost.child("Description").setValue(txtDesc)
                         newPost.child("Username").setValue(currentUsername)
@@ -112,6 +113,7 @@ class CreatePostActivity : AppCompatActivity() {
                         newPost.child("BooleanValue").setValue(false)
                         // Set the date
                         newPost.child("Date").setValue(formattedDate)
+
 
                         Toast.makeText(this@CreatePostActivity, "Post has been created", Toast.LENGTH_SHORT).show()
 

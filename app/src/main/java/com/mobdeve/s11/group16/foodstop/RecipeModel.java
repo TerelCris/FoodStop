@@ -15,13 +15,13 @@ public class RecipeModel {
     String Image;
     FloatingActionButton fab;
     Button btnListener;
-    boolean Fav;
+    boolean BooleanValue;
     String postId;
 
     public RecipeModel() {
     }
 
-    public RecipeModel(String title, String date, String username, String image, String description, FloatingActionButton fab,  Button btnListener, boolean fav, String postId) {
+    public RecipeModel(String title, String date, String username, String image, String description, FloatingActionButton fab,  Button btnListener, boolean BooleanValue, String postId) {
         Title = title;
         Date = date;
         Username = username;
@@ -85,12 +85,12 @@ public class RecipeModel {
         this.btnListener = btnListener;
     }
 
-    public boolean isFav() {
-        return Fav;
+    public boolean isBooleanValue() {
+        return BooleanValue;
     }
 
-    public void setFav(boolean fav) {
-        Fav = fav;
+    public void setBooleanValue(boolean booleanValue) {
+        BooleanValue = booleanValue;
     }
 
     public String getPostId() {

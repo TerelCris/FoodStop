@@ -41,23 +41,19 @@ class RecipeAdapter(private val context: Context, private var recipeModelList: L
         Picasso.get().load(imageUri).into(holder.imageView)
 
         holder.fabFav.setOnClickListener(View.OnClickListener {
-            val postRef = FirebaseDatabase.getInstance().getReference("Posts").child(recipeModel.title)
-            postRef.child("BooleanValue").setValue(!recipeModel.isFav) // update the BooleanValue field
+            val postRef = FirebaseDatabase.getInstance().getReference("Posts")
+                .child(recipeModel.postId)
+            postRef.child("BooleanValue").setValue(!recipeModel.isBooleanValue) // update the BooleanValue field
 
-            recipeModel.isFav = !recipeModel.isFav // update the local model
+            recipeModel.isBooleanValue = !recipeModel.isBooleanValue // update the local model
 
-            if (recipeModel.isFav) {
+            if (recipeModel.isBooleanValue) {
                 holder.fabFav.setImageResource(R.mipmap.star)
             } else {
                 holder.fabFav.setImageResource(R.mipmap.favorite)
             }
         })
 
-        if (recipeModel.isFav) {
-            holder.fabFav.setImageResource(R.mipmap.star)
-        } else {
-            holder.fabFav.setImageResource(R.mipmap.favorite)
-        }
 
         holder.itemView.setOnClickListener {
             val intent = Intent(context, PostDetailActivity::class.java)
@@ -84,6 +80,7 @@ class RecipeAdapter(private val context: Context, private var recipeModelList: L
     override fun getItemCount(): Int {
         return recipeModelList.size
     }
+
 }
 
 
