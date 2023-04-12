@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.database.FirebaseDatabase
 import com.squareup.picasso.Picasso
 
 
@@ -34,11 +35,29 @@ class RecipeAdapter(private val context: Context, private var recipeModelList: L
         holder.txtTitle.text = recipeModel.title
         holder.txtUser.text = recipeModel.username
         holder.txtDesc.text = recipeModel.description
-        holder.fabFav.isActivated = true
 
         var imageUri: String? = null
         imageUri = recipeModel.image
         Picasso.get().load(imageUri).into(holder.imageView)
+
+        holder.fabFav.setOnClickListener(View.OnClickListener {
+            val postRef = FirebaseDatabase.getInstance().getReference("Posts").child(recipeModel.title)
+            postRef.child("BooleanValue").setValue(!recipeModel.isFav) // update the BooleanValue field
+
+            recipeModel.isFav = !recipeModel.isFav // update the local model
+
+            if (recipeModel.isFav) {
+                holder.fabFav.setImageResource(R.mipmap.star)
+            } else {
+                holder.fabFav.setImageResource(R.mipmap.favorite)
+            }
+        })
+
+        if (recipeModel.isFav) {
+            holder.fabFav.setImageResource(R.mipmap.star)
+        } else {
+            holder.fabFav.setImageResource(R.mipmap.favorite)
+        }
 
         holder.itemView.setOnClickListener {
             val intent = Intent(context, PostDetailActivity::class.java)
@@ -50,18 +69,6 @@ class RecipeAdapter(private val context: Context, private var recipeModelList: L
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
         }
-
-
-       holder.fabFav.setOnClickListener(View.OnClickListener {
-           if(holder.fabFav.isActivated){
-               holder.fabFav.setImageResource(R.mipmap.star)
-           }
-           else{
-               holder.fabFav.setImageResource(R.mipmap.favorite)
-           }
-
-           holder.fabFav.isActivated = !holder.fabFav.isActivated
-       })
     }
 
     fun filterList(filteredList: List<RecipeModel>) {
@@ -69,8 +76,14 @@ class RecipeAdapter(private val context: Context, private var recipeModelList: L
         notifyDataSetChanged()
     }
 
+    fun setData(recipeModelList: List<RecipeModel>) {
+        this.recipeModelList = recipeModelList
+        notifyDataSetChanged()
+    }
+
     override fun getItemCount(): Int {
         return recipeModelList.size
     }
 }
+
 

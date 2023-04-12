@@ -4,6 +4,8 @@ import android.view.View;
 import android.widget.Button;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import org.jetbrains.annotations.NotNull;
+
 public class RecipeModel {
 
     String Title;
@@ -13,11 +15,13 @@ public class RecipeModel {
     String Image;
     FloatingActionButton fab;
     Button btnListener;
+    boolean Fav;
+    String postId;
 
     public RecipeModel() {
     }
 
-    public RecipeModel(String title, String date, String username, String image, String description, FloatingActionButton fab,  Button btnListener) {
+    public RecipeModel(String title, String date, String username, String image, String description, FloatingActionButton fab,  Button btnListener, boolean fav, String postId) {
         Title = title;
         Date = date;
         Username = username;
@@ -79,5 +83,21 @@ public class RecipeModel {
 
     public void setBtnListener(Button btnListener) {
         this.btnListener = btnListener;
+    }
+
+    public boolean isFav() {
+        return Fav;
+    }
+
+    public void setFav(boolean fav) {
+        Fav = fav;
+    }
+
+    public String getPostId() {
+        return postId;
+    }
+
+    public void setPostId(String postId) {
+        this.postId = postId;
     }
 }
