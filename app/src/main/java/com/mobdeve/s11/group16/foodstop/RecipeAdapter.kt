@@ -40,6 +40,12 @@ class RecipeAdapter(private val context: Context, private var recipeModelList: L
         imageUri = recipeModel.image
         Picasso.get().load(imageUri).into(holder.imageView)
 
+        if (recipeModel.isBooleanValue) {
+            holder.fabFav.setImageResource(R.mipmap.star)
+        } else {
+            holder.fabFav.setImageResource(R.mipmap.favorite)
+        }
+
         holder.fabFav.setOnClickListener(View.OnClickListener {
             val postRef = FirebaseDatabase.getInstance().getReference("Posts")
                 .child(recipeModel.postId)
@@ -53,7 +59,6 @@ class RecipeAdapter(private val context: Context, private var recipeModelList: L
                 holder.fabFav.setImageResource(R.mipmap.favorite)
             }
         })
-
 
         holder.itemView.setOnClickListener {
             val intent = Intent(context, PostDetailActivity::class.java)
