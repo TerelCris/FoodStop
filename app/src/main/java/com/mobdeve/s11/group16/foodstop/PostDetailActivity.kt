@@ -8,21 +8,26 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.mobdeve.s11.group16.foodstop.databinding.PostLayoutBinding
 import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
 import java.util.*
 
-class PostDetailActivity : AppCompatActivity() {
+class PostDetailActivity(private val commentList : MutableList<Comment> = mutableListOf()) : AppCompatActivity() {
 
     private lateinit var database: FirebaseDatabase
     private lateinit var ref: DatabaseReference
     private lateinit var storage: FirebaseStorage
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var commentAdapter: CommentAdapter
+    private var commentMDList = mutableListOf<CommentModel>()
+
     private lateinit var title: TextView
     private lateinit var author: TextView
     private lateinit var date: TextView
@@ -87,7 +92,25 @@ class PostDetailActivity : AppCompatActivity() {
             }
         })
 
+        this.recyclerView = viewBinding.commentsRv
+        this.commentAdapter = CommentAdapter(this.applicationContext, commentMDList)
+        this.recyclerView.adapter = commentAdapter
+        this.recyclerView.layoutManager = LinearLayoutManager(this)
+
         val snapHelper: SnapHelper = PagerSnapHelper()
         snapHelper.attachToRecyclerView(viewBinding.commentsRv)
+
+        ref.addChildEventListener(object : ChildEventListener {
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                val recipeModel = snapshot.getValue(CommentModel::class.java)
+                recipeModel?.let { commentMDList.add(0, it) }
+                commentAdapter.notifyDataSetChanged()
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
+            override fun onChildRemoved(snapshot: DataSnapshot) {}
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
+            override fun onCancelled(error: DatabaseError) {}
+        })
     }
 }
