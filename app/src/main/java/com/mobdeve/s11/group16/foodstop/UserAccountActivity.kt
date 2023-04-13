@@ -28,35 +28,48 @@ class UserAccountActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         currentUsername = intent.getStringExtra("username")
-        currentPassword = intent.getStringExtra("password")
 
-        val viewBinding : MyaccountLayoutBinding = MyaccountLayoutBinding.inflate(layoutInflater)
+        val viewBinding: MyaccountLayoutBinding = MyaccountLayoutBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
-
-        var username = viewBinding.tvEditName.editText?.text.toString()
-        var email = viewBinding.tvEditEmail.editText?.text.toString()
-        var password = viewBinding.tvEditPass.editText?.text.toString()
 
         this.usernameEt = findViewById(R.id.tv_editName)
         this.emailEt = findViewById(R.id.tv_editEmail)
         this.passwordEt = findViewById(R.id.tv_editPass)
 
-        usernameEt.editText!!.setText(currentUsername)
-        emailEt.editText!!.setText(currentEmail)
-        passwordEt.editText!!.setText(currentPassword)
+        // Query the user's data using the currentUsername variable as the key
+        databaseReference.child("Users").child(currentUsername!!).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                currentEmail = dataSnapshot.child("Email").value.toString()
+                currentPassword = dataSnapshot.child("Password").value.toString()
 
+                // Set the text of the EditText fields to the user's data
+                usernameEt.editText!!.setText(currentUsername)
+                usernameEt.isEnabled = false // Disable editing on the username field
+                emailEt.editText!!.setText(currentEmail)
+                passwordEt.editText!!.setText(currentPassword)
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Handle errors
+            }
+        })
 
         viewBinding.btnLogout.setOnClickListener(View.OnClickListener {
             FirebaseAuth.getInstance().signOut()
-            val intent : Intent = Intent(this@UserAccountActivity, LoginActivity::class.java)
+            val intent: Intent = Intent(this@UserAccountActivity, LoginActivity::class.java)
             this.startActivity(intent)
         })
 
         viewBinding.btnSave.setOnClickListener(View.OnClickListener {
-            var username = viewBinding.tvEditName.toString()
-            var email = viewBinding.tvEditEmail.toString()
-            var password = viewBinding.tvEditPass.toString()
+            // Get the updated user data from the EditText fields
+            var email = emailEt.editText!!.text.toString()
+            var password = passwordEt.editText!!.text.toString()
 
+            // Update the user's data in the database
+            databaseReference.child("Users").child(currentUsername!!).child("Email").setValue(email)
+            databaseReference.child("Users").child(currentUsername!!).child("Password").setValue(password)
+
+            Toast.makeText(this@UserAccountActivity, "Changes saved successfully", Toast.LENGTH_SHORT).show()
         })
     }
 }
