@@ -34,6 +34,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".PostDetailActivity"
+            android:exported="true"/>
+        <activity
             android:name=".SignUpActivity"
             android:exported="true"/>
     </application>
