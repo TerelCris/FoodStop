@@ -88,7 +88,7 @@ class MainActivity(private val recipeList: MutableList<Recipe> = mutableListOf()
         snapHelper.attachToRecyclerView(viewBinding.recyclerView)
 
         this.recyclerView = viewBinding.recyclerView
-        this.recipeAdapter = recipeAdapter(this.applicationContext, recipeMDList)
+        this.recipeAdapter = recipeAdapter(this.applicationContext, recipeMDList, currentUsername.toString())
         this.recyclerView.adapter = recipeAdapter
         this.recyclerView.layoutManager = LinearLayoutManager(this)
 
