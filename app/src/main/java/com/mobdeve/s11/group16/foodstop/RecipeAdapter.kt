@@ -86,7 +86,7 @@ class RecipeAdapter(private val context: Context, private var recipeModelList: L
             val alertDialog = AlertDialog.Builder(holder.itemView.rootView.context)
             alertDialog.setMessage("Are you sure you want to delete this post?")
                 .setCancelable(false)
-                .setPositiveButton("Yes") { _, _ ->
+                .setNegativeButton("Yes") { _, _ ->
                     postRef.removeValue()
                         .addOnSuccessListener {
                             recipeModelList = recipeModelList.filter { it.postId != recipeModel.postId }
@@ -94,7 +94,7 @@ class RecipeAdapter(private val context: Context, private var recipeModelList: L
                             Toast.makeText(context, "Post deleted", Toast.LENGTH_SHORT).show()
                         }
                 }
-                .setNegativeButton("No") { dialog, _ ->
+                .setPositiveButton("No") { dialog, _ ->
                     dialog.dismiss()
                 }
             val alert = alertDialog.create()
