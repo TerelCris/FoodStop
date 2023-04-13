@@ -24,6 +24,8 @@ class UserAccountActivity : AppCompatActivity() {
     var currentEmail: String? = null
     var currentPassword: String? = null
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

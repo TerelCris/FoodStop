@@ -1,8 +1,10 @@
 package com.mobdeve.s11.group16.foodstop
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
@@ -19,9 +21,11 @@ class FavoritesActivity : AppCompatActivity() {
     private lateinit var storage: FirebaseStorage
     private lateinit var recyclerView: RecyclerView
     private lateinit var recipeAdapter: RecipeAdapter
-    private val recipeMDList = mutableListOf<RecipeModel>()
+    private var recipeMDList = mutableListOf<RecipeModel>()
 
     private var currentUsername: String? = null
+    private var currentEmail: String? = null
+    private var currentPassword: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,9 +34,10 @@ class FavoritesActivity : AppCompatActivity() {
 
         // Get the current user's username from the intent
         currentUsername = intent.getStringExtra("username")
+        currentEmail = intent.getStringExtra("email")
+        currentPassword = intent.getStringExtra("password")
 
         database = FirebaseDatabase.getInstance()
-        ref = database.reference.child("Posts")
         storage = FirebaseStorage.getInstance()
 
         viewBinding.ibCreate.setOnClickListener(View.OnClickListener {
@@ -46,31 +51,24 @@ class FavoritesActivity : AppCompatActivity() {
             this.startActivity(intent)
         })
 
-        val snapHelper: SnapHelper = PagerSnapHelper()
-        snapHelper.attachToRecyclerView(viewBinding.recyclerView)
+        viewBinding.ibUser.setOnClickListener(View.OnClickListener {
+            val intent = Intent(this@FavoritesActivity, UserAccountActivity::class.java)
+            intent.putExtra("username", currentUsername)
+            intent.putExtra("email", currentEmail)
+            intent.putExtra("password", currentPassword)
+            startActivity(intent)
+        })
 
         this.recyclerView = viewBinding.recyclerView
         this.recipeAdapter = RecipeAdapter(this, recipeMDList, currentUsername.toString())
         this.recyclerView.adapter = recipeAdapter
         this.recyclerView.layoutManager = LinearLayoutManager(this)
 
-        ref.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                recipeMDList.clear()
-                for (postSnapshot in dataSnapshot.children) {
-                    val recipeModel = postSnapshot.getValue(RecipeModel::class.java)
-                    if (recipeModel?.BooleanValue == true && postSnapshot.child("Favorites").hasChild(currentUsername.toString())) {
-                        recipeMDList.add(recipeModel)
-                    }
-                }
-                recipeAdapter.notifyDataSetChanged()
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-                // handle error
-            }
-        })
 
 
+
+        val snapHelper: SnapHelper = PagerSnapHelper()
+        snapHelper.attachToRecyclerView(viewBinding.recyclerView)
     }
+
 }

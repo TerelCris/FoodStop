@@ -110,7 +110,6 @@ class CreatePostActivity : AppCompatActivity() {
                         newPost.child("Description").setValue(txtDesc)
                         newPost.child("Username").setValue(currentUsername)
                         newPost.child("Image").setValue(task.result.toString())
-                        newPost.child("BooleanValue").setValue(false)
                         // Set the date
                         newPost.child("Date").setValue(formattedDate)
 

@@ -96,7 +96,8 @@ class MainActivity(private val recipeList: MutableList<Recipe> = mutableListOf()
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 val recipeModel = snapshot.getValue(RecipeModel::class.java)
                 recipeModel?.let { recipeMDList.add(0, it) }
-                recipeAdapter.notifyDataSetChanged()
+                currentUsername?.let { recipeAdapter = recipeAdapter(this@MainActivity.applicationContext, recipeMDList, it) }
+                recyclerView.adapter = recipeAdapter
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}

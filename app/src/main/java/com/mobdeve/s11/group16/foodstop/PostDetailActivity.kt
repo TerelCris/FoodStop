@@ -34,7 +34,9 @@ class PostDetailActivity(private val commentList : MutableList<Comment> = mutabl
     private lateinit var description: TextView
     private lateinit var image: ImageView
     private lateinit var comment : EditText
-    var currentUsername: String? = null
+    private var currentUsername: String? = null
+    private var currentEmail: String? = null
+    private var currentPassword: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +56,20 @@ class PostDetailActivity(private val commentList : MutableList<Comment> = mutabl
 
         // get the passed currentUsername variable here
         currentUsername = intent.getStringExtra("username")
+        currentEmail = intent.getStringExtra("email")
+        currentPassword = intent.getStringExtra("password")
+
+//        viewBinding.btn_user.setOnClickListener(View.OnClickListener {
+//            val intent = Intent(this@PostDetailActivity, UserAccountActivity::class.java)
+//            intent.putExtra("username", currentUsername)
+//            intent.putExtra("email", currentEmail)
+//            intent.putExtra("password", currentPassword)
+//            startActivity(intent)
+//        })
+        this.recyclerView = viewBinding.commentsRv
+        this.commentAdapter = CommentAdapter(this.applicationContext, commentMDList)
+        this.recyclerView.adapter = commentAdapter
+        this.recyclerView.layoutManager = LinearLayoutManager(this)
 
         Picasso.get().load(intent.getStringExtra("image"))
             .placeholder(R.drawable.katsudonjapanesepork)
@@ -63,6 +79,8 @@ class PostDetailActivity(private val commentList : MutableList<Comment> = mutabl
         author.text = intent.getStringExtra("author")
         date.text = intent.getStringExtra("date")
         description.text = intent.getStringExtra("description")
+
+
 
         viewBinding.sendBtn.setOnClickListener(View.OnClickListener {
             val username = title.text.toString().trim()
@@ -92,10 +110,7 @@ class PostDetailActivity(private val commentList : MutableList<Comment> = mutabl
             }
         })
 
-        this.recyclerView = viewBinding.commentsRv
-        this.commentAdapter = CommentAdapter(this.applicationContext, commentMDList)
-        this.recyclerView.adapter = commentAdapter
-        this.recyclerView.layoutManager = LinearLayoutManager(this)
+
 
         val snapHelper: SnapHelper = PagerSnapHelper()
         snapHelper.attachToRecyclerView(viewBinding.commentsRv)

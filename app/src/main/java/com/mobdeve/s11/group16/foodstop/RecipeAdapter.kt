@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.squareup.picasso.Picasso
 
@@ -59,7 +60,6 @@ class RecipeAdapter(private val context: Context, private var recipeModelList: L
             val favoritesMap = HashMap<String, Any>()
             val isFavorite = !recipeModel.isBooleanValue
             favoritesMap["Favorites/$currentUsername"] = isFavorite
-            favoritesMap["FavoritesCount"] = if (isFavorite) 1 else -1
             postRef.updateChildren(favoritesMap)
                 .addOnSuccessListener {
                     recipeModel.isBooleanValue = isFavorite // update the local model
@@ -73,10 +73,15 @@ class RecipeAdapter(private val context: Context, private var recipeModelList: L
 
         holder.itemView.setOnClickListener {
             val intent = Intent(context, PostDetailActivity::class.java)
-            intent.putExtra("postId", recipeModel.postId) // pass the post ID to the detail activity
+            intent.putExtra("image", recipeModel.image)
+            intent.putExtra("title", recipeModel.title)
+            intent.putExtra("author", recipeModel.username)
+            intent.putExtra("date", recipeModel.date)
+            intent.putExtra("description", recipeModel.description)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
         }
+
     }
 
     fun filterList(filteredList: List<RecipeModel>) {
