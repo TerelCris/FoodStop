@@ -67,39 +67,31 @@
                 android:textSize="28dp"
                 android:textStyle="bold" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/ConstraintLayout"
+            <LinearLayout
+                android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-
-                <LinearLayout
-                    android:id="@+id/linearLayout2"
+                <TextView
+                    android:id="@+id/userTv"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:text="Author"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
 
-                    <TextView
-                        android:id="@+id/userTv"
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="20dp"
-                        android:paddingTop="10dp"
-                        android:text="Author"
-                        android:textColor="@color/black"
-                        android:textSize="20dp" />
-
-                    <TextView
-                        android:id="@+id/datePostTv"
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="20dp"
-                        android:text="Date"
-                        android:textColor="@color/black"
-                        android:textSize="16dp" />
-                </LinearLayout>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/datePostTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Date"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="16dp" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/bodyTv"
@@ -116,52 +108,37 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView"
+                <EditText
+                    android:id="@+id/commentBox"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="20dp"
-                    android:background="#1B8C41"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
-                    android:text="Comments" />
+                    android:layout_height="100dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/shape_border_comment"
+                    android:textSize="14dp"
+                    android:gravity="top"
+                    android:padding="10dp"
+                    android:hint="Add a comment..." />
+
+                <Button
+                    android:id="@+id/sendBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:backgroundTint="#1B8C41"
+                    android:text="POST"
+                    android:textSize="14dp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/commentsRv"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:paddingLeft="20dp"
-                    android:paddingTop="10dp">
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp">
 
                 </androidx.recyclerview.widget.RecyclerView>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <EditText
-                        android:id="@+id/commentBox"
-                        android:layout_width="340dp"
-                        android:layout_height="50dp"
-                        android:background="@drawable/shape_border_comment"
-                        android:ems="10"
-                        android:inputType="textPersonName"
-                        android:paddingLeft="14dp"
-                        android:text="Comment Goes Here" />
-
-                    <Button
-                        android:id="@+id/sendBtn"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:backgroundTint="#1B8C41"
-                        android:textSize="8dp"
-                        android:text="SEND" />
-                </LinearLayout>
-
             </LinearLayout>
 
         </LinearLayout>
