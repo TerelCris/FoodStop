@@ -22,10 +22,6 @@
             android:name=".FavoritesActivity"
             android:exported="true"/>
         <activity
-            android:name=".PostDetailActivity"
-            android:windowSoftInputMode="stateHidden"
-            android:exported="true"/>
-        <activity
             android:name=".UserAccountActivity"
             android:exported="true"/>
         <activity
