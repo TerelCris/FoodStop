@@ -13,7 +13,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.squareup.picasso.Picasso
 
 
-class RecipeAdapter(private val context: Context, private var recipeModelList: List<RecipeModel>, private val currentUsername: String) : RecyclerView.Adapter<RecipeAdapter.ViewHolder>() {
+class RecipeAdapter(private val context: Context, private var recipeModelList: List<RecipeModel>) : RecyclerView.Adapter<RecipeAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var imageView: ImageView = itemView.findViewById(R.id.iv_cover)
@@ -53,13 +53,9 @@ class RecipeAdapter(private val context: Context, private var recipeModelList: L
 
             recipeModel.isBooleanValue = !recipeModel.isBooleanValue // update the local model
 
-            val currentUserRef = FirebaseDatabase.getInstance().getReference("Users")
-                .child(currentUsername)
             if (recipeModel.isBooleanValue) {
-                currentUserRef.child("Favorites").setValue(recipeModel.postId)
                 holder.fabFav.setImageResource(R.mipmap.star)
             } else {
-                currentUserRef.child("Favorites").setValue(null)
                 holder.fabFav.setImageResource(R.mipmap.favorite)
             }
         })
