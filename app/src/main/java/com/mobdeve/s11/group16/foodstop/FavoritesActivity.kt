@@ -13,8 +13,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.mobdeve.s11.group16.foodstop.databinding.ActivityMainBinding
 import com.mobdeve.s11.group16.foodstop.databinding.FavoritesBinding
 
-class FavoritesActivity(private val recipeList: MutableList<Recipe> = mutableListOf()) : AppCompatActivity(){
-
+class FavoritesActivity : AppCompatActivity() {
     private lateinit var database: FirebaseDatabase
     private lateinit var ref: DatabaseReference
     private lateinit var storage: FirebaseStorage
@@ -23,15 +22,14 @@ class FavoritesActivity(private val recipeList: MutableList<Recipe> = mutableLis
     private var recipeMDList = mutableListOf<RecipeModel>()
 
     private var currentUsername: String? = null
-    private var currentEmail: String? = null
-    private var currentPassword: String? = null
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val viewBinding: FavoritesBinding = FavoritesBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
+
+        // Get the current user's username from the intent
+        currentUsername = intent.getStringExtra("username")
 
         database = FirebaseDatabase.getInstance()
         ref = database.reference.child("Posts")
@@ -48,14 +46,6 @@ class FavoritesActivity(private val recipeList: MutableList<Recipe> = mutableLis
             this.startActivity(intent)
         })
 
-        viewBinding.ibUser.setOnClickListener(View.OnClickListener {
-            val intent = Intent(this@FavoritesActivity, UserAccountActivity::class.java)
-            intent.putExtra("username", currentUsername)
-            intent.putExtra("email", currentEmail)
-            intent.putExtra("password", currentPassword)
-            startActivity(intent)
-        })
-
         val snapHelper: SnapHelper = PagerSnapHelper()
         snapHelper.attachToRecyclerView(viewBinding.recyclerView)
 
@@ -67,21 +57,46 @@ class FavoritesActivity(private val recipeList: MutableList<Recipe> = mutableLis
         ref.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 val recipeModel = snapshot.getValue(RecipeModel::class.java)
-                if (recipeModel?.isBooleanValue == true) { // filter based on BooleanValue
+                if (recipeModel?.isBooleanValue == true && snapshot.child("Favorites").hasChild(
+                        currentUsername.toString()
+                    )) {
+                    // filter based on BooleanValue and Favorites node
                     recipeModel.let { recipeMDList.add(it) }
                     recipeAdapter.notifyDataSetChanged()
                 }
             }
 
-            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
-            override fun onChildRemoved(snapshot: DataSnapshot) {}
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                // if a recipe's favorite status is changed, update the list
+                val recipeModel = snapshot.getValue(RecipeModel::class.java)
+                if (recipeModel?.isBooleanValue == true && snapshot.child("Favorites").hasChild(
+                        currentUsername.toString()
+                    )) {
+                    val index = recipeMDList.indexOfFirst { it.postId == recipeModel.postId }
+                    if (index != -1) {
+                        recipeMDList[index] = recipeModel
+                        recipeAdapter.notifyItemChanged(index)
+                    }
+                }
+            }
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {
+                // if a recipe is unfavorited, remove it from the list
+                val recipeModel = snapshot.getValue(RecipeModel::class.java)
+                if (recipeModel?.isBooleanValue == true && snapshot.child("Favorites").hasChild(
+                        currentUsername.toString()
+                    )) {
+                    val index = recipeMDList.indexOfFirst { it.postId == recipeModel.postId }
+                    if (index != -1) {
+                        recipeMDList.removeAt(index)
+                        recipeAdapter.notifyItemRemoved(index)
+                    }
+                }
+            }
+
             override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
             override fun onCancelled(error: DatabaseError) {}
         })
 
-        // get the passed currentUsername variable here
-        currentUsername = intent.getStringExtra("username")
-        currentEmail = intent.getStringExtra("email")
-        currentPassword = intent.getStringExtra("password")
     }
 }
