@@ -26,6 +26,24 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_del"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="25dp"
+                android:layout_marginVertical="25dp"
+                android:clickable="true"
+                android:outlineProvider="none"
+                android:src="@drawable/del"
+                android:tint="@color/white"
+                app:backgroundTint="@android:color/white"
+                app:maxImageSize="40dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:tint="@android:color/transparent"
+                tools:layout_editor_absoluteX="85dp"
+                tools:layout_editor_absoluteY="267dp" />
+
             <LinearLayout
                 android:id="@+id/linearLayout"
                 android:layout_width="wrap_content"
@@ -94,22 +112,6 @@
                 app:backgroundTint="@android:color/transparent"
                 app:tint="@android:color/transparent"
                 android:src="@mipmap/favorite"
-                app:maxImageSize="40dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/iv_cover" />
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab_del"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="65dp"
-                android:layout_marginVertical="25dp"
-                android:clickable="true"
-                android:outlineProvider="none"
-                android:tint="@color/white"
-                app:backgroundTint="@android:color/transparent"
-                app:tint="@android:color/transparent"
-                android:src="@drawable/del"
                 app:maxImageSize="40dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/iv_cover" />
