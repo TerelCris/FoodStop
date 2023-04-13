@@ -40,37 +40,40 @@ class RecipeAdapter(private val context: Context, private var recipeModelList: L
         imageUri = recipeModel.image
         Picasso.get().load(imageUri).into(holder.imageView)
 
-        if (recipeModel.isBooleanValue) {
-            holder.fabFav.setImageResource(R.mipmap.star)
-        } else {
-            holder.fabFav.setImageResource(R.mipmap.favorite)
+        val postRef = FirebaseDatabase.getInstance().getReference("Posts")
+            .child(recipeModel.postId) // use the post ID to get the post reference
+        val favoritesRef = postRef.child("Favorites").child(currentUsername)
+
+        // get the favorite status for the current user from the "Favorites" node under the post ID
+        favoritesRef.get().addOnSuccessListener { snapshot ->
+            val isFavorite = snapshot.getValue(Boolean::class.java) ?: false
+            recipeModel.isBooleanValue = isFavorite
+            if (isFavorite) {
+                holder.fabFav.setImageResource(R.mipmap.star)
+            } else {
+                holder.fabFav.setImageResource(R.mipmap.favorite)
+            }
         }
 
         holder.fabFav.setOnClickListener(View.OnClickListener {
-            val postRef = FirebaseDatabase.getInstance().getReference("Posts")
-                .child(recipeModel.postId)
-            postRef.child("BooleanValue").setValue(!recipeModel.isBooleanValue) // update the BooleanValue field
-
-            recipeModel.isBooleanValue = !recipeModel.isBooleanValue // update the local model
-
-            val currentUserRef = FirebaseDatabase.getInstance().getReference("Users")
-                .child(currentUsername)
-            if (recipeModel.isBooleanValue) {
-                currentUserRef.child("Favorites").setValue(recipeModel.postId)
-                holder.fabFav.setImageResource(R.mipmap.star)
-            } else {
-                currentUserRef.child("Favorites").setValue(null)
-                holder.fabFav.setImageResource(R.mipmap.favorite)
-            }
+            val favoritesMap = HashMap<String, Any>()
+            val isFavorite = !recipeModel.isBooleanValue
+            favoritesMap["Favorites/$currentUsername"] = isFavorite
+            favoritesMap["FavoritesCount"] = if (isFavorite) 1 else -1
+            postRef.updateChildren(favoritesMap)
+                .addOnSuccessListener {
+                    recipeModel.isBooleanValue = isFavorite // update the local model
+                    if (isFavorite) {
+                        holder.fabFav.setImageResource(R.mipmap.star)
+                    } else {
+                        holder.fabFav.setImageResource(R.mipmap.favorite)
+                    }
+                }
         })
 
         holder.itemView.setOnClickListener {
             val intent = Intent(context, PostDetailActivity::class.java)
-            intent.putExtra("image", recipeModel.image)
-            intent.putExtra("title", recipeModel.title)
-            intent.putExtra("author", recipeModel.username)
-            intent.putExtra("date", recipeModel.date)
-            intent.putExtra("description", recipeModel.description)
+            intent.putExtra("postId", recipeModel.postId) // pass the post ID to the detail activity
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
         }
