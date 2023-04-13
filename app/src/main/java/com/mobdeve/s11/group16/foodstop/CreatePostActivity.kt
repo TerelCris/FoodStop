@@ -1,13 +1,6 @@
 package com.mobdeve.s11.group16.foodstop
 
 import android.app.Activity
-import android.app.ProgressDialog
-import android.content.ContentResolver
-import android.graphics.Bitmap
-import android.provider.MediaStore
-import android.support.annotation.NonNull
-import android.webkit.MimeTypeMap
-import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.OnProgressListener
@@ -131,7 +124,6 @@ class CreatePostActivity : AppCompatActivity() {
     }
 
 }
-
 
 
 

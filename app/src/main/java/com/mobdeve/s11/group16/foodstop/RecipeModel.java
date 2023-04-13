@@ -14,6 +14,8 @@ public class RecipeModel {
     String Description;
     String Image;
     FloatingActionButton fab;
+
+    FloatingActionButton del;
     Button btnListener;
     boolean BooleanValue;
     String postId;
@@ -21,7 +23,7 @@ public class RecipeModel {
     public RecipeModel() {
     }
 
-    public RecipeModel(String title, String date, String username, String image, String description, FloatingActionButton fab,  Button btnListener, boolean BooleanValue, String postId) {
+    public RecipeModel(String title, String date, String username, String image, String description, FloatingActionButton fab,  FloatingActionButton del, Button btnListener, boolean BooleanValue, String postId) {
         Title = title;
         Date = date;
         Username = username;
@@ -68,6 +70,14 @@ public class RecipeModel {
 
     public void setFab(FloatingActionButton fab) {
         this.fab = fab;
+    }
+
+    public FloatingActionButton getDel() {
+        return del;
+    }
+
+    public void setDel(FloatingActionButton del) {
+        this.del = del;
     }
 
     public String getImage() {

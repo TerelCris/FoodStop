@@ -1,5 +1,6 @@
 package com.mobdeve.s11.group16.foodstop
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,11 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.squareup.picasso.Picasso
+import java.util.ArrayList
 
 
 class RecipeAdapter(private val context: Context, private var recipeModelList: List<RecipeModel>, private val currentUsername: String) : RecyclerView.Adapter<RecipeAdapter.ViewHolder>() {
@@ -23,6 +26,7 @@ class RecipeAdapter(private val context: Context, private var recipeModelList: L
         var txtUser: TextView = itemView.findViewById(R.id.tv_author)
         var txtDesc: TextView = itemView.findViewById(R.id.tv_desc)
         var fabFav: FloatingActionButton = itemView.findViewById(R.id.fab_fav)
+        var fabDel: FloatingActionButton = itemView.findViewById(R.id.fab_del)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -56,6 +60,12 @@ class RecipeAdapter(private val context: Context, private var recipeModelList: L
             }
         }
 
+        if (currentUsername == recipeModel.username) {
+            holder.fabDel.visibility = View.VISIBLE
+        } else {
+            holder.fabDel.visibility = View.GONE
+        }
+
         holder.fabFav.setOnClickListener(View.OnClickListener {
             val favoritesMap = HashMap<String, Any>()
             val isFavorite = !recipeModel.isBooleanValue
@@ -71,6 +81,25 @@ class RecipeAdapter(private val context: Context, private var recipeModelList: L
                 }
         })
 
+        holder.fabDel.setOnClickListener {
+            val alertDialog = AlertDialog.Builder(context)
+            alertDialog.setMessage("Are you sure you want to delete this post?")
+                .setCancelable(false)
+                .setPositiveButton("Yes") { _, _ ->
+                    postRef.removeValue()
+                        .addOnSuccessListener {
+                            recipeModelList = recipeModelList.filter { it.postId != recipeModel.postId }
+                            notifyDataSetChanged()
+                            Toast.makeText(context, "Post deleted", Toast.LENGTH_SHORT).show()
+                        }
+                }
+                .setNegativeButton("No") { dialog, _ ->
+                    dialog.dismiss()
+                }
+            val alert = alertDialog.create()
+            alert.show()
+        }
+
         holder.itemView.setOnClickListener {
             val intent = Intent(context, PostDetailActivity::class.java)
             intent.putExtra("image", recipeModel.image)
@@ -83,13 +112,16 @@ class RecipeAdapter(private val context: Context, private var recipeModelList: L
         }
 
     }
-
+    fun deleteItem(position: Int) {
+        recipeModelList = recipeModelList.filterIndexed { index, _ -> index != position }
+        notifyItemRemoved(position)
+    }
     fun filterList(filteredList: List<RecipeModel>) {
         recipeModelList = filteredList
         notifyDataSetChanged()
     }
 
-    fun setData(recipeModelList: List<RecipeModel>) {
+    fun setData(recipeModelList: ArrayList<Recipe>) {
         this.recipeModelList = recipeModelList
         notifyDataSetChanged()
     }
