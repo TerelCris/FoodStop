@@ -118,7 +118,9 @@
                     android:textSize="14dp"
                     android:gravity="top"
                     android:padding="10dp"
-                    android:hint="Add a comment..." />
+                    android:hint="Add a comment..."
+                    android:focusable="true"
+                    android:focusableInTouchMode="true" />
 
                 <Button
                     android:id="@+id/sendBtn"
