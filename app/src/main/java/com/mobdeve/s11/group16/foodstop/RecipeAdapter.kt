@@ -110,7 +110,6 @@ class RecipeAdapter(private val context: Context, private var recipeModelList: L
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
         }
-
     }
     fun deleteItem(position: Int) {
         recipeModelList = recipeModelList.filterIndexed { index, _ -> index != position }
@@ -121,7 +120,7 @@ class RecipeAdapter(private val context: Context, private var recipeModelList: L
         notifyDataSetChanged()
     }
 
-    fun setData(recipeModelList: ArrayList<Recipe>) {
+    fun setData(recipeModelList: List<RecipeModel>) {
         this.recipeModelList = recipeModelList
         notifyDataSetChanged()
     }
