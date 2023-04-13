@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.SnapHelper
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.mobdeve.s11.group16.foodstop.databinding.ActivityMainBinding
+import java.io.Serializable
 import java.util.*
 import com.mobdeve.s11.group16.foodstop.RecipeAdapter as recipeAdapter
 
@@ -38,6 +39,7 @@ class MainActivity(private val recipeList: MutableList<Recipe> = mutableListOf()
 
         val viewBinding : ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
+
 
         searchView = findViewById(R.id.searchView)
         searchView.clearFocus()

@@ -60,6 +60,7 @@ class RecipeAdapter(private val context: Context, private var recipeModelList: L
             }
         }
 
+        // check if the current post belongs to the current user
         if (currentUsername == recipeModel.username) {
             holder.fabDel.visibility = View.VISIBLE
         } else {
@@ -82,7 +83,7 @@ class RecipeAdapter(private val context: Context, private var recipeModelList: L
         })
 
         holder.fabDel.setOnClickListener {
-            val alertDialog = AlertDialog.Builder(context)
+            val alertDialog = AlertDialog.Builder(holder.itemView.rootView.context)
             alertDialog.setMessage("Are you sure you want to delete this post?")
                 .setCancelable(false)
                 .setPositiveButton("Yes") { _, _ ->
@@ -110,6 +111,7 @@ class RecipeAdapter(private val context: Context, private var recipeModelList: L
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
         }
+
     }
     fun deleteItem(position: Int) {
         recipeModelList = recipeModelList.filterIndexed { index, _ -> index != position }

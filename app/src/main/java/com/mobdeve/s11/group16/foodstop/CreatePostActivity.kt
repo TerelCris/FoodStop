@@ -44,32 +44,6 @@ class CreatePostActivity : AppCompatActivity() {
     private val recipeList = ArrayList<Recipe>()
     private lateinit var adapter: RecipeAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        val viewBinding : CreatePostLayoutBinding = CreatePostLayoutBinding.inflate(layoutInflater)
-        setContentView(viewBinding.root)
-
-        imageButton = findViewById(R.id.ib_add)
-        title = findViewById(R.id.postTitleEt)
-        description = findViewById(R.id.postDescriptionEt)
-        postBtn = findViewById(R.id.postBtn)
-        database = FirebaseDatabase.getInstance()
-        ref = database.reference.child("Posts")
-        storage = FirebaseStorage.getInstance()
-
-        // get the passed currentUsername variable here
-        currentUsername = intent.getStringExtra("username")
-
-
-        imageButton.setOnClickListener(View.OnClickListener {
-            val i = Intent(Intent.ACTION_PICK)
-            i.type = "image/*"
-            i.action = Intent.ACTION_GET_CONTENT
-            createPostResultLauncher.launch(Intent.createChooser(i, "Select Image"))
-        })
-    }
-
     private val createPostResultLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
@@ -109,7 +83,9 @@ class CreatePostActivity : AppCompatActivity() {
 
                         Toast.makeText(this@CreatePostActivity, "Post has been created", Toast.LENGTH_SHORT).show()
 
+
                         val intent = Intent(this@CreatePostActivity, MainActivity::class.java)
+                        intent.putExtra("username", currentUsername)
                         startActivity(intent)
                     }
 
@@ -121,6 +97,38 @@ class CreatePostActivity : AppCompatActivity() {
             }
         })
 
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("username", currentUsername)
+    }
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val viewBinding : CreatePostLayoutBinding = CreatePostLayoutBinding.inflate(layoutInflater)
+        setContentView(viewBinding.root)
+
+        imageButton = findViewById(R.id.ib_add)
+        title = findViewById(R.id.postTitleEt)
+        description = findViewById(R.id.postDescriptionEt)
+        postBtn = findViewById(R.id.postBtn)
+        database = FirebaseDatabase.getInstance()
+        ref = database.reference.child("Posts")
+        storage = FirebaseStorage.getInstance()
+
+        // get the passed currentUsername variable here
+        currentUsername = intent.getStringExtra("username")
+
+
+        imageButton.setOnClickListener(View.OnClickListener {
+            val i = Intent(Intent.ACTION_PICK)
+            i.type = "image/*"
+            i.action = Intent.ACTION_GET_CONTENT
+            createPostResultLauncher.launch(Intent.createChooser(i, "Select Image"))
+        })
     }
 
 }
