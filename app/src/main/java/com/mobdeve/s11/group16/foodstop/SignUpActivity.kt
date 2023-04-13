@@ -40,9 +40,9 @@ class SignUpActivity : AppCompatActivity() {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
                         if(dataSnapshot.hasChild(username)){
                             Toast.makeText(this@SignUpActivity, "Username is already used", Toast.LENGTH_SHORT).show()
-                        }
-
-                        else{
+                        } else if (dataSnapshot.children.any { it.child("Email").value == email }) {
+                            Toast.makeText(this@SignUpActivity, "Email is already used", Toast.LENGTH_SHORT).show()
+                        } else {
                             databaseReference.child("Users").child(username).child("Username").setValue(username)
                             databaseReference.child("Users").child(username).child("Email").setValue(email)
                             databaseReference.child("Users").child(username).child("Password").setValue(password)
@@ -55,7 +55,6 @@ class SignUpActivity : AppCompatActivity() {
                     override fun onCancelled(databaseError: DatabaseError) {
                     }
                 })
-                finish()
             }
         })
 
