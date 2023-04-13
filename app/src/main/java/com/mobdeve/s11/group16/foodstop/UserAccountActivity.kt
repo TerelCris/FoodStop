@@ -56,6 +56,7 @@ class UserAccountActivity : AppCompatActivity() {
 
         viewBinding.btnLogout.setOnClickListener(View.OnClickListener {
             FirebaseAuth.getInstance().signOut()
+            currentUsername = null // Reset the currentUsername variable
             val intent: Intent = Intent(this@UserAccountActivity, LoginActivity::class.java)
             this.startActivity(intent)
         })
@@ -72,4 +73,5 @@ class UserAccountActivity : AppCompatActivity() {
             Toast.makeText(this@UserAccountActivity, "Changes saved successfully", Toast.LENGTH_SHORT).show()
         })
     }
+
 }
