@@ -19,7 +19,7 @@ class FavoritesActivity : AppCompatActivity() {
     private lateinit var storage: FirebaseStorage
     private lateinit var recyclerView: RecyclerView
     private lateinit var recipeAdapter: RecipeAdapter
-    private var recipeMDList = mutableListOf<RecipeModel>()
+    private val recipeMDList = mutableListOf<RecipeModel>()
 
     private var currentUsername: String? = null
 
@@ -54,49 +54,23 @@ class FavoritesActivity : AppCompatActivity() {
         this.recyclerView.adapter = recipeAdapter
         this.recyclerView.layoutManager = LinearLayoutManager(this)
 
-        ref.addChildEventListener(object : ChildEventListener {
-            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                val recipeModel = snapshot.getValue(RecipeModel::class.java)
-                if (recipeModel?.isBooleanValue == true && snapshot.child("Favorites").hasChild(
-                        currentUsername.toString()
-                    )) {
-                    // filter based on BooleanValue and Favorites node
-                    recipeModel.let { recipeMDList.add(it) }
-                    recipeAdapter.notifyDataSetChanged()
-                }
-            }
-
-            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                // if a recipe's favorite status is changed, update the list
-                val recipeModel = snapshot.getValue(RecipeModel::class.java)
-                if (recipeModel?.isBooleanValue == true && snapshot.child("Favorites").hasChild(
-                        currentUsername.toString()
-                    )) {
-                    val index = recipeMDList.indexOfFirst { it.postId == recipeModel.postId }
-                    if (index != -1) {
-                        recipeMDList[index] = recipeModel
-                        recipeAdapter.notifyItemChanged(index)
+        ref.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                recipeMDList.clear()
+                for (postSnapshot in dataSnapshot.children) {
+                    val recipeModel = postSnapshot.getValue(RecipeModel::class.java)
+                    if (recipeModel?.BooleanValue == true && postSnapshot.child("Favorites").hasChild(currentUsername.toString())) {
+                        recipeMDList.add(recipeModel)
                     }
                 }
+                recipeAdapter.notifyDataSetChanged()
             }
 
-            override fun onChildRemoved(snapshot: DataSnapshot) {
-                // if a recipe is unfavorited, remove it from the list
-                val recipeModel = snapshot.getValue(RecipeModel::class.java)
-                if (recipeModel?.isBooleanValue == true && snapshot.child("Favorites").hasChild(
-                        currentUsername.toString()
-                    )) {
-                    val index = recipeMDList.indexOfFirst { it.postId == recipeModel.postId }
-                    if (index != -1) {
-                        recipeMDList.removeAt(index)
-                        recipeAdapter.notifyItemRemoved(index)
-                    }
-                }
+            override fun onCancelled(databaseError: DatabaseError) {
+                // handle error
             }
-
-            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
-            override fun onCancelled(error: DatabaseError) {}
         })
+
 
     }
 }
