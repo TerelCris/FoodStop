@@ -25,7 +25,7 @@ class CommentAdapter(private val context: Context, private var commentModelList:
 
         holder.commentUser.text = commentModel.username
         holder.commentDate.text = commentModel.date
-        holder.commentBody.text = commentModel.body
+        holder.commentBody.text = commentModel.comment
     }
 
     override fun getItemCount(): Int {
