@@ -12,10 +12,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.gms.tasks.Task
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
 import com.mobdeve.s11.group16.foodstop.databinding.PostLayoutBinding
 import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
@@ -135,7 +133,7 @@ class PostDetailActivity(private val commentList : MutableList<Comment> = mutabl
                 val commentModel = snapshot.getValue(CommentModel::class.java)
                 commentModel?.let { commentMDList.add(0, it) }
                 commentAdapter.notifyItemInserted(0)
-                currentUsername?.let { commentAdapter = CommentAdapter(this@PostDetailActivity.applicationContext, commentMDList, it) }
+                currentUsername?.let { commentAdapter = CommentAdapter(this@PostDetailActivity.applicationContext, commentList, it) }
                 recyclerView.adapter = commentAdapter
             }
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
