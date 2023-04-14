@@ -131,7 +131,7 @@ class PostDetailActivity(private val commentList : MutableList<Comment> = mutabl
                 val commentModel = snapshot.getValue(CommentModel::class.java)
                 commentModel?.let { commentMDList.add(0, it) }
                 commentAdapter.notifyItemInserted(0)
-                currentUsername?.let { commentAdapter = CommentAdapter(this@PostDetailActivity.applicationContext, commentList, it) }
+                currentUsername?.let { commentAdapter = CommentAdapter(this@PostDetailActivity.applicationContext, commentMDList, it) }
                 recyclerView.adapter = commentAdapter
             }
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
