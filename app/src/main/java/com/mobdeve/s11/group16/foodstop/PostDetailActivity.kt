@@ -52,6 +52,7 @@ class PostDetailActivity(private val commentList : MutableList<Comment> = mutabl
 
         val viewBinding : PostLayoutBinding = PostLayoutBinding.inflate(layoutInflater)
 
+
         title = findViewById(R.id.titleTv)
         author = findViewById(R.id.userTv)
         date = findViewById(R.id.datePostTv)
@@ -77,12 +78,6 @@ class PostDetailActivity(private val commentList : MutableList<Comment> = mutabl
             startActivity(intent)
         })
 
-        this.recyclerView = viewBinding.commentsRv
-        this.commentAdapter = CommentAdapter(this.applicationContext, commentMDList, currentUsername.toString(), title.text.toString())
-        this.recyclerView.adapter = commentAdapter
-        this.recyclerView.layoutManager = LinearLayoutManager(this)
-
-
 
         Picasso.get().load(intent.getStringExtra("image"))
             .placeholder(R.drawable.katsudonjapanesepork)
@@ -92,6 +87,24 @@ class PostDetailActivity(private val commentList : MutableList<Comment> = mutabl
         author.text = intent.getStringExtra("author")
         date.text = intent.getStringExtra("date")
         description.text = intent.getStringExtra("description")
+
+        this.recyclerView = viewBinding.commentsRv
+        this.commentAdapter = CommentAdapter(this.applicationContext, commentMDList, currentUsername.toString(), title.text.toString())
+        this.recyclerView.layoutManager = LinearLayoutManager(this)
+        this.recyclerView.adapter = commentAdapter
+
+        ref.addChildEventListener(object : ChildEventListener {
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                val commentModel = snapshot.getValue(CommentModel::class.java)
+                commentModel?.let { commentMDList.add(0, it) }
+                currentUsername?.let { commentAdapter = CommentAdapter(this@PostDetailActivity.applicationContext, commentMDList, it, title.text.toString()) }
+                recyclerView.adapter = commentAdapter
+            }
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
+            override fun onChildRemoved(snapshot: DataSnapshot) {}
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
+            override fun onCancelled(error: DatabaseError) {}
+        })
 
 
         sendBtn.setOnClickListener(View.OnClickListener {
@@ -106,7 +119,6 @@ class PostDetailActivity(private val commentList : MutableList<Comment> = mutabl
                 val formattedDate = dateFormat.format(currentDate)
 
                 val newPost = ref.push()
-                newPost.child("CommentId").setValue(newPost.key)
                 newPost.child("PostTitle").setValue(txtTitle)
                 newPost.child("Username").setValue(currentUsername.toString())
                 newPost.child("Date").setValue(formattedDate)
@@ -128,18 +140,7 @@ class PostDetailActivity(private val commentList : MutableList<Comment> = mutabl
 
         })
 
-        ref.addChildEventListener(object : ChildEventListener {
-            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                val commentModel = snapshot.getValue(CommentModel::class.java)
-                commentModel?.let { commentMDList.add(0, it) }
-                currentUsername?.let { commentAdapter = CommentAdapter(this@PostDetailActivity.applicationContext, commentMDList, it, title.text.toString()) }
-                recyclerView.adapter = commentAdapter
-            }
-            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
-            override fun onChildRemoved(snapshot: DataSnapshot) {}
-            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
-            override fun onCancelled(error: DatabaseError) {}
-        })
+
 
     }
 }
