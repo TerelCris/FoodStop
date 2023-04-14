@@ -64,9 +64,6 @@ class FavoritesActivity : AppCompatActivity() {
         this.recyclerView.adapter = recipeAdapter
         this.recyclerView.layoutManager = LinearLayoutManager(this)
 
-
-
-
         val snapHelper: SnapHelper = PagerSnapHelper()
         snapHelper.attachToRecyclerView(viewBinding.recyclerView)
     }
