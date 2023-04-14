@@ -18,7 +18,6 @@ public class CommentModel {
         Username = username;
     }
 
-
     public String getDate() {
         return Date;
     }
@@ -31,7 +30,7 @@ public class CommentModel {
         return Body;
     }
 
-    public void setTitle(String body) {
+    public void setBody(String body) {
         Body = body;
     }
 
@@ -42,4 +41,5 @@ public class CommentModel {
     public void setUsername(String username) {
         Username = username;
     }
+
 }

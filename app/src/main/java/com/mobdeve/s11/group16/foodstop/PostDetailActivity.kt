@@ -101,13 +101,19 @@ class PostDetailActivity(private val commentList : MutableList<Comment> = mutabl
             val txtTitle = title.text.toString().trim()
 
             if (txtComm.isNotEmpty()) {
+                // Get the current date
+                val currentDate = Date()
+                // Format the date using SimpleDateFormat
+                val dateFormat = SimpleDateFormat("MM-dd-yyyy", Locale.getDefault())
+                val formattedDate = dateFormat.format(currentDate)
+
                 val newPost = ref.push()
                 newPost.child("CommentId").setValue(newPost.key)
-                newPost.child("Comment").setValue(txtComm)
+                newPost.child("PostTitle").setValue(txtTitle)
                 newPost.child("Username").setValue(currentUsername.toString())
-                newPost.child("Title").setValue(txtTitle)
-
-
+                newPost.child("Date").setValue(formattedDate)
+                newPost.child("Comment").setValue(txtComm)
+                
                 Toast.makeText(this@PostDetailActivity, "Comment has been created", Toast.LENGTH_SHORT).show()
 
                 val intent = Intent(this@PostDetailActivity, PostDetailActivity::class.java)
