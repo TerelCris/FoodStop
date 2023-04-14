@@ -56,6 +56,7 @@ class PostDetailActivity(private val commentList : MutableList<Comment> = mutabl
         description = findViewById(R.id.bodyTv)
         image = findViewById(R.id.postIv)
         comment = findViewById(R.id.commentBox)
+        sendBtn = findViewById(R.id.sendBtn)
         database = FirebaseDatabase.getInstance()
         ref = database.reference.child("Comments")
         storage = FirebaseStorage.getInstance()
@@ -65,13 +66,6 @@ class PostDetailActivity(private val commentList : MutableList<Comment> = mutabl
         currentEmail = intent.getStringExtra("email")
         currentPassword = intent.getStringExtra("password")
 
-//        viewBinding.btn_user.setOnClickListener(View.OnClickListener {
-//            val intent = Intent(this@PostDetailActivity, UserAccountActivity::class.java)
-//            intent.putExtra("username", currentUsername)
-//            intent.putExtra("email", currentEmail)
-//            intent.putExtra("password", currentPassword)
-//            startActivity(intent)
-//        })
         this.recyclerView = viewBinding.commentsRv
         this.commentAdapter = CommentAdapter(this.applicationContext, commentMDList)
         this.recyclerView.adapter = commentAdapter
@@ -86,7 +80,7 @@ class PostDetailActivity(private val commentList : MutableList<Comment> = mutabl
         date.text = intent.getStringExtra("date")
         description.text = intent.getStringExtra("description")
 
-        viewBinding.sendBtn.setOnClickListener(View.OnClickListener {
+        sendBtn.setOnClickListener(View.OnClickListener {
             val username = title.text.toString().trim()
             val body = comment.text.toString().trim()
 
