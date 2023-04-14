@@ -88,22 +88,36 @@ class PostDetailActivity(private val commentList : MutableList<Comment> = mutabl
         date.text = intent.getStringExtra("date")
         description.text = intent.getStringExtra("description")
 
-        this.recyclerView = viewBinding.commentsRv
-        this.commentAdapter = CommentAdapter(this.applicationContext, commentMDList, currentUsername.toString(), title.text.toString())
-        this.recyclerView.layoutManager = LinearLayoutManager(this)
-        this.recyclerView.adapter = commentAdapter
+        // Initialize the RecyclerView and the adapter
+        recyclerView = findViewById(R.id.commentsRv)
+        commentAdapter = CommentAdapter(applicationContext, commentMDList, currentUsername.toString())
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = commentAdapter
 
+        // Set the addChildEventListener after setting the adapter
         ref.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 val commentModel = snapshot.getValue(CommentModel::class.java)
                 commentModel?.let { commentMDList.add(0, it) }
-                currentUsername?.let { commentAdapter = CommentAdapter(this@PostDetailActivity.applicationContext, commentMDList, it, title.text.toString()) }
+                currentUsername?.let { commentAdapter = CommentAdapter(this@PostDetailActivity.applicationContext, commentMDList, it) }
                 recyclerView.adapter = commentAdapter
             }
-            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
-            override fun onChildRemoved(snapshot: DataSnapshot) {}
-            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
-            override fun onCancelled(error: DatabaseError) {}
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                // Do nothing
+            }
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {
+                // Do nothing
+            }
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                // Do nothing
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Do nothing
+            }
         })
 
 
