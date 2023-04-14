@@ -77,6 +77,13 @@ class PostDetailActivity(private val commentList : MutableList<Comment> = mutabl
             startActivity(intent)
         })
 
+        this.recyclerView = viewBinding.commentsRv
+        this.commentAdapter = CommentAdapter(this.applicationContext, commentMDList, currentUsername.toString())
+        this.recyclerView.adapter = commentAdapter
+        this.recyclerView.layoutManager = LinearLayoutManager(this)
+
+
+
         Picasso.get().load(intent.getStringExtra("image"))
             .placeholder(R.drawable.katsudonjapanesepork)
             .into(image)
@@ -120,11 +127,6 @@ class PostDetailActivity(private val commentList : MutableList<Comment> = mutabl
             }
 
         })
-
-        this.recyclerView = viewBinding.commentsRv
-        this.commentAdapter = CommentAdapter(this.applicationContext, commentMDList, currentUsername.toString())
-        this.recyclerView.adapter = commentAdapter
-        this.recyclerView.layoutManager = LinearLayoutManager(this)
 
         ref.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
