@@ -108,6 +108,8 @@ class PostDetailActivity(private val commentList : MutableList<Comment> = mutabl
             }
         })
 
+
+
         val snapHelper: SnapHelper = PagerSnapHelper()
         snapHelper.attachToRecyclerView(viewBinding.commentsRv)
 

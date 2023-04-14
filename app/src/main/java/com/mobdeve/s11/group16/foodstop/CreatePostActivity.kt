@@ -91,6 +91,7 @@ class CreatePostActivity : AppCompatActivity() {
         outState.putString("username", currentUsername)
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
