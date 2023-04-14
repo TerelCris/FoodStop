@@ -98,9 +98,11 @@ class PostDetailActivity(private val commentList : MutableList<Comment> = mutabl
         ref.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 val commentModel = snapshot.getValue(CommentModel::class.java)
-                commentModel?.let { commentMDList.add(0, it) }
-                currentUsername?.let { commentAdapter = CommentAdapter(this@PostDetailActivity.applicationContext, commentMDList, it) }
-                recyclerView.adapter = commentAdapter
+                if (commentModel?.postTitle == title.text.toString()) {
+                    commentModel?.let { commentMDList.add(0, it) }
+                    currentUsername?.let { commentAdapter = CommentAdapter(this@PostDetailActivity.applicationContext, commentMDList, it) }
+                    recyclerView.adapter = commentAdapter
+                }
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
