@@ -78,7 +78,7 @@ class PostDetailActivity(private val commentList : MutableList<Comment> = mutabl
         })
 
         this.recyclerView = viewBinding.commentsRv
-        this.commentAdapter = CommentAdapter(this.applicationContext, commentMDList, currentUsername.toString())
+        this.commentAdapter = CommentAdapter(this.applicationContext, commentMDList, currentUsername.toString(), title.text.toString())
         this.recyclerView.adapter = commentAdapter
         this.recyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -132,7 +132,7 @@ class PostDetailActivity(private val commentList : MutableList<Comment> = mutabl
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 val commentModel = snapshot.getValue(CommentModel::class.java)
                 commentModel?.let { commentMDList.add(0, it) }
-                currentUsername?.let { commentAdapter = CommentAdapter(this@PostDetailActivity.applicationContext, commentMDList, it) }
+                currentUsername?.let { commentAdapter = CommentAdapter(this@PostDetailActivity.applicationContext, commentMDList, it, title.text.toString()) }
                 recyclerView.adapter = commentAdapter
             }
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
