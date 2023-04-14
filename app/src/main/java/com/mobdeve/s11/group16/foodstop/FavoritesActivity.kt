@@ -1,10 +1,8 @@
 package com.mobdeve.s11.group16.foodstop
 
-import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
@@ -12,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
-import com.mobdeve.s11.group16.foodstop.databinding.ActivityMainBinding
 import com.mobdeve.s11.group16.foodstop.databinding.FavoritesBinding
 
 class FavoritesActivity : AppCompatActivity() {
@@ -39,6 +36,8 @@ class FavoritesActivity : AppCompatActivity() {
 
         database = FirebaseDatabase.getInstance()
         storage = FirebaseStorage.getInstance()
+        ref = database.getReference("recipes")
+
 
         viewBinding.ibCreate.setOnClickListener(View.OnClickListener {
             val intent = Intent(this@FavoritesActivity, CreatePostActivity::class.java)
@@ -65,11 +64,33 @@ class FavoritesActivity : AppCompatActivity() {
         this.recyclerView.adapter = recipeAdapter
         this.recyclerView.layoutManager = LinearLayoutManager(this)
 
-
-
-
         val snapHelper: SnapHelper = PagerSnapHelper()
         snapHelper.attachToRecyclerView(viewBinding.recyclerView)
+
+        ref.addChildEventListener(object : ChildEventListener {
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                val recipeModel = snapshot.getValue(RecipeModel::class.java)
+                if (recipeModel?.isBooleanValue == true) {
+                    recipeModel?.let { recipeMDList.add(0, it) }
+                    currentUsername?.let { recipeAdapter = RecipeAdapter(this@FavoritesActivity.applicationContext, recipeMDList, it) }
+                    recyclerView.adapter = recipeAdapter
+                    recipeAdapter.notifyDataSetChanged()
+                }
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+            }
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {
+            }
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
+
     }
 
 }

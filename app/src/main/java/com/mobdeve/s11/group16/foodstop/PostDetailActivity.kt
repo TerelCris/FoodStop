@@ -80,7 +80,6 @@ class PostDetailActivity(private val commentList : MutableList<Comment> = mutabl
 
 
         Picasso.get().load(intent.getStringExtra("image"))
-            .placeholder(R.drawable.katsudonjapanesepork)
             .into(image)
 
         title.text = intent.getStringExtra("title")
