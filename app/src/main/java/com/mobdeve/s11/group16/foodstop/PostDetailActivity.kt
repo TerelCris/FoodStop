@@ -97,23 +97,23 @@ class PostDetailActivity(private val commentList : MutableList<Comment> = mutabl
             val txtTitle = title.text.toString().trim()
 
             if (txtComm.isNotEmpty()) {
-                        val newPost = ref.push()
-                        newPost.child("CommentId").setValue(newPost.key)
-                        newPost.child("Comment").setValue(txtComm)
-                        newPost.child("Username").setValue(currentUsername.toString())
-                        newPost.child("Title").setValue(txtTitle)
+                val newPost = ref.push()
+                newPost.child("CommentId").setValue(newPost.key)
+                newPost.child("Comment").setValue(txtComm)
+                newPost.child("Username").setValue(currentUsername.toString())
+                newPost.child("Title").setValue(txtTitle)
 
 
-                        Toast.makeText(this@PostDetailActivity, "Comment has been created", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@PostDetailActivity, "Comment has been created", Toast.LENGTH_SHORT).show()
 
-                        val intent = Intent(this@PostDetailActivity, PostDetailActivity::class.java)
-                        intent.putExtra("username", currentUsername)
-                        intent.putExtra("title", title.text.toString())
-                        intent.putExtra("author", author.text.toString())
-                        intent.putExtra("date", date.text.toString())
-                        intent.putExtra("description", description.text.toString())
-                        startActivity(intent)
-                }
+                val intent = Intent(this@PostDetailActivity, PostDetailActivity::class.java)
+                intent.putExtra("username", currentUsername)
+                intent.putExtra("title", title.text.toString())
+                intent.putExtra("author", author.text.toString())
+                intent.putExtra("date", date.text.toString())
+                intent.putExtra("description", description.text.toString())
+                startActivity(intent)
+            }
             else{
                 Toast.makeText(this@PostDetailActivity, "Please enter all fields!", Toast.LENGTH_SHORT).show()
             }
@@ -122,3 +122,4 @@ class PostDetailActivity(private val commentList : MutableList<Comment> = mutabl
 
     }
 }
+
