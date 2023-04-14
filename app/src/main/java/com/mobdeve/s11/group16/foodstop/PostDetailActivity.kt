@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -40,6 +41,7 @@ class PostDetailActivity(private val commentList : MutableList<Comment> = mutabl
 
     private lateinit var comment : EditText
     private lateinit var sendBtn : Button
+    private lateinit var btn_user : ImageButton
 
     private var currentUsername: String? = null
     private var currentEmail: String? = null
@@ -62,6 +64,7 @@ class PostDetailActivity(private val commentList : MutableList<Comment> = mutabl
         image = findViewById(R.id.postIv)
         comment = findViewById(R.id.commentBox)
         sendBtn = findViewById(R.id.sendBtn)
+        btn_user = findViewById(R.id.btn_user)
         database = FirebaseDatabase.getInstance()
         ref = database.reference.child("Comments")
 
@@ -71,13 +74,14 @@ class PostDetailActivity(private val commentList : MutableList<Comment> = mutabl
         currentEmail = intent.getStringExtra("email")
         currentPassword = intent.getStringExtra("password")
 
-//        viewBinding.btn_user.setOnClickListener(View.OnClickListener {
-//            val intent = Intent(this@PostDetailActivity, UserAccountActivity::class.java)
-//            intent.putExtra("username", currentUsername)
-//            intent.putExtra("email", currentEmail)
-//            intent.putExtra("password", currentPassword)
-//            startActivity(intent)
-//        })
+        btn_user.setOnClickListener(View.OnClickListener {
+            val intent = Intent(this@PostDetailActivity, UserAccountActivity::class.java)
+            intent.putExtra("username", currentUsername)
+            intent.putExtra("email", currentEmail)
+            intent.putExtra("password", currentPassword)
+            startActivity(intent)
+        })
+
         this.recyclerView = viewBinding.commentsRv
         this.commentAdapter = CommentAdapter(this.applicationContext, commentMDList)
         this.recyclerView.adapter = commentAdapter
