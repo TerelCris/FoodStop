@@ -1,31 +1,18 @@
 package com.mobdeve.s11.group16.foodstop
 
 import android.app.Activity
-import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.OnProgressListener
 import com.google.firebase.storage.StorageReference
-import com.google.firebase.storage.UploadTask
-import java.io.IOException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.support.annotation.Nullable
-import android.util.Log
 import android.view.View
 import android.widget.*
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.tasks.Task
 import com.google.firebase.database.*
 import com.mobdeve.s11.group16.foodstop.databinding.CreatePostLayoutBinding
-import com.mobdeve.s11.group16.foodstop.databinding.MyaccountLayoutBinding
-import com.mobdeve.s11.group16.foodstop.databinding.PostLayoutBinding
-import com.mobdeve.s11.group16.foodstop.databinding.RvLayoutBinding
-import com.squareup.picasso.Picasso
-import java.sql.Ref
 import java.text.SimpleDateFormat
 import java.util.*
 

@@ -3,6 +3,7 @@ package com.mobdeve.s11.group16.foodstop
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -34,9 +35,14 @@ class PostDetailActivity(private val commentList : MutableList<Comment> = mutabl
     private lateinit var description: TextView
     private lateinit var image: ImageView
     private lateinit var comment : EditText
+    private lateinit var sendBtn : Button
     private var currentUsername: String? = null
     private var currentEmail: String? = null
     private var currentPassword: String? = null
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("username", currentUsername)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,8 +85,6 @@ class PostDetailActivity(private val commentList : MutableList<Comment> = mutabl
         author.text = intent.getStringExtra("author")
         date.text = intent.getStringExtra("date")
         description.text = intent.getStringExtra("description")
-
-
 
         viewBinding.sendBtn.setOnClickListener(View.OnClickListener {
             val username = title.text.toString().trim()
