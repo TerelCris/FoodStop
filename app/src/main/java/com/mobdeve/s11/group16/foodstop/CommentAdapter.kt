@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class CommentAdapter(private val context : Context, private var commentModelList : List<CommentModel>) : RecyclerView.Adapter<CommentAdapter.ViewHolder>() {
+class CommentAdapter(private val context: Context, private var commentModelList: MutableList<Comment>, private val currentUsername: String) : RecyclerView.Adapter<CommentAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var commentUser : TextView = itemView.findViewById(R.id.tv_commentName)

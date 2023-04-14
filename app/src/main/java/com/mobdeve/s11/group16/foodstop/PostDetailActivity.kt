@@ -1,7 +1,6 @@
 package com.mobdeve.s11.group16.foodstop
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -12,9 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.SnapHelper
 import com.google.android.gms.tasks.Task
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
@@ -83,9 +80,11 @@ class PostDetailActivity(private val commentList : MutableList<Comment> = mutabl
         })
 
         this.recyclerView = viewBinding.commentsRv
-        this.commentAdapter = CommentAdapter(this.applicationContext, commentMDList)
+        this.commentAdapter = CommentAdapter(this.applicationContext, commentList, currentUsername.toString())
         this.recyclerView.adapter = commentAdapter
         this.recyclerView.layoutManager = LinearLayoutManager(this)
+
+
 
         Picasso.get().load(intent.getStringExtra("image"))
             .placeholder(R.drawable.katsudonjapanesepork)
@@ -95,6 +94,7 @@ class PostDetailActivity(private val commentList : MutableList<Comment> = mutabl
         author.text = intent.getStringExtra("author")
         date.text = intent.getStringExtra("date")
         description.text = intent.getStringExtra("description")
+
 
         sendBtn.setOnClickListener(View.OnClickListener {
             val txtComm = comment.text.toString().trim()
@@ -113,7 +113,7 @@ class PostDetailActivity(private val commentList : MutableList<Comment> = mutabl
                 newPost.child("Username").setValue(currentUsername.toString())
                 newPost.child("Date").setValue(formattedDate)
                 newPost.child("Comment").setValue(txtComm)
-                
+
                 Toast.makeText(this@PostDetailActivity, "Comment has been created", Toast.LENGTH_SHORT).show()
 
                 val intent = Intent(this@PostDetailActivity, PostDetailActivity::class.java)
@@ -128,6 +128,20 @@ class PostDetailActivity(private val commentList : MutableList<Comment> = mutabl
                 Toast.makeText(this@PostDetailActivity, "Please enter all fields!", Toast.LENGTH_SHORT).show()
             }
 
+        })
+
+        ref.addChildEventListener(object : ChildEventListener {
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                val commentModel = snapshot.getValue(CommentModel::class.java)
+                commentModel?.let { commentMDList.add(0, it) }
+                commentAdapter.notifyItemInserted(0)
+                currentUsername?.let { commentAdapter = CommentAdapter(this@PostDetailActivity.applicationContext, commentMDList, it) }
+                recyclerView.adapter = commentAdapter
+            }
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
+            override fun onChildRemoved(snapshot: DataSnapshot) {}
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
+            override fun onCancelled(error: DatabaseError) {}
         })
 
     }
