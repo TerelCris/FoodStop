@@ -48,6 +48,7 @@ class FavoritesActivity : AppCompatActivity() {
 
         viewBinding.btnAll.setOnClickListener(View.OnClickListener {
             val intent = Intent(this@FavoritesActivity, MainActivity::class.java)
+            intent.putExtra("username", currentUsername)
             this.startActivity(intent)
         })
 
