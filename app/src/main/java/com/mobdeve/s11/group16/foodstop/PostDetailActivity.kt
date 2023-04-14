@@ -1,6 +1,7 @@
 package com.mobdeve.s11.group16.foodstop
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -13,8 +14,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
+import com.google.android.gms.tasks.Task
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.mobdeve.s11.group16.foodstop.databinding.PostLayoutBinding
 import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
@@ -34,8 +37,10 @@ class PostDetailActivity(private val commentList : MutableList<Comment> = mutabl
     private lateinit var date: TextView
     private lateinit var description: TextView
     private lateinit var image: ImageView
+
     private lateinit var comment : EditText
     private lateinit var sendBtn : Button
+
     private var currentUsername: String? = null
     private var currentEmail: String? = null
     private var currentPassword: String? = null
@@ -56,9 +61,10 @@ class PostDetailActivity(private val commentList : MutableList<Comment> = mutabl
         description = findViewById(R.id.bodyTv)
         image = findViewById(R.id.postIv)
         comment = findViewById(R.id.commentBox)
+        sendBtn = findViewById(R.id.sendBtn)
         database = FirebaseDatabase.getInstance()
         ref = database.reference.child("Comments")
-        storage = FirebaseStorage.getInstance()
+
 
         // get the passed currentUsername variable here
         currentUsername = intent.getStringExtra("username")
@@ -86,48 +92,33 @@ class PostDetailActivity(private val commentList : MutableList<Comment> = mutabl
         date.text = intent.getStringExtra("date")
         description.text = intent.getStringExtra("description")
 
-        viewBinding.sendBtn.setOnClickListener(View.OnClickListener {
-            val username = title.text.toString().trim()
-            val body = comment.text.toString().trim()
+        sendBtn.setOnClickListener(View.OnClickListener {
+            val txtComm = comment.text.toString().trim()
+            val txtTitle = title.text.toString().trim()
 
-            if(body.isNotEmpty()){
-                val currentDate = Date()
-                // Format the date using SimpleDateFormat
-                val dateFormat = SimpleDateFormat("MM-dd-yyyy", Locale.getDefault())
-                val formattedDate = dateFormat.format(currentDate)
+            if (txtComm.isNotEmpty()) {
+                        val newPost = ref.push()
+                        newPost.child("CommentId").setValue(newPost.key)
+                        newPost.child("Comment").setValue(txtComm)
+                        newPost.child("Username").setValue(currentUsername.toString())
+                        newPost.child("Title").setValue(txtTitle)
 
-                val newComment = ref.push()
-                newComment.child("commentId").setValue(newComment.key)
-                newComment.child("Username").setValue(currentUsername)
-                newComment.child("Title").setValue(body)
-                newComment.child("Date").setValue(formattedDate)
 
-                // Set the date
-                newComment.child("Date").setValue(formattedDate)
+                        Toast.makeText(this@PostDetailActivity, "Comment has been created", Toast.LENGTH_SHORT).show()
 
-                val intent = Intent(this@PostDetailActivity, PostDetailActivity::class.java)
-                startActivity(intent)
-            }
-
+                        val intent = Intent(this@PostDetailActivity, PostDetailActivity::class.java)
+                        intent.putExtra("username", currentUsername)
+                        intent.putExtra("title", title.text.toString())
+                        intent.putExtra("author", author.text.toString())
+                        intent.putExtra("date", date.text.toString())
+                        intent.putExtra("description", description.text.toString())
+                        startActivity(intent)
+                }
             else{
-                Toast.makeText(this@PostDetailActivity, "You have not entered any comment", Toast.LENGTH_SHORT).show()
-            }
-        })
-
-        val snapHelper: SnapHelper = PagerSnapHelper()
-        snapHelper.attachToRecyclerView(viewBinding.commentsRv)
-
-        ref.addChildEventListener(object : ChildEventListener {
-            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                val recipeModel = snapshot.getValue(CommentModel::class.java)
-                recipeModel?.let { commentMDList.add(0, it) }
-                commentAdapter.notifyDataSetChanged()
+                Toast.makeText(this@PostDetailActivity, "Please enter all fields!", Toast.LENGTH_SHORT).show()
             }
 
-            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
-            override fun onChildRemoved(snapshot: DataSnapshot) {}
-            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
-            override fun onCancelled(error: DatabaseError) {}
         })
+
     }
 }

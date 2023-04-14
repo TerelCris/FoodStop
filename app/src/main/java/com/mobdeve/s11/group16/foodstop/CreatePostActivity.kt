@@ -27,7 +27,7 @@ class CreatePostActivity : AppCompatActivity() {
     private lateinit var postBtn: Button
     private val galleryCode = 1
     private var imageUrl: Uri? = null
-    var currentUsername: String? = null
+    private var currentUsername: String? = null
     private val recipeList = ArrayList<Recipe>()
     private lateinit var adapter: RecipeAdapter
 

@@ -108,6 +108,7 @@ class RecipeAdapter(private val context: Context, private var recipeModelList: L
             intent.putExtra("author", recipeModel.username)
             intent.putExtra("date", recipeModel.date)
             intent.putExtra("description", recipeModel.description)
+            intent.putExtra("username", currentUsername)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
         }
